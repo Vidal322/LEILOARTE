@@ -1,12 +1,8 @@
-# lbaw23113
+# LeiloArte
+
+This project main goal is the development of an online auction website more specifically an art related auction. Similiar to in-persion auctions, users can sell or bid any kind of art objects and like any auction it has a variety of functionalities and rules the user has to abide.
 
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps..
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
 ## Add your files
 
