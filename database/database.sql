@@ -1,54 +1,112 @@
-CREATE TABLE USER (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	username TEXT NOT NULL UNIQUE,
-	password TEXT NOT NULL,
-	email TEXT NOT NULL UNIQUE,
-	description TEXT,
-	image TEXT,
-	deleted BOOL DEFAULT FALSE,
+SET client_min_messages TO WARNING;
+
+
+-- Drop Tables
+
+DROP TABLE IF EXISTS auction_ownership ;
+DROP TABLE IF EXISTS auction_save ;
+DROP TABLE IF EXISTS auction_category ;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS auction;
+DROP TABLE IF EXISTS bid;
+DROP TABLE IF EXISTS notification;
+DROP TABLE IF EXISTS comment ;
+DROP TABLE IF EXISTS rate ;
+DROP TABLE IF EXISTS users;
+
+
+-- Drop Types
+DROP TYPE IF EXISTS User_Type;
+DROP TYPE IF EXISTS Comment_Type ;
+DROP TYPE IF EXISTS Notification_Type;
+
+DROP SCHEMA IF EXISTS lbaw23113;
+CREATE SCHEMA lbaw23113;
+
+
+SET SEARCH_PATH TO lbaw23113;
+
+
+-- Create Tables --
+
+CREATE TABLE users(
+	id SERIAL PRIMARY KEY,
+   username TEXT,       -- Serial?
+   email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
+   name TEXT NOT NULL,
+   description TEXT,
+   password TEXT NOT NULL,
+   img TEXT,
+   deleted BOOLEAN DEFAULT false NOT NULL,
+   rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
+   type User_Type NOT NULL DEFAULT 'user'
 );
 
-CREATE TABLE ADMIN (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	user_id INTEGER FOREIGN KEY REFERENCES USER(id)
-	);
-	
-CREATE TABLE CATEGORY (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	description TEXT NOT NULL,
-	);
-	
-	
-CREATE TABLE AUCTION (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	description TEXT NOT NULL,
-	image TEXT NOT NULL,
-	active BOOL NOT NULL DEFAULT TRUE,
-	start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	end TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	owner_id INTEGER NOT NULL FOREIGN KEY REFERENCES USER(id)
-	);
+CREATE TABLE category(
+    id SERIAL PRIMARY KEY,
+    description TEXT NOT NULL
+);
 
-CREATE TABLE NOTIFICATION (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	message TEXT NOT NULL,
-	auction_id INTEGER FOREIGN KEY REFERENCES AUCTION(id),
-	user_id INTEGER FOREIGN KEY REFERENCES USER(id)
-	);
-	
-CREATE TABLE BID(
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	amount FLOAT NOT NULL,
-    	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-	user_id INTEGER FOREIGN KEY REFERENCES USER(id),
-	auction_id INTEGER FOREIGN KEY REFERENCES AUCTION(id),
-	top_bid BOOL NOT NULL DEFAULT TRUE
-	);
-	
-CREATE TABLE FOLLOW AUCTION(   -- acho que assim dá
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	user_id INTEGER NOT NULL FOREIGN KEY REFERENCES USER(id),
-	auction_id INTEGER NOT NULL FOREIGN KEY REFERENCES auction(id),
-	
-	);
+CREATE TABLE auction(
+    id SERIAL PRIMARY KEY,
+    description TEXT NOT NULL,
+    name TEXT NOT NULL,
+    image TEXT NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT true,
+    start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    end_t TIMESTAMP WITH TIME ZONE NOT NULL,
+    CONSTRAINT auction_date_ck CHECK (end_t > start_t)
+);
+
+CREATE TABLE bid(
+    id SERIAL PRIMARY KEY,
+    amount FLOAT NOT NULL,
+    date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    top_bid BOOLEAN DEFAULT true NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
+    auction_id INTEGER NOT NULL REFERENCES auction(id) ON UPDATE CASCADE  -- on UPDATE necessário?
+);
+
+CREATE TABLE notifications(
+    id SERIAL PRIMARY KEY,
+    message TEXT NOT NULL,
+    date  TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    type Notification_Type NOT NULL,
+    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    bid_id INTEGER REFERENCES bid(id) ON UPDATE CASCADE  -- on UPDATE necessário?
+);
+
+CREATE TABLE comment(
+    id SERIAL PRIMARY KEY,
+    message TEXT NOT NULL,
+    date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    type Comment_Type NOT NULL,
+    source_user_id TEXT NOT NULL REFERENCES users(username) ON UPDATE CASCADE,
+    target_user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
+    target_auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE    
+);
+
+CREATE TABLE rate(
+    id SERIAL PRIMARY KEY,
+    rate FLOAT NOT NULL CONSTRAINT rate_ck CHECK (rate >= 0 AND rate <= 5)
+);
+
+CREATE TABLE auction_ownership(
+    user_id INTEGRER REFERENCES users(id) ON UPDATE CASCADE,
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    PRIMARY KEY(user_id, auction_id)
+);
+
+CREATE TABLE auction_save(
+    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    PRIMARY KEY(user_id, auction_id)
+);
+
+CREATE TABLE auction_category(
+    category_id INTEGER REFERENCES category(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    PRIMARY KEY(category_id, auction_id)
+);
 
