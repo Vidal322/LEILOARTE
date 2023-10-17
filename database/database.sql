@@ -6,12 +6,12 @@ SET client_min_messages TO WARNING;
 DROP TABLE IF EXISTS auction_ownership ;
 DROP TABLE IF EXISTS auction_save ;
 DROP TABLE IF EXISTS auction_category ;
-DROP TABLE IF EXISTS category;
-DROP TABLE IF EXISTS auction;
-DROP TABLE IF EXISTS bid;
-DROP TABLE IF EXISTS notification;
-DROP TABLE IF EXISTS comment ;
 DROP TABLE IF EXISTS rate ;
+DROP TABLE IF EXISTS comment ;
+DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS bid;
+DROP TABLE IF EXISTS auction;
+DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS users;
 
 
@@ -20,11 +20,15 @@ DROP TYPE IF EXISTS User_Type;
 DROP TYPE IF EXISTS Comment_Type ;
 DROP TYPE IF EXISTS Notification_Type;
 
-DROP SCHEMA IF EXISTS lbaw23113;
+DROP SCHEMA IF EXISTS lbaw23113 CASCADE;
 CREATE SCHEMA lbaw23113;
 
 
 SET SEARCH_PATH TO lbaw23113;
+
+CREATE TYPE User_Type AS ENUM ('user','admin');
+CREATE TYPE Comment_Type AS ENUM ('user','auction');
+CREATE TYPE Notification_Type AS ENUM ('comment','auction', 'bid');
 
 
 -- Create Tables --
@@ -82,7 +86,7 @@ CREATE TABLE comment(
     message TEXT NOT NULL,
     date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     type Comment_Type NOT NULL,
-    source_user_id TEXT NOT NULL REFERENCES users(username) ON UPDATE CASCADE,
+    source_user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     target_user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
     target_auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE    
 );
@@ -93,7 +97,7 @@ CREATE TABLE rate(
 );
 
 CREATE TABLE auction_ownership(
-    user_id INTEGRER REFERENCES users(id) ON UPDATE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
     auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
     PRIMARY KEY(user_id, auction_id)
 );
