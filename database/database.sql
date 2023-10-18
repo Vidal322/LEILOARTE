@@ -1,7 +1,7 @@
 SET client_min_messages TO WARNING;
 
 -- DROP and Create Schema
-DROP SCHEMA IF EXISTS lbaw23113 CASCADE; -- Cascade;
+DROP SCHEMA IF EXISTS lbaw23113 CASCADE;
 CREATE SCHEMA lbaw23113;
 SET SEARCH_PATH TO lbaw23113;
 
@@ -10,16 +10,16 @@ CREATE TYPE User_Type AS ENUM ('user','admin');
 
 -- Create Tables --
 CREATE TABLE users(
-	id SERIAL PRIMARY KEY,
-   username TEXT,       -- Serial?
-   email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
-   name TEXT NOT NULL,
-   description TEXT,
-   password TEXT NOT NULL,
-   img TEXT,
-   deleted BOOLEAN DEFAULT false NOT NULL,
-   rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
-   type User_Type NOT NULL DEFAULT 'user'
+    id SERIAL PRIMARY KEY,
+    username TEXT,  
+    email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
+    name TEXT NOT NULL,
+    description TEXT,
+    password TEXT NOT NULL,
+    img TEXT,
+    deleted BOOLEAN DEFAULT false NOT NULL,
+    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
+    type User_Type NOT NULL DEFAULT 'user'
 );
 
 CREATE TABLE category(
@@ -89,19 +89,19 @@ CREATE TABLE notification_comment(
 
 CREATE TABLE auction_ownership(
     user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
-    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,
     PRIMARY KEY(user_id, auction_id)
 );
 
 CREATE TABLE auction_save(
     user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
-    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE, 
     PRIMARY KEY(user_id, auction_id)
 );
 
 CREATE TABLE auction_category(
-    category_id INTEGER REFERENCES category(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
-    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
+    category_id INTEGER REFERENCES category(id) ON UPDATE CASCADE, 
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  
     PRIMARY KEY(category_id, auction_id)
 );
 
