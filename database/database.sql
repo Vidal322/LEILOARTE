@@ -1,38 +1,14 @@
 SET client_min_messages TO WARNING;
 
-
--- Drop Tables
-
-DROP TABLE IF EXISTS auction_ownership ;
-DROP TABLE IF EXISTS auction_save ;
-DROP TABLE IF EXISTS auction_category ;
-DROP TABLE IF EXISTS rate ;
-DROP TABLE IF EXISTS comment ;
-DROP TABLE IF EXISTS notifications;
-DROP TABLE IF EXISTS bid;
-DROP TABLE IF EXISTS auction;
-DROP TABLE IF EXISTS category;
-DROP TABLE IF EXISTS users;
-
-
--- Drop Types
-DROP TYPE IF EXISTS User_Type;
-DROP TYPE IF EXISTS Comment_Type ;
-DROP TYPE IF EXISTS Notification_Type;
-
-DROP SCHEMA IF EXISTS lbaw23113 CASCADE;
+-- DROP and Create Schema
+DROP SCHEMA IF EXISTS lbaw23113 CASCADE; -- Cascade;
 CREATE SCHEMA lbaw23113;
-
-
 SET SEARCH_PATH TO lbaw23113;
 
+--Create Types
 CREATE TYPE User_Type AS ENUM ('user','admin');
-CREATE TYPE Comment_Type AS ENUM ('user','auction');
-CREATE TYPE Notification_Type AS ENUM ('comment','auction', 'bid');
-
 
 -- Create Tables --
-
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
    username TEXT,       -- Serial?
@@ -68,32 +44,47 @@ CREATE TABLE bid(
     date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     top_bid BOOLEAN DEFAULT true NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
-    auction_id INTEGER NOT NULL REFERENCES auction(id) ON UPDATE CASCADE  -- on UPDATE necessário?
-);
-
-CREATE TABLE notifications(
-    id SERIAL PRIMARY KEY,
-    message TEXT NOT NULL,
-    date  TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
-    type Notification_Type NOT NULL,
-    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
-    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  -- on UPDATE necessário?
-    bid_id INTEGER REFERENCES bid(id) ON UPDATE CASCADE  -- on UPDATE necessário?
+    auction_id INTEGER NOT NULL REFERENCES auction(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE comment(
     id SERIAL PRIMARY KEY,
     message TEXT NOT NULL,
     date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
-    type Comment_Type NOT NULL,
-    source_user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
-    target_user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
-    target_auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE    
+    source_user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE
 );
 
-CREATE TABLE rate(
+CREATE TABLE comment_user(
+    comment_id INTEGER PRIMARY KEY REFERENCES comment(id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
+    rating FLOAT CONSTRAINT check_rating_comment CHECK (rating >= 0 AND rating <= 5)
+);
+
+CREATE TABLE comment_auction(
+    comment_id INTEGER PRIMARY KEY REFERENCES comment(id) ON UPDATE CASCADE,
+    auction_id INTEGER NOT NULL REFERENCES auction(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE notifications(
     id SERIAL PRIMARY KEY,
-    rate FLOAT NOT NULL CONSTRAINT rate_ck CHECK (rate >= 0 AND rate <= 5)
+    message TEXT NOT NULL,
+    date  TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE notification_bid(
+    notification_id INTEGER PRIMARY KEY REFERENCES notifications(id) ON UPDATE CASCADE,
+    bid_id INTEGER NOT NULL REFERENCES bid(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE notification_auction(
+    notification_id INTEGER PRIMARY KEY REFERENCES notifications(id) ON UPDATE CASCADE,
+    auction_id INTEGER NOT NULL REFERENCES auction(id) ON UPDATE CASCADE
+);
+
+CREATE TABLE notification_comment(
+    notification_id INTEGER PRIMARY KEY REFERENCES notifications(id) ON UPDATE CASCADE,
+    comment_id INTEGER NOT NULL REFERENCES comment(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE auction_ownership(
