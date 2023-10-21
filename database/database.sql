@@ -105,3 +105,73 @@ CREATE TABLE auction_category(
     PRIMARY KEY(category_id, auction_id)
 );
 
+
+
+-- Performance indexes
+
+CREATE INDEX idx_ownership ON auction_ownership USING btree(user_id);
+CLUSTER auction_ownership USING idx_ownership;
+
+CREATE INDEX idx_notification ON notifications USING hash(user_id);
+
+CREATE INDEX idx_comment ON comment USING hash(source_user_id);
+
+CREATE INDEX idx_bid_auction_user ON bid USING hash(auction_id);
+
+--CREATE INDEX idx_bid_user_id ON bid (user_id);  Não sei se vai ficar
+
+
+
+Alter Table auction
+ADD COLUMN tsvectors TSVECTOR;
+
+-- Function to get the description of the categories associated to an auction_id
+
+CREATE FUNCTION get_categories_from_auction(a_id INT) RETURNS TEXT AS $$
+BEGIN
+RETURN (SELECT category.description
+    FROM category, auction_category, auction
+    WHERE auction.id = auction_category.auction_id AND auction_category.category_id = category.id AND auction.id = a_id);
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Function to change the tsvectors of the table auction on INSERT AND UPDATE
+
+CREATE FUNCTION func_auction_search_update() RETURNS TRIGGER AS $$
+BEGIN
+IF TG_OP = 'INSERT' THEN 
+	NEW.tsvectors = (
+		setweight(to_tsvector('english', NEW.name), 'A') ||
+		setweight(to_tsvector('english', NEW.description), 'C') || 
+		setweight(to_tsvector('english', get_categories_from_auction(NEW.id)), 'B')
+	);
+	END IF;
+IF TG_OP = 'UPDATE' THEN
+	IF (NEW.name <> OLD.name OR NEW.description <> OLD.description OR get_categories_from_auction(NEW.id) <> get_categories_from_auction(OLD.id) ) THEN
+		NEW.tsvectors= (
+		setweight(to_tsvector('english', NEW.name), 'A') ||
+		setweight(to_tsvector('english', NEW.description), 'C') || 
+		setweight(to_tsvector('english', get_categories_from_auction(NEW.id)), 'B')
+	);
+	END IF;
+END IF;
+RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+
+-- Create a trigger before insert or update on auction to change the tsvectors column.
+CREATE TRIGGER trig_auction_search_update
+BEFORE INSERT OR UPDATE ON auction
+FOR EACH ROW
+EXECUTE PROCEDURE func_auction_search_update();
+ 
+ -- CREATE SEARCH INDEX FOR Table Auction
+CREATE INDEX idx_auction_search ON auction USING GIST (tsvectors);
+
+
+	
+	
+	
+	
