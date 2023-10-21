@@ -11,7 +11,8 @@ CREATE TYPE User_Type AS ENUM ('user','admin');
 -- Create Tables --
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
-    username TEXT,  
+    username TEXT NOT NULL CONSTRAINT username_uk UNIQUE,
+    name TEXT,  
     email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
     name TEXT NOT NULL,
     description TEXT,
@@ -69,7 +70,8 @@ CREATE TABLE notifications(
     id SERIAL PRIMARY KEY,
     message TEXT NOT NULL,
     date  TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
-    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE
+    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
+    is_seen BOOLEAN DEFAULT FALSE NOT NULL
 );
 
 CREATE TABLE notification_bid(
