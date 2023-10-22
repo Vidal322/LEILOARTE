@@ -32,6 +32,7 @@ CREATE TABLE auction(
     description TEXT NOT NULL,
     name TEXT NOT NULL,
     image TEXT NOT NULL,
+    --user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
     start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     end_t TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -385,9 +386,118 @@ WHEN (OLD.deleted = false AND NEW.deleted = true)
 EXECUTE PROCEDURE delete_user_auctions();
 
 
+-- * TRIGGER06 *
+
+-- Create a trigger function to prevent administrators from making bids.
+CREATE OR REPLACE FUNCTION prevent_admin_bids()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the user associated with the bid is an administrator.
+    IF EXISTS (
+        SELECT 1
+        FROM users
+        WHERE NEW.user_id = users.id
+        AND users.type = 'admin'
+    ) THEN
+        RAISE EXCEPTION 'A administrator can''t make bids';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for bid insertion to prevent administrators from making bids.
+CREATE TRIGGER trig_prevent_admin_bids
+BEFORE INSERT ON bid
+FOR EACH ROW
+EXECUTE PROCEDURE prevent_admin_bids();
+
+
+-- * TRIGGER07 *
+
+-- Create a trigger function to check the bid value.
+CREATE OR REPLACE FUNCTION check_bid_value()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Find the latest bid with top_bid=true for the same auction.
+    DECLARE
+        latest_bid_value FLOAT;
+    BEGIN
+        SELECT amount
+        INTO latest_bid_value
+        FROM bid
+        WHERE auction_id = NEW.auction_id AND top_bid = true;
+    END;
+
+    -- Check if the new bid amount is lower than the latest bid.
+    IF NEW.amount <= latest_bid_value THEN
+        RAISE EXCEPTION 'The new bid must be higher than the latest bid on that auction.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for bid insertion to check the bid value.
+CREATE TRIGGER trig_check_bid_value
+BEFORE INSERT ON bid
+FOR EACH ROW
+EXECUTE PROCEDURE check_bid_value();
 
 
 
+-- * TRIGGER08 *
+
+-- Create a trigger function to check the comment source_user_id.
+CREATE OR REPLACE FUNCTION check_comment_auction_owner()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Get the source_user_id from the associated comment.
+    DECLARE
+        comment_source_user_id INTEGER;
+    BEGIN
+        SELECT source_user_id
+        INTO comment_source_user_id
+        FROM comment
+        WHERE id = NEW.comment_id;
+
+        -- Check if the source_user_id in the comment is the same as the user_id in the auction.
+        IF comment_source_user_id = (SELECT user_id FROM auction WHERE id = NEW.auction_id) THEN
+            RAISE EXCEPTION 'A user can''t comment on their own auction.';
+        END IF;
+
+        RETURN NEW;
+    END;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for comment_auction insertion to check the comment source_user_id.
+CREATE TRIGGER trig_check_comment_auction_owner
+BEFORE INSERT ON comment_auction
+FOR EACH ROW
+EXECUTE PROCEDURE check_comment_auction_owner();
+
+
+-- * TRIGGER09 *
+
+-- Create a trigger function to check if a user is rating themselves.
+CREATE OR REPLACE FUNCTION check_self_rating()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the user_id in comment_user is the same as source_user_id in the associated comment.
+    IF NEW.user_id = (SELECT source_user_id FROM comment WHERE id = NEW.comment_id) THEN
+        RAISE EXCEPTION 'A user can''t rate themselves.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for comment_user insertion to check self-rating.
+CREATE TRIGGER trig_check_self_rating
+BEFORE INSERT ON comment_user
+FOR EACH ROW
+EXECUTE PROCEDURE check_self_rating();
 -- ####################################        TRANSACTIONS        ####################################
 
 
