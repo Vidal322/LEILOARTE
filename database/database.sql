@@ -12,7 +12,6 @@ CREATE TYPE User_Type AS ENUM ('user','admin');
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL CONSTRAINT username_uk UNIQUE,
-    name TEXT,  
     email TEXT NOT NULL CONSTRAINT user_email_uk UNIQUE,
     name TEXT NOT NULL,
     description TEXT,
@@ -69,15 +68,9 @@ CREATE TABLE comment_auction(
 CREATE TABLE notifications(
     id SERIAL PRIMARY KEY,
     message TEXT NOT NULL,
-<<<<<<< HEAD
-    date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
-    read BOOLEAN DEFAULT false,
-    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE
-=======
     date  TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
     is_seen BOOLEAN DEFAULT FALSE NOT NULL
->>>>>>> 8c944e5051306b9017e589d4607257331b5b00dd
 );
 
 CREATE TABLE notification_bid(
@@ -127,24 +120,13 @@ CREATE INDEX idx_notification ON notifications USING hash(user_id);
 -- ** INDEX 03 - idx_comment **
 CREATE INDEX idx_comment ON comment USING hash(source_user_id);
 
-<<<<<<< HEAD
 -- ** INDEX 04 - idx_bid_auction **
 CREATE INDEX idx_bid_auction ON bid USING hash(auction_id);
-
 
 
 -- #################################        FULL TEXT SEARCH INDEXES        #################################
 
 
--- ** INDEX 05 - idx_auction_search **
-=======
-CREATE INDEX idx_bid_auction_user ON bid USING hash(auction_id);
-
---CREATE INDEX idx_bid_user_id ON bid (user_id);  Não sei se vai ficar
-
-
-
->>>>>>> 8c944e5051306b9017e589d4607257331b5b00dd
 Alter Table auction
 ADD COLUMN tsvectors TSVECTOR;
 
@@ -194,7 +176,6 @@ EXECUTE PROCEDURE func_auction_search_update();
 CREATE INDEX idx_auction_search ON auction USING GIST (tsvectors);
 
 
-<<<<<<< HEAD
 
 -- ** INDEX 06 - idx_category_search **
 
@@ -276,9 +257,3 @@ CREATE INDEX idx_users_search ON category USING GIST (tsvectors);
 
 -- ####################################        TRANSACTIONS        ####################################
 
-=======
-	
-	
-	
-	
->>>>>>> 8c944e5051306b9017e589d4607257331b5b00dd
