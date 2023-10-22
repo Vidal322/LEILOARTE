@@ -252,8 +252,146 @@ CREATE INDEX idx_users_search ON category USING GIST (tsvectors);
 -- ##################################           TRIGGERS          #####################################
 
 
+-- * TRIGGER01 *
+
+-- Create a trigger to delete bids on open auctions when a user account is deleted.
+CREATE OR REPLACE FUNCTION delete_user_bids()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM bid
+    WHERE user_id = OLD.id
+    AND EXISTS (
+        SELECT 1
+        FROM auction
+        WHERE auction.id = bid.auction_id
+        AND auction.active = true
+    );
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for user account deletion.
+CREATE TRIGGER trig_delete_user_bids
+AFTER UPDATE ON users
+FOR EACH ROW
+WHEN (OLD.deleted = false AND NEW.deleted = true)
+EXECUTE PROCEDURE delete_user_bids();
+
+
+-- * TRIGGER02 *
+
+
+-- Create a trigger to raise an exception if a user tries to bid as the current highest bidder.
+CREATE OR REPLACE FUNCTION check_bid_higher_bidder()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM bid
+        WHERE auction_id = NEW.auction_id
+        AND user_id = NEW.user_id
+        AND top_bid = true
+    ) THEN
+        RAISE EXCEPTION 'A user can only make a bid if they are not the current higher bidder on that auction.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for bid insertion to check for the highest bidder.
+CREATE TRIGGER trig_check_bid_higher_bidder
+BEFORE INSERT ON bid
+FOR EACH ROW
+EXECUTE PROCEDURE check_bid_higher_bidder();
+
+
+-- * TRIGGER03 *
+
+
+-- Create a trigger function to update auction end time based on bid date.
+CREATE OR REPLACE FUNCTION update_auction_end_time()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the condition is met.
+    IF EXISTS (
+        SELECT 1
+        FROM auction
+        WHERE NEW.auction_id = auction.id
+        AND NEW.date + INTERVAL '15 minutes' > auction.end_t
+    ) THEN
+        -- Calculate the new end time as bid date + 30 minutes.
+        UPDATE auction
+        SET end_t = NEW.date + INTERVAL '30 minutes'
+        WHERE auction.id = NEW.auction_id;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for bid insertion to update auction end time.
+CREATE TRIGGER trig_update_auction_end_time
+BEFORE INSERT ON bid
+FOR EACH ROW
+EXECUTE PROCEDURE update_auction_end_time();
+
+
+-- * TRIGGER04 *
+
+
+-- Create a trigger to raise an exception if the auction owner tries to bid on their own auction.
+CREATE OR REPLACE FUNCTION check_auction_owner_bid()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.user_id = (SELECT owner_id FROM auction WHERE id = NEW.auction_id) THEN
+        RAISE EXCEPTION 'An auction owner can''t bid on their own auction.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for bid insertion to check for auction owner bidding.
+CREATE TRIGGER trig_check_auction_owner_bid
+BEFORE INSERT ON bid
+FOR EACH ROW
+EXECUTE PROCEDURE check_auction_owner_bid();
+
+
+
+-- * TRIGGER05 *
+
+
+-- Create a trigger to delete auctions when a user account is deleted.
+CREATE OR REPLACE FUNCTION delete_user_auctions()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Delete open auctions when a user is deleted.
+    DELETE FROM auction
+    WHERE owner_id = OLD.id
+    AND active = true;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for user account deletion.
+CREATE TRIGGER trig_delete_user_auctions
+AFTER UPDATE ON users
+FOR EACH ROW
+WHEN (OLD.deleted = false AND NEW.deleted = true)
+EXECUTE PROCEDURE delete_user_auctions();
+
+
 
 
 
 -- ####################################        TRANSACTIONS        ####################################
+
+
+
+
+
 
