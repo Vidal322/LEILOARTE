@@ -118,13 +118,11 @@ CREATE INDEX idx_notification ON notifications USING hash(user_id);
 
 CREATE INDEX idx_comment ON comment USING hash(source_user_id);
 
-CREATE INDEX idx_bid_auction ON bid USING hash(auction_id);
+CREATE INDEX idx_bid_auction_user ON bid USING hash(auction_id);
+
+--CREATE INDEX idx_bid_user_id ON bid (user_id);  Não sei se vai ficar
 
 
-
--- FULL TEXT SEARCH Indexes
-
--- IDX05
 
 Alter Table auction
 ADD COLUMN tsvectors TSVECTOR;
@@ -140,7 +138,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- Function to add/edit the tsvector column on INSERT/UPDATE on the auction table
+-- Function to change the tsvectors of the table auction on INSERT AND UPDATE
 
 CREATE FUNCTION func_auction_search_update() RETURNS TRIGGER AS $$
 BEGIN
@@ -165,86 +163,17 @@ END $$
 LANGUAGE plpgsql;
 
 
--- Create a trigger before insert or update on the auction table to run the update/insert function
+-- Create a trigger before insert or update on auction to change the tsvectors column.
 CREATE TRIGGER trig_auction_search_update
 BEFORE INSERT OR UPDATE ON auction
 FOR EACH ROW
 EXECUTE PROCEDURE func_auction_search_update();
  
- -- Create search index for table auction
+ -- CREATE SEARCH INDEX FOR Table Auction
 CREATE INDEX idx_auction_search ON auction USING GIST (tsvectors);
 
 
-
---  ***********************************************************************************************
-
-ALTER TABLE category
-ADD COLUMN tsvectors TSVECTOR;
-
--- Function to add/edit the tsvector column on INSERT/UPDATE on the category table
-
-CREATE FUNCTION func_category_search_update() RETURNS TRIGGER AS $$
-BEGIN
-IF TG_OP = 'INSERT' THEN 
-	NEW.tsvectors = (
-		setweight(to_tsvector('english', NEW.description), 'A')
-	);
-	END IF;
-IF TG_OP = 'UPDATE' THEN
-	IF (NEW.description <> OLD.description) THEN
-		NEW.tsvectors= (
-		setweight(to_tsvector('english', NEW.description), 'A') 
-	);
-	END IF;
-END IF;
-RETURN NEW;
-END $$
-LANGUAGE plpgsql;
-
--- Create a trigger before insert or update on the category table to run the update/insert function.
-CREATE TRIGGER trig_category_search_update
-BEFORE INSERT OR UPDATE ON category
-FOR EACH ROW
-EXECUTE PROCEDURE func_category_search_update();
-
--- Create search index for table category
-CREATE INDEX idx_category_search ON category USING GIN (tsvectors);
- 
-
-
---  ***********************************************************************************************
-
-ALTER TABLE users
-ADD COLUMN tsvectors TSVECTOR;
-
--- function to add/edit the tsvector column on INSERT/UPDATE on the users table
-CREATE FUNCTION func_users_search_update() RETURNS TRIGGER AS $$
-BEGIN
-IF TG_OP = 'INSERT' THEN 
-	NEW.tsvectors = (
-		setweight(to_tsvector('english', NEW.username), 'A'),
-        setweight(to_tsvector('english', NEW.name), 'B')
-	);
-	END IF;
-IF TG_OP = 'UPDATE' THEN
-	IF (NEW.username <> OLD.username OR NEW.name <> OLD.name) THEN
-		NEW.tsvectors= (
-		setweight(to_tsvector('english', NEW.username), 'A'),
-        setweight(to_tsvector('english', NEW.name), 'B') 
-	);
-	END IF;
-END IF;
-RETURN NEW;
-END $$
-LANGUAGE plpgsql;
-
-
--- Create a trigger before insert or update on the users table users to run the update/insert function.
-CREATE TRIGGER trig_users_search_update
-BEFORE INSERT OR UPDATE ON users
-FOR EACH ROW
-EXECUTE PROCEDURE func_users_search_update();
-
--- Create search index for table users
-CREATE INDEX idx_users_search ON category USING GIST (tsvectors);
-
+	
+	
+	
+	
