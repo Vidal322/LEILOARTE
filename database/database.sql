@@ -32,7 +32,7 @@ CREATE TABLE auction(
     description TEXT NOT NULL,
     name TEXT NOT NULL,
     image TEXT NOT NULL,
-    --user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
     start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     end_t TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -87,12 +87,6 @@ CREATE TABLE notification_auction(
 CREATE TABLE notification_comment(
     notification_id INTEGER PRIMARY KEY REFERENCES notifications(id) ON UPDATE CASCADE,
     comment_id INTEGER NOT NULL REFERENCES comment(id) ON UPDATE CASCADE
-);
-
-CREATE TABLE auction_ownership(
-    user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
-    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,
-    PRIMARY KEY(user_id, auction_id)
 );
 
 CREATE TABLE auction_save(
