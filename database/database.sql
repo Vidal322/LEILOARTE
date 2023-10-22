@@ -68,7 +68,8 @@ CREATE TABLE comment_auction(
 CREATE TABLE notifications(
     id SERIAL PRIMARY KEY,
     message TEXT NOT NULL,
-    date  TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    date TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+    read BOOLEAN DEFAULT false,
     user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE
 );
 
@@ -107,23 +108,27 @@ CREATE TABLE auction_category(
 
 
 
--- Performance indexes
-
+-- #################################        PERFORMANCE INDEXES        #################################
+-- ** INDEX 01 - idx_ownership **
 CREATE INDEX idx_ownership ON auction_ownership USING btree(user_id);
 CLUSTER auction_ownership USING idx_ownership;
 
+
+-- ** INDEX 02 - idx_notification **
 CREATE INDEX idx_notification ON notifications USING hash(user_id);
 
+-- ** INDEX 03 - idx_comment **
 CREATE INDEX idx_comment ON comment USING hash(source_user_id);
 
+-- ** INDEX 04 - idx_bid_auction **
 CREATE INDEX idx_bid_auction ON bid USING hash(auction_id);
 
 
 
--- FULL TEXT SEARCH Indexes
+-- #################################        FULL TEXT SEARCH INDEXES        #################################
 
--- IDX05
 
+-- ** INDEX 05 - idx_auction_search **
 Alter Table auction
 ADD COLUMN tsvectors TSVECTOR;
 
@@ -174,7 +179,7 @@ CREATE INDEX idx_auction_search ON auction USING GIST (tsvectors);
 
 
 
---  ***********************************************************************************************
+-- ** INDEX 06 - idx_category_search **
 
 ALTER TABLE category
 ADD COLUMN tsvectors TSVECTOR;
@@ -210,7 +215,7 @@ CREATE INDEX idx_category_search ON category USING GIN (tsvectors);
  
 
 
---  ***********************************************************************************************
+-- ** INDEX 07 - idx_users_search **
 
 ALTER TABLE users
 ADD COLUMN tsvectors TSVECTOR;
@@ -245,4 +250,12 @@ EXECUTE PROCEDURE func_users_search_update();
 
 -- Create search index for table users
 CREATE INDEX idx_users_search ON category USING GIST (tsvectors);
+
+-- ##################################           TRIGGERS          #####################################
+
+
+
+
+
+-- ####################################        TRANSACTIONS        ####################################
 
