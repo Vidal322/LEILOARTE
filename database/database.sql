@@ -205,7 +205,7 @@ EXECUTE PROCEDURE func_category_search_update();
 CREATE INDEX idx_category_search ON category USING GIN (tsvectors);
  
 
-
+/*
 -- ** INDEX 06 - idx_users_search **
 
 ALTER TABLE users
@@ -233,7 +233,7 @@ END $$
 LANGUAGE plpgsql;
 
 
--- Create a trigger before insert or update on the users table users to run the update/insert function.
+-- Create a trigger before insert or update on the users table to run the update/insert function.
 CREATE TRIGGER trig_users_search_update
 BEFORE INSERT OR UPDATE ON users
 FOR EACH ROW
@@ -241,6 +241,7 @@ EXECUTE PROCEDURE func_users_search_update();
 
 -- Create search index for table users
 CREATE INDEX idx_users_search ON category USING GIST (tsvectors);
+*/
 
 -- ##################################           TRIGGERS          #####################################
 
@@ -410,16 +411,14 @@ EXECUTE PROCEDURE prevent_admin_bids();
 -- Create a trigger function to check the bid value.
 CREATE OR REPLACE FUNCTION check_bid_value()
 RETURNS TRIGGER AS $$
-BEGIN
     -- Find the latest bid with top_bid=true for the same auction.
     DECLARE
         latest_bid_value FLOAT;
-    BEGIN
-        SELECT amount
-        INTO latest_bid_value
-        FROM bid
-        WHERE auction_id = NEW.auction_id AND top_bid = true;
-    END;
+BEGIN
+    SELECT amount
+    INTO latest_bid_value
+    FROM bid
+    WHERE auction_id = NEW.auction_id AND top_bid = true;
 
     -- Check if the new bid amount is lower than the latest bid.
     IF NEW.amount <= latest_bid_value THEN
