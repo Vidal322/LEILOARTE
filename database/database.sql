@@ -104,18 +104,14 @@ CREATE TABLE auction_category(
 
 
 -- #################################        PERFORMANCE INDEXES        #################################
--- ** INDEX 01 - idx_ownership **
-CREATE INDEX idx_ownership ON auction_ownership USING btree(user_id);
-CLUSTER auction_ownership USING idx_ownership;
 
-
--- ** INDEX 02 - idx_notification **
+-- ** INDEX 01 - idx_notification **
 CREATE INDEX idx_notification ON notifications USING hash(user_id);
 
--- ** INDEX 03 - idx_comment **
+-- ** INDEX 02 - idx_comment **
 CREATE INDEX idx_comment ON comment USING hash(source_user_id);
 
--- ** INDEX 04 - idx_bid_auction **
+-- ** INDEX 03 - idx_bid_auction **
 CREATE INDEX idx_bid_auction ON bid USING hash(auction_id);
 
 
@@ -172,7 +168,7 @@ CREATE INDEX idx_auction_search ON auction USING GIST (tsvectors);
 
 
 
--- ** INDEX 06 - idx_category_search **
+-- ** INDEX 05 - idx_category_search **
 
 ALTER TABLE category
 ADD COLUMN tsvectors TSVECTOR;
@@ -208,7 +204,7 @@ CREATE INDEX idx_category_search ON category USING GIN (tsvectors);
  
 
 
--- ** INDEX 07 - idx_users_search **
+-- ** INDEX 06 - idx_users_search **
 
 ALTER TABLE users
 ADD COLUMN tsvectors TSVECTOR;
@@ -529,6 +525,38 @@ CREATE TRIGGER trig_create_auction_comment_notification
 AFTER INSERT ON comment_auction
 FOR EACH ROW
 EXECUTE PROCEDURE create_auction_comment_notification();
+
+
+-- * TRIGGER11 *
+
+-- Create a trigger before insert on comment_user to update the user's rate in the users table.
+CREATE OR REPLACE FUNCTION update_user_rate()
+RETURNS TRIGGER AS $$
+DECLARE
+    avg_rating FLOAT;
+BEGIN
+    -- Calculate the average rating for the user in comment_user.
+    SELECT AVG(rating) INTO avg_rating
+    FROM comment_user
+    WHERE user_id = NEW.user_id;
+
+    -- Update the user's rate in the users table with the calculated average.
+    UPDATE users
+    SET rate = avg_rating
+    WHERE id = NEW.user_id;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger before insert on comment_user to update the user's rate.
+CREATE TRIGGER trig_update_user_rate
+BEFORE INSERT ON comment_user
+FOR EACH ROW
+EXECUTE PROCEDURE update_user_rate();
+
+
+
 -- ####################################        TRANSACTIONS        ####################################
 
 
