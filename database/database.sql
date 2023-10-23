@@ -32,7 +32,7 @@ CREATE TABLE auction(
     description TEXT NOT NULL,
     name TEXT NOT NULL,
     image TEXT NOT NULL,
-    user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
     start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     end_t TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -104,23 +104,21 @@ CREATE TABLE auction_category(
 
 
 -- #################################        PERFORMANCE INDEXES        #################################
--- ** INDEX 01 - idx_ownership **
-CREATE INDEX idx_ownership ON auction_ownership USING btree(user_id);
-CLUSTER auction_ownership USING idx_ownership;
 
-
--- ** INDEX 02 - idx_notification **
+-- ** INDEX 01 - idx_notification **
 CREATE INDEX idx_notification ON notifications USING hash(user_id);
 
--- ** INDEX 03 - idx_comment **
+-- ** INDEX 02 - idx_comment **
 CREATE INDEX idx_comment ON comment USING hash(source_user_id);
 
--- ** INDEX 04 - idx_bid_auction **
+-- ** INDEX 03 - idx_bid_auction **
 CREATE INDEX idx_bid_auction ON bid USING hash(auction_id);
 
 
--- #################################        FULL TEXT SEARCH INDEXES        #################################
+-- #################################      FULL TEXT SEARCH INDEXES        #################################
 
+
+-- ** INDEX 04 - idx_category_search **
 
 Alter Table auction
 ADD COLUMN tsvectors TSVECTOR;
@@ -172,7 +170,7 @@ CREATE INDEX idx_auction_search ON auction USING GIST (tsvectors);
 
 
 
--- ** INDEX 06 - idx_category_search **
+-- ** INDEX 05 - idx_category_search **
 
 ALTER TABLE category
 ADD COLUMN tsvectors TSVECTOR;
@@ -492,10 +490,4 @@ CREATE TRIGGER trig_check_self_rating
 BEFORE INSERT ON comment_user
 FOR EACH ROW
 EXECUTE PROCEDURE check_self_rating();
--- ####################################        TRANSACTIONS        ####################################
-
-
-
-
-
 
