@@ -492,6 +492,43 @@ CREATE TRIGGER trig_check_self_rating
 BEFORE INSERT ON comment_user
 FOR EACH ROW
 EXECUTE PROCEDURE check_self_rating();
+
+
+-- * TRIGGER10 *
+
+-- Create a trigger after insert on comment_auction to create a notification for the auction owner.
+CREATE OR REPLACE FUNCTION create_auction_comment_notification()
+RETURNS TRIGGER AS $$
+DECLARE
+    comment_author_username TEXT;
+    notification_id INT;
+BEGIN
+
+    -- Get the username of the user who made the comment from the associated comment.
+    SELECT username INTO comment_author_username
+    FROM users
+    WHERE id = (SELECT source_user_id FROM comment WHERE id = NEW.comment_id);
+
+    -- Create a new notification with the message.
+    INSERT INTO notifications (message, user_id, is_seen)
+    VALUES (comment_author_username || ' commented on your auction.', 
+            (SELECT owner_id FROM auction WHERE id = NEW.auction_id), 
+            FALSE)
+    RETURNING id INTO notification_id;
+
+    -- Insert the notification and comment association into the notification_comment table.
+    INSERT INTO notification_comment (notification_id, comment_id)
+    VALUES (notification_id, NEW.comment_id);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger after insert on comment_auction to create a notification.
+CREATE TRIGGER trig_create_auction_comment_notification
+AFTER INSERT ON comment_auction
+FOR EACH ROW
+EXECUTE PROCEDURE create_auction_comment_notification();
 -- ####################################        TRANSACTIONS        ####################################
 
 
