@@ -32,7 +32,7 @@ CREATE TABLE auction(
     description TEXT NOT NULL,
     name TEXT NOT NULL,
     image TEXT NOT NULL,
-    user_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
     start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     end_t TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -115,8 +115,10 @@ CREATE INDEX idx_comment ON comment USING hash(source_user_id);
 CREATE INDEX idx_bid_auction ON bid USING hash(auction_id);
 
 
--- #################################        FULL TEXT SEARCH INDEXES        #################################
+-- #################################      FULL TEXT SEARCH INDEXES        #################################
 
+
+-- ** INDEX 04 - idx_category_search **
 
 Alter Table auction
 ADD COLUMN tsvectors TSVECTOR;
@@ -554,13 +556,4 @@ CREATE TRIGGER trig_update_user_rate
 BEFORE INSERT ON comment_user
 FOR EACH ROW
 EXECUTE PROCEDURE update_user_rate();
-
-
-
--- ####################################        TRANSACTIONS        ####################################
-
-
-
-
-
 
