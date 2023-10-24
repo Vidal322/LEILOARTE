@@ -1,0 +1,20 @@
+openapi: 3.0.0
+
+info:
+ version: '1.0'
+ title: 'LBAW LeiloArte Web API'
+ description: 'Web Resources Specification (A7) for LeiloArte'
+
+servers:
+- url: http://lbaw.fe.up.pt
+ description: Production server
+
+externalDocs:
+ description: Find more info here.
+ url: https://git.fe.up.pt/lbaw/lbaw2324/lbaw23113/-/wikis/home
+tags:
+ - name: 'M01: Aunthentication and Individual Profile'
+ - name: 'M02: Administration and Static Pages'
+ - name: 'M03: Reviews and Wish list'
+ - name: 'M04: Auctions'
+ - name: 'M05: USearch'
