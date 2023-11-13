@@ -7,14 +7,570 @@ info:
 
 servers:
 - url: http://lbaw.fe.up.pt
- description: Production server
+  description: Production server
 
 externalDocs:
  description: Find more info here.
  url: https://git.fe.up.pt/lbaw/lbaw2324/lbaw23113/-/wikis/home
 tags:
- - name: 'M01: Aunthentication and Individual Profile'
+ - name: 'M01: Authentication and Individual Profile'
  - name: 'M02: Administration and Static Pages'
  - name: 'M03: Reviews and Wish list'
  - name: 'M04: Auctions'
  - name: 'M05: USearch'
+
+
+paths:
+ /login:
+  get: 
+   operationId: R101
+   summary: 'R101: Login'
+   description: 'Display login form. Access: PUB'
+   tags: 
+    - 'M01: Authentication and Individual Profile'
+   responses:
+    '200':
+     description: Display login UI
+  post:
+    operationId: R102
+    summary: 'R102: Login'
+    description: 'Process the login form. Access: PUB'
+    tags:
+      - 'M01: Authentication and Individual Profile'
+    
+    requestBody:
+      required: true
+      content:
+       application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+          required:
+            - email
+            - password
+
+    responses:
+      '302':
+        description: 'Redirect to home page after successful login'
+        headers:
+          Location:
+            schema:
+              type: string
+            examples:
+              302Success:
+                description: 'Redirect to home page after successful login'
+                value: '/'
+              302Error:
+                description: 'Redirect to login page after unsuccessful login'
+                value: '/login'
+
+
+
+ /logout:
+  post:
+    operationId: R103
+    summary: 'R103: Logout'
+    description: 'Process the logout. Access: USR, ADM'
+    tags:
+      - 'M01: Authentication and Individual Profile'
+    responses:
+      '302':
+        description: 'Redirect to login page after successful logout'
+        headers:
+          Location:
+            schema:
+              type: string
+            examples:
+              302Success:
+                description: 'Redirect to login page after successful logout'
+                value: '/login'
+              302Error:
+                description: 'Redirect to home page after unsuccessful logout'
+                value: '/'
+
+
+
+ /register:
+  get:
+    operationId: R104
+    summary: 'R104: Register'
+    description: 'Display register form. Access: PUB'
+    tags:
+      - 'M01: Authentication and Individual Profile'
+    responses:
+      '200':
+        description: Display register UI
+  post:
+    operationId: R105
+    summary: 'R105: Register'
+    description: 'Process the register form. Access: PUB'
+    tags:
+      - 'M01: Authentication and Individual Profile'
+    requestBody:
+      required: true
+      content:
+       application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+            password_confirmation:
+              type: string
+          required:
+            - name
+            - email
+            - password
+            - password_confirmation
+    responses:
+      '302':
+        description: 'Redirect after processing the new user information'
+        headers:
+          Location:
+            schema:
+              type: string
+            examples:
+              302Success:
+                description: 'Redirect to home page after successful register'
+                value: '/'
+              302Error:
+                description: 'Redirect to register page after unsuccessful register'
+                value: '/register'
+
+
+
+ /users/{id}:
+    get:
+      operationId: R106
+      summary: 'R106: User Profile'
+      description: 'Display user profile. Access: USR, ADM'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Display user profile UI
+        '404':
+          description: User not found
+
+
+
+ /users/{id}/edit:
+    get:
+      operationId: R107
+      summary: 'R107: Edit User Profile'
+      description: 'Display edit user profile form. Access: OWN'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Display edit user profile UI
+        '403':
+          description: Don't have persmission to edit this user
+        '404':
+          description: User not found
+    post:
+      operationId: R108
+      summary: 'R108: Edit User Profile'
+      description: 'Process the edit user profile form. Access: USR, ADM'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              password_confirmation:
+                type: string
+            required:
+              - name
+              - email
+              - password
+              - password_confirmation
+      responses:
+        '302':
+          description: 'Redirect after processing the new user information'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to user profile page after successful edit'
+                  value: '/users/{id}'
+                302Error:
+                  description: 'Redirect to edit user profile page after unsuccessful edit'
+                  value: '/users/{id}/edit'
+        '404':
+          description: User not found
+
+  
+ /users/{id}/delete:
+    post:
+      operationId: R109
+      summary: 'R109: Delete User Profile'
+      description: 'Process the delete user profile form. Access: OWN, ADM'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '302':
+          description: 'Redirect after processing the delete user information'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to home page after successful delete'
+                  value: '/'
+                302Error:
+                  description: 'Redirect to user profile page after unsuccessful delete'
+                  value: '/users/{id}'
+        '404':
+          description: User not found
+
+
+ /users/{id}/auctions:
+    get:
+      operationId: R110
+      summary: 'R110: User Auctions'
+      description: 'Display user auctions. Access: USR, ADM'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Display user auctions UI
+        '404':
+          description: User not found
+
+ /users/{id}/bid:
+  get:
+    operationId: R111
+    summary: 'R111: User Bids'
+    description: 'Display user bids. Access: USR, ADM'
+    tags:
+      - 'M01: Authentication and Individual Profile'
+    parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      '200':
+        description: Display user bids UI
+      '404':
+        description: User not found
+  
+ /auctions/create:
+    get:
+      operationId: R201
+      summary: 'R201: Create Auction'
+      description: 'Display create auction form. Access: USR'
+      tags:
+        - 'M04: Auctions'
+      responses:
+        '200':
+          description: Display create auction UI
+        '403':
+          description: Don't have persmission to create auction
+    
+    post:
+      operationId: R202
+      summary: 'R202: Create Auction'
+      description: 'Process the create auction form. Access: USR'
+      tags:
+        - 'M04: Auctions'
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              category:
+                type: string
+              starting_price:
+                type: number
+              deadline:
+                type: string
+              image:
+                type: string
+            required:
+              - name
+              - description
+              - category
+              - starting_price
+              - deadline
+              - image
+      responses:
+        '302':
+          description: 'Redirect after processing the new auction information'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to auction page after successful create'
+                  value: '/auctions/{id}'
+                302Error:
+                  description: 'Redirect to create auction page after unsuccessful create'
+                  value: '/auctions/create'
+        '403':
+          description: Don't have persmission to create auction
+      
+ /auctions/{id}:
+    get:
+      operationId: R203
+      summary: 'R203: Auction'
+      description: 'Display auction. Access: PUB, ADM'
+      tags:
+        - 'M04: Auctions'
+      parameters:
+        - name: id
+          in: path
+          description: Auction ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Display auction UI
+        '404':
+          description: Auction not found{
+    
+ /auctions/{id}/edit:
+    get:
+      operationId: R204
+      summary: 'R204: Edit Auction'
+      description: 'Display edit auction form. Access: OWN'
+      tags:
+        - 'M04: Auctions'
+      parameters:
+        - name: id
+          in: path
+          description: Auction ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Display edit auction UI
+        '403':
+          description: Don't have persmission to edit this auction
+        '404':
+          description: Auction not found
+    post:
+      operationId: R205
+      summary: 'R205: Edit Auction'
+      description: 'Process the edit auction form. Access: USR, ADM'
+      tags:
+        - 'M04: Auctions'
+      parameters:
+        - name: id
+          in: path
+          description: Auction ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              category:
+                type: string
+              starting_price:
+                type: number
+              deadline:
+                type: string
+              image:
+                type: string
+            required:
+              - name
+              - description
+              - category
+              - starting_price
+              - deadline
+              - image
+      responses:
+        '302':
+          description: 'Redirect after processing the new auction information'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to auction page'
+
+ /auctions/{id}/delete:
+    post:
+      operationId: R206
+      summary: 'R206: Delete Auction'
+      description: 'Process the delete auction form. Access: OWN, ADM'
+      tags:
+        - 'M04: Auctions'
+      parameters:
+        - name: id
+          in: path
+          description: Auction ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '302':
+          description: 'Redirect after processing the delete auction information'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to home page after successful delete'
+                  value: '/'
+                302Error:
+                  description: 'Redirect to auction page after unsuccessful delete'
+                  value: '/auctions/{id}'
+        '404':
+          description: Auction not found
+  
+ /auctions/{id}/bid:
+    get:
+      operationId: R207
+      summary: 'R207: Bid'
+      description: 'Display bid form. Access: USR'
+      tags:
+        - 'M04: Auctions'
+      parameters:
+        - name: id
+          in: path
+          description: Auction ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Display bid UI
+        '403':
+          description: Don't have persmission to bid this auction
+        '404':
+          description: Auction not found
+
+    post:
+      operationId: R208
+      summary: 'R208: Bid'
+      description: 'Process the bid form. Access: USR'
+      tags:
+        - 'M04: Auctions'
+      parameters:
+        - name: id
+          in: path
+          description: Auction ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              bid:
+                type: number
+            required:
+              - bid
+      responses:
+        '302':
+          description: 'Redirect after processing the new bid information'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to auction page after successful bid'
+                  value: '/auctions/{id}'
+                302Error:
+                  description: 'Redirect to bid page after unsuccessful bid'
+                  value: '/auctions/{id}/bid'
+        '403':
+          description: Don't have persmission to bid this auction
+        '404':
+          description: Auction not found
+
