@@ -573,3 +573,23 @@ paths:
         '404':
           description: Auction not found
 
+ /aboutUs:
+    get:
+      operationId: R301
+      summary: 'R301: About Us'
+      description: 'Display about us page. Access: PUB'
+      tags:
+        - 'M02: Administration and Static Pages'
+      responses:
+        '200':
+          description: Display about us UI
+ /contacts:
+    get:
+      operationId: R302
+      summary: 'R302: Contacts'
+      description: 'Display contacts page. Access: PUB'
+      tags:
+        - 'M02: Administration and Static Pages'
+      responses:
+        '200':
+          description: Display contacts UI
