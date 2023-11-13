@@ -250,6 +250,7 @@ paths:
       description: 'Process the delete user profile form. Access: OWN, ADM'
       tags:
         - 'M01: Authentication and Individual Profile'
+        - 'M02: Administration and Static Pages'
       parameters:
         - name: id
           in: path
@@ -481,6 +482,7 @@ paths:
       description: 'Process the delete auction form. Access: OWN, ADM'
       tags:
         - 'M04: Auctions'
+        - 'M02: Administration and Static Pages'
       parameters:
         - name: id
           in: path
@@ -573,7 +575,7 @@ paths:
         '404':
           description: Auction not found
 
- /aboutUs:
+ /aboutus:
     get:
       operationId: R301
       summary: 'R301: About Us'
