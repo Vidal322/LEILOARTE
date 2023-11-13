@@ -15,9 +15,8 @@ externalDocs:
 tags:
  - name: 'M01: Authentication and Individual Profile'
  - name: 'M02: Administration and Static Pages'
- - name: 'M03: Reviews and Wish list'
+ - name: 'M03: Search'
  - name: 'M04: Auctions'
- - name: 'M05: USearch'
 
 
 paths:
