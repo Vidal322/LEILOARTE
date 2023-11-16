@@ -9,6 +9,7 @@ class Auction extends Model
   // Don't add create and update timestamps in database.
   public $timestamps  = false;
 
+  protected $table = "auction";
   protected $fillable = [
     'description', 'owner_id', 'active', 'start', 'end', 'name',
   ];
