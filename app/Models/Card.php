@@ -9,6 +9,7 @@ class Card extends Model
   // Don't add create and update timestamps in database.
   public $timestamps  = false;
 
+  
   /**
    * The user this card belongs to
    */

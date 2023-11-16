@@ -9,6 +9,8 @@ class Bid extends Model
   // Don't add create and update timestamps in database.
   public $timestamps  = false;
 
+  protected $table = "bid";
+
   protected $fillable = [
     // 'description', 'owner_id', 'active', 'start', 'end', 'name',
   ];
@@ -21,7 +23,7 @@ class Bid extends Model
   }
 
   /**
-   * Items inside this card
+   * Items inside this auction
    */
   public function auction() {
     return $this->belongsTo('App\Models\Auction');
