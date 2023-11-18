@@ -48,4 +48,23 @@ class AuctionController extends Controller
 
       return redirect('auctions/' . $auction->id);
     }
+
+    public function showEditForm($id)
+    {
+      //$id = Auction::find($id);
+      return view('pages.editAuction', ['id' => $id]);
+    }
+    public function edit(Request $request, $id)
+    {
+      $auction = Auction::find($id);
+      $auction->name = $request->input('name');
+      $auction->description = $request->input('description');
+      $auction->image = $request->input('image');
+      $auction->owner_id = Auth::user()->id;
+      // $auction->start_date = $request->input('start_date');
+      $auction->end_t = $request->input('end_t');
+      $auction->save();
+
+      return redirect('auctions/' . $auction->id);
+    }
 }
