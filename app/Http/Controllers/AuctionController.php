@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Auction;
+use App\Models\Bid;
 
 
 class AuctionController extends Controller
@@ -26,4 +27,6 @@ class AuctionController extends Controller
       $auctions = Auction::get()->where('owner_id', $user_id);
       return view('pages.ownedAuctions', ['auctions' => $auctions]);
     }
+
+
 }
