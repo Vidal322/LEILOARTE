@@ -38,4 +38,5 @@ Route::get('/auctions/{id}', 'AuctionController@show');
 
 // Users
 Route::get('users/{id}', 'UserController@show');
+Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAuctions');
 

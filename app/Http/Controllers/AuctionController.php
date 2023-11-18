@@ -21,4 +21,9 @@ class AuctionController extends Controller
       return view('pages.auction', ['auction' => $auction]);
     }
 
+    public function ownedBy($user_id)
+    {
+      $auctions = Auction::get()->where('owner_id', $user_id);
+      return view('pages.ownedAuctions', ['auctions' => $auctions]);
+    }
 }

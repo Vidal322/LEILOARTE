@@ -13,4 +13,10 @@ class UserController extends Controller
       //$this->authorize('show', $user);
       return view('pages.user', ['user' => $user]);
     }
+
+    /*public function list()
+    {
+      $users = User::all();
+      return view('pages.usersListing', ['users' => $users]);
+    }*/
 }
