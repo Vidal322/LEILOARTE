@@ -9,6 +9,7 @@
             <div>image: {{$user->img}}</div>
             <div>rate: {{$user->rate}}</div>
             <div>type: {{$user->type}}</div>
-            <button><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
         </div>
+        <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
+        <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
 @endsection
