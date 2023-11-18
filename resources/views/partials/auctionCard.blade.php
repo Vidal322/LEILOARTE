@@ -1,5 +1,6 @@
-<article class="auction_card">
-<header>
-  <h2><a href="/auction/{{ $auction->id }}">{{ $auction->description }}</a></h2>
-</header>
-</article>
+<a href="/auction/{{ $auction->id }}"><article class="auction_card">
+  <h2>{{ $auction->name}}</h2>
+  <p>{{ $auction->description }}</p>
+  <br>
+  <br>
+</article></a>
