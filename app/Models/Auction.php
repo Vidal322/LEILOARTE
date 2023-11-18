@@ -11,7 +11,7 @@ class Auction extends Model
 
   protected $table = "auction";
   protected $fillable = [
-    'description', 'owner_id', 'active', 'start', 'end', 'name',
+    'description', 'owner_id', 'active', 'start', 'end', 'name', 'image'
   ];
   
   /**
