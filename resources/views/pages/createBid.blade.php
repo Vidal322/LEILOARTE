@@ -4,7 +4,7 @@
 <form method="POST" action="{{ route('createBid', ['id'=> $id]) }}">
     {{ csrf_field() }}
 
-    <label for="amount">E-mail</label>
+    <label for="amount">Amount</label>
     <input id="amount" type="number" step="0.01" name="amount" value="0" required autofocus>
     @if ($errors->has('amount'))
         <span class="error">
