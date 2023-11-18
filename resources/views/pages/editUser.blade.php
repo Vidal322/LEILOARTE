@@ -31,7 +31,7 @@
 
     <button type="submit">
         Save
-    </button>
+    </button class="button button-outline">
     <a class="button button-outline" href="{{ route('user', ['id'=> $id]) }}">Cancel</a>
 </form>
 
