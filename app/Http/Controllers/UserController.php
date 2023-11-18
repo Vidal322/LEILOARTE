@@ -37,4 +37,13 @@ class UserController extends Controller
       $user->update();
       return redirect('users/'.$id);
     }
+
+    public function delete($id)
+    {
+      $user = User::find($id);
+      //$this->authorize('delete', $user);
+      $user->deleted = true;
+      $user->update();
+      return redirect('/');
+    }
 }

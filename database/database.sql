@@ -357,26 +357,25 @@ EXECUTE PROCEDURE check_auction_owner_bid();
 -- * TRIGGER05 *
 
 
--- Create a trigger to delete auctions when a user account is deleted.
 CREATE OR REPLACE FUNCTION delete_user_auctions()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Delete open auctions when a user is deleted.
-    DELETE FROM auction
-    WHERE owner_id = OLD.id
-    AND active = true;
+   -- Delete open auctions when a user is deleted.
+   DELETE FROM auction
+   WHERE owner_id = OLD.id
+   AND active = true;
 
-    RETURN OLD;
+   -- Delete associated bids.
+   DELETE FROM bid
+   WHERE auction_id IN (
+       SELECT id
+       FROM auction
+       WHERE owner_id = OLD.id
+   );
+
+   RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
-
--- Create a trigger for user account deletion.
-CREATE TRIGGER trig_delete_user_auctions
-AFTER UPDATE ON users
-FOR EACH ROW
-WHEN (OLD.deleted = false AND NEW.deleted = true)
-EXECUTE PROCEDURE delete_user_auctions();
-
 
 -- * TRIGGER06 *
 

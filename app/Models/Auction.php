@@ -27,6 +27,10 @@ class Auction extends Model
   public function category() {
     return $this->belongsTo('App\Models\Category');
   }
+  
+  public function bids() {
+    return $this->hasMany('App\Models\Bid', 'auction_id');
+  }
 
 
 }

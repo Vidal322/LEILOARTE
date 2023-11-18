@@ -9,4 +9,5 @@
         <div> image: {{$auction->image}} </div>
         <div> owner_id: {{$auction->owner_id}} </div>
     </div>
+    <button class="button button-outline"><a href="{{ route('createBidForm', ['id' => $auction->id]) }}">Place Bid</a></button>
 @endsection

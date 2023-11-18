@@ -37,11 +37,15 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::get('/', 'AuctionController@list');
 Route::get('/auctions/create', 'AuctionController@showCreateForm')->name('createAuctionForm');
 Route::post('/auctions/create', 'AuctionController@create')->name('createAuction');
-Route::get('/auctions/{id}', 'AuctionController@show');
+Route::get('/auctions/{id}', 'AuctionController@show')->name('auctions');
 
 // Users
 Route::get('users/{id}', 'UserController@show')->name('user');
 Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAuctions');
 Route::get('users/{id}/edit', 'UserController@showEditForm')->name('editUserForm');
 Route::post('users/{id}/edit', 'UserController@edit')->name('editUser');
+Route::get('users/{id}/delete', 'UserController@delete')->name('deleteUser');
 
+// Bids
+Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
+Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
