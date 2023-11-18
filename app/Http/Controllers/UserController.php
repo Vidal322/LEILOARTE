@@ -19,4 +19,22 @@ class UserController extends Controller
       $users = User::all();
       return view('pages.usersListing', ['users' => $users]);
     }*/
+
+    public function showEditForm($id)
+    {
+      //$user = User::find($id);
+      //$this->authorize('edit', $user);
+      return view('pages.editUser', ['id' => $id]);
+    }
+
+    public function edit(Request $request, $id)
+    {
+      $user = User::find($id);
+      //$this->authorize('edit', $user);
+      $user->name = $request->input('name');
+      $user->email = $request->input('email');
+      $user->username = $request->input('username');
+      $user->update();
+      return redirect('users/'.$id);
+    }
 }

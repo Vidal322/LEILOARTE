@@ -37,6 +37,8 @@ Route::get('/', 'AuctionController@list');
 Route::get('/auctions/{id}', 'AuctionController@show');
 
 // Users
-Route::get('users/{id}', 'UserController@show');
+Route::get('users/{id}', 'UserController@show')->name('user');
 Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAuctions');
+Route::get('users/{id}/edit', 'UserController@showEditForm')->name('editUserForm');
+Route::post('users/{id}/edit', 'UserController@edit')->name('editUser');
 
