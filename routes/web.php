@@ -40,7 +40,7 @@ Route::post('/auctions/create', 'AuctionController@create')->name('createAuction
 Route::get('/auctions/{id}', 'AuctionController@show')->name('auctions');
 Route::get('auctions/{id}/edit', 'AuctionController@showEditForm')->name('editAuctionForm');
 Route::post('auctions/{id}/edit', 'AuctionController@edit')->name('editAuction');
-
+Route::get('auctions/{id}/delete', 'AuctionController@delete')->name('deleteAuction');
 // Users
 Route::get('users/{id}', 'UserController@show')->name('user');
 Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAuctions');

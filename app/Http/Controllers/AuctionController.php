@@ -67,4 +67,11 @@ class AuctionController extends Controller
 
       return redirect('auctions/' . $auction->id);
     }
+
+    public function delete($id)
+    {
+      $auction = Auction::find($id);
+      $auction->delete();
+      return redirect('/');
+    }
 }
