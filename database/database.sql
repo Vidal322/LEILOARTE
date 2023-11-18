@@ -30,7 +30,7 @@ CREATE TABLE auction(
     id SERIAL PRIMARY KEY,
     description TEXT NOT NULL,
     name TEXT NOT NULL,
-    image BYTEA,
+    image TEXT,
     owner_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
     start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,

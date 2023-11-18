@@ -9,5 +9,10 @@
         <div> image: {{$auction->image}} </div>
         <div> owner_id: {{$auction->owner_id}} </div>
     </div>
+
+    <form method="POST" action="{{ route('followAuctions', ['id' => $auction->id]) }}">
+        {{ csrf_field() }}
+    <button class="button button-outline" type = sumbit>Follow Auction</button>
+    </form>
     <button class="button button-outline"><a href="{{ route('createBidForm', ['id' => $auction->id]) }}">Place Bid</a></button>
 @endsection

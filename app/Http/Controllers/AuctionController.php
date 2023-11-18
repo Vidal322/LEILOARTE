@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Auction;
-use App\Models\Bid;
-
+use App\Models\AuctionSave;
 
 class AuctionController extends Controller
 {
@@ -27,6 +26,27 @@ class AuctionController extends Controller
     {
       $auctions = Auction::get()->where('owner_id', $user_id);
       return view('pages.ownedAuctions', ['auctions' => $auctions]);
+    }
+
+    public function followedBy($user_id)
+    {
+      $allAuctions = Auction::all();
+      $auctions = [];
+      foreach ($allAuctions as $auction) {
+        if (AuctionSave::where('user_id', $user_id)->where('auction_id', $auction->id)->exists()) {
+          array_push($auctions, $auction);
+        }
+      }
+      return view('pages.followedAuctions', ['auctions' => $auctions]);
+    }
+
+    public function follow($id)
+    {
+      $auctionSave = new AuctionSave;
+      $auctionSave->user_id = Auth::user()->id;
+      $auctionSave->auction_id = $id;
+      $auctionSave->save();
+      return redirect('auctions/'.$id);
     }
 
     public function showCreateForm()

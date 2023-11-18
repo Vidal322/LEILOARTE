@@ -282,3 +282,6 @@ insert into notifications (message, date, is_seen) values ('Auction Ended', '202
 insert into notifications (message, date, is_seen) values ('Auction Began', '2023-10-17 04:23:19', true);
 insert into notifications (message, date, is_seen) values ('Auction Began', '2023-10-10 03:23:02', true);
 insert into notifications (message, date, is_seen) values ('New Bid', '2023-10-13 05:08:46', false);
+
+
+insert into auction_save (user_id, auction_id) values (4, 1);
