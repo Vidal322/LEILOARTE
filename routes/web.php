@@ -31,4 +31,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-Route::get('/', 'AuctionController@show');
+
+// Auction
+Route::get('/', 'AuctionController@list');
+
+// Users
+Route::get('users/{id}', 'UserController@show');
