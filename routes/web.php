@@ -47,6 +47,8 @@ Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAucti
 Route::get('users/{id}/edit', 'UserController@showEditForm')->name('editUserForm');
 Route::post('users/{id}/edit', 'UserController@edit')->name('editUser');
 Route::get('users/{id}/delete', 'UserController@delete')->name('deleteUser');
+Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('followAuctions');
+Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 
 
 // Bids
