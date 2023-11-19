@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Bid;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminPolicy
@@ -17,7 +18,7 @@ class AdminPolicy
      */
     // verifies if the user is an admin
     public function bid(User $user)
-    {
-        return !($user->userType == 'admin');
+    {   
+        return  !($user->type == 'admin');
     }
 }

@@ -100,4 +100,10 @@ class AuctionController extends Controller
       $auction->delete();
       return redirect('/');
     }
+    public function listBids($id)
+    {
+      $auction = Auction::find($id);
+      $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+      return view('pages.bids', ['bids' => $bids]);
+    }
 }
