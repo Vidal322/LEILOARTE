@@ -29,7 +29,11 @@
           <a class = "button" href="{{ route('home') }}"> Home </a>
           <a class = "button" href="{{ route('home')}}"> About us </a>
           @if (Auth::check())
-            <a class="button" href="{{ url('/logout') }}"> Logout </a> <span><a href= "{{ route('user', ['id'=>Auth::user()->id]) }}">{{ Auth::user()->name }}</a></span>
+          <form method="POST" action="{{ route('logout') }}">
+            {{ csrf_field() }}
+            <button class= "button"> Logout </button>
+          </form>
+          <span><a href= "{{ route('user', ['id'=>Auth::user()->id]) }}">{{ Auth::user()->name }}</a></span>
           @endif
           @if (!Auth::check())
             <a class="button" href="{{ url('/login') }}"> Login </a>
