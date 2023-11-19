@@ -36,6 +36,10 @@ main > header span {
 #content > form input {
   background-color: white;
 }
+form {
+  margin-top: 20px !important; /* Adjust the top margin based on your preference */
+  margin-bottom: 120px !important; /* Adjust the bottom margin based on your preference */
+}
 @media (max-width: 70em) {
   #cards {
     grid-template-columns: repeat(2, 1fr);
@@ -111,19 +115,19 @@ input[type=password]:focus {
   margin: 0 auto;
 }
 
-.left-column,
+.content .left-column,
     .right-column,
     .bottom-content {
         color: inherit; 
     }
 
 
-.left-column {
+.content .left-column {
   flex-basis: calc(50% - 20px);
   max-width: calc(50% - 20px);
 }
 
-.right-column {
+.content .right-column {
   flex-basis: calc(50% - 20px);
   max-width: calc(50% - 20px);
   display: flex;
@@ -136,7 +140,7 @@ input[type=password]:focus {
   border-radius: 5px;
 }
 
-.bottom-content {
+.content .bottom-content {
   flex-basis: 100%;
   max-width: 100%;
 }
@@ -196,7 +200,7 @@ footer {
   margin-top: 10px; 
 }
 
-.content img {
+.content img[alt="UserImage"]  {
   border-radius: 50%;
   width: 150px; /* Adjust the size as needed */
   height: 150px; /* Adjust the size as needed */
