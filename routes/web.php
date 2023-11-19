@@ -34,7 +34,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 
 // Auction
-Route::get('/', 'AuctionController@list');
+Route::get('/', 'AuctionController@list')->name('home');
 Route::get('/auctions/create', 'AuctionController@showCreateForm')->name('createAuctionForm');
 Route::post('/auctions/create', 'AuctionController@create')->name('createAuction');
 Route::get('/auctions/{id}', 'AuctionController@show')->name('auctions');
