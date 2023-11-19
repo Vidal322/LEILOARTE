@@ -11,6 +11,7 @@
             <div>type: {{$user->type}}</div>
             <div>deleted: {{$user->deleted}}</div>
         </div>
+        <button class="button button-outline"><a href="{{ route('followedAuctions', ['id' => $user->id]) }}">Followed Auctions</a></button>
         <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
         <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
         <button class="button button-outline"><a href="{{ route('deleteUser', ['id' => $user->id]) }}">Delete</a></button>

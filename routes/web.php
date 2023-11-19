@@ -41,6 +41,7 @@ Route::get('/auctions/{id}', 'AuctionController@show')->name('auctions');
 Route::get('auctions/{id}/edit', 'AuctionController@showEditForm')->name('editAuctionForm');
 Route::post('auctions/{id}/edit', 'AuctionController@edit')->name('editAuction');
 Route::get('auctions/{id}/delete', 'AuctionController@delete')->name('deleteAuction');
+
 // Users
 Route::get('users/{id}', 'UserController@show')->name('user');
 Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAuctions');
@@ -49,7 +50,7 @@ Route::post('users/{id}/edit', 'UserController@edit')->name('editUser');
 Route::get('users/{id}/delete', 'UserController@delete')->name('deleteUser');
 Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('followAuctions');
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
-
+Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
 
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
