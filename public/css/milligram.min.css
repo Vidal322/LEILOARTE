@@ -13,6 +13,8 @@
  * Licensed under the MIT license
  */
 
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
  *, *:after, *:before {
     box-sizing: inherit;
   }
@@ -23,8 +25,8 @@
   }
   
   body {
-    color: #28cdff;
-    font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    color: #066d6d ;
+    font-family: 'Lato';
     font-size: 1.6em;
     font-weight: 300;
     letter-spacing: 0.01em;
@@ -47,8 +49,8 @@
   input[type='button'],
   input[type='reset'],
   input[type='submit'] {
-    background-color: #9b4dca;
-    border: 0.1rem solid #9b4dca;
+    background-color: #2556AE;
+    border: 0.1rem solid #2556AE;
     border-radius: .4rem;
     color: #fff;
     cursor: pointer;
@@ -75,8 +77,8 @@
   input[type='reset']:hover,
   input[type='submit']:focus,
   input[type='submit']:hover {
-    background-color: #28cdff;
-    border-color: #28cdff;
+    background-color: #066d6d;
+    border-color: #066d6d ;
     color: #fff;
     outline: 0;
   }
@@ -100,8 +102,8 @@
   input[type='reset'][disabled]:hover,
   input[type='submit'][disabled]:focus,
   input[type='submit'][disabled]:hover {
-    background-color: #9b4dca;
-    border-color: #9b4dca;
+    background-color: #2556AE;
+    border-color: #2556AE;
   }
   
   .button.button-outline,
@@ -110,7 +112,7 @@
   input[type='reset'].button-outline,
   input[type='submit'].button-outline {
     background-color: transparent;
-    color: #9b4dca;
+    color: #2556AE;
   }
   
   .button.button-outline:focus,
@@ -124,8 +126,8 @@
   input[type='submit'].button-outline:focus,
   input[type='submit'].button-outline:hover {
     background-color: transparent;
-    border-color: #28cdff;
-    color: #28cdff;
+    border-color: #066d6d ;
+    color: #066d6d ;
   }
   
   .button.button-outline[disabled]:focus,
@@ -139,7 +141,7 @@
   input[type='submit'].button-outline[disabled]:focus,
   input[type='submit'].button-outline[disabled]:hover {
     border-color: inherit;
-    color: #9b4dca;
+    color: #2556AE;
   }
   
   .button.button-clear,
@@ -149,7 +151,7 @@
   input[type='submit'].button-clear {
     background-color: transparent;
     border-color: transparent;
-    color: #9b4dca;
+    color: #2556AE;
   }
   
   .button.button-clear:focus,
@@ -164,7 +166,7 @@
   input[type='submit'].button-clear:hover {
     background-color: transparent;
     border-color: transparent;
-    color: #28cdff;
+    color: #066d6d ;
   }
   
   .button.button-clear[disabled]:focus,
@@ -177,7 +179,7 @@
   input[type='reset'].button-clear[disabled]:hover,
   input[type='submit'].button-clear[disabled]:focus,
   input[type='submit'].button-clear[disabled]:hover {
-    color: #9b4dca;
+    color: #2556AE;
   }
   
   code {
@@ -239,7 +241,7 @@
   input[type='url']:focus,
   textarea:focus,
   select:focus {
-    border-color: #9b4dca;
+    border-color: #2556AE;
     outline: 0;
   }
   
@@ -249,7 +251,7 @@
   }
   
   select:focus {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#9b4dca" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#2556AE" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>');
   }
   
   textarea {
@@ -456,13 +458,13 @@
   }
   
   a {
-    color: #9b4dca;
+    color: #2556AE;
     text-decoration: none;
   }
   
   a:focus,
   a:hover {
-    color: #28cdff;
+    color: #066d6d ;
   }
   
   dl, ol, ul {

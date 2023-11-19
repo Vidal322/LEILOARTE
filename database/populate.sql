@@ -1,6 +1,6 @@
 SET search_path to lbaw23113;
 
-insert into users (username, email, name, description, password, img, deleted, rate, type) values ('zweatherburn0', 'zweatherburn0@blogspot.com', 'Zonda Weatherburn', 'Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci.', 'mR3,f1!8{&7x"I', 'http://dummyimage.com/157x100.png/cc0000/ffffff', true, 5, 'admin');
+insert into users (username, email, name, description, password, img, deleted, rate, type) values ('zweatherburn0', 'zweatherburn0@blogspot.com', 'Zonda Weatherburn', 'Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci.', 'mR3,f1!8{&7x"I', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', true, 5, 'admin');
 insert into users (username, email, name, description, password, img, deleted, rate, type) values ('ataveriner1', 'ataveriner1@fda.gov', 'Adelaida Taveriner', 'Vivamus tortor.', 'dX2=8EE,`?BlPUDw', 'http://dummyimage.com/222x100.png/5fa2dd/ffffff', true, 5, 'user');
 insert into users (username, email, name, description, password, img, deleted, rate, type) values ('bham2', 'bham2@ft.com', 'Belva Ham', 'Duis mattis egestas metus.', 'jJ4&9.<FD@f', 'http://dummyimage.com/199x100.png/5fa2dd/ffffff', true, 3, 'user');
 insert into users (username, email, name, description, password, img, deleted, rate, type) values ('bbuckwell3', 'bbuckwell3@pcworld.com', 'Brenda Buckwell', 'Etiam pretium iaculis justo. In hac habitasse platea dictumst.', 'pL2_8(A8geX|+`la', 'http://dummyimage.com/198x100.png/5fa2dd/ffffff', true, 3, 'user');
@@ -59,7 +59,7 @@ insert into category (description) values ('Paintings');
 insert into category (description) values ('Drawings');
 insert into category (description) values ('Prints');
 
-insert into auction (description, name, image, owner_id, active, start_t, end_t) values ('Vivamus vestibulum sagittis sapien.', 'Red Snapper', 'http://dummyimage.com/225x100.png/cc0000/ffffff', 1, true, '2023-09-18 10:15:39', '2023-10-25 01:24:28');
+insert into auction (description, name, image, owner_id, active, start_t, end_t) values ('Vivamus vestibulum sagittis sapien.', 'Red Snapper', 'https://unforgettableglassact.com/cdn/shop/products/IMG_24332_1200x1200.jpg?v=1665052761', 1, true, '2023-09-18 10:15:39', '2023-10-25 01:24:28');
 insert into auction (description, name, image, owner_id, active, start_t, end_t) values ('Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue.', 'Methotrexate', 'http://dummyimage.com/105x100.png/ff4444/ffffff', 1, true, '2023-09-22 15:28:59', '2023-10-30 00:52:21');
 insert into auction (description, name, image, owner_id, active, start_t, end_t) values ('Vivamus tortor.', 'Detrol LA', 'http://dummyimage.com/195x100.png/ff4444/ffffff', 1, false, '2023-09-09 12:22:09', '2023-10-04 14:11:03');
 insert into auction (description, name, image, owner_id, active, start_t, end_t) values ('Nulla ut erat id mauris vulputate elementum.', 'Prenatal Vitamins Plus Low Iron', 'http://dummyimage.com/164x100.png/cc0000/ffffff', 2, false, '2023-09-06 05:20:57', '2023-10-28 02:42:05');
