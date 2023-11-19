@@ -24,18 +24,17 @@
     <main>
       <header>
         <h1><a href="{{ url('/') }}">LeiloArte</a></h1>
-        <nav class="navigation">
-          <input type="text" placeholder="Search..">
-          <a class = "button" href="{{ route('home') }}"> Home </a>
-          <a class = "button" href="{{ route('home')}}"> About us </a>
-          @if (Auth::check())
-            <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-          @endif
-          @if (!Auth::check())
-            <a class="button" href="{{ url('/login') }}"> Login </a>
-            <a class="button" href="{{ url('/register') }}"> Register </a>
-          @endif
-        </nav>
+        
+        <li><nav class="navigation"><input type="text" placeholder="Search.."></nav></li>
+        <li><a class = "button" href="{{ route('home') }}"> Home </a></li>
+        <li><a class = "button" href="{{ route('home')}}"> About us </a></li>
+        @if (Auth::check())
+          <li><a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span></li>
+        @endif
+        @if (!Auth::check())
+          <li><a class="button" href="{{ url('/login') }}"> Login </a></li>
+          <li><a class="button" href="{{ url('/register') }}"> Register </a></li>
+        @endif
       </header>
       <section id="content">
         @yield('content')

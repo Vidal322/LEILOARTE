@@ -21,7 +21,14 @@ main > header span {
   margin: 1em;
   justify-self: center;
 }
-
+main > header .navigation {
+  background-color: #ffffff !important;
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Set a specific width for the navigation */
+}
 #content label {
   font-weight: normal;
 }
@@ -29,7 +36,7 @@ main > header span {
   margin: 0 auto;
   padding: 1em;
   max-width: 20em;
-  border: 1px solid #d2afe7;
+  border: 1px solid #2556AE;
 }
 #content > form .error {
   font-weight: bold;
@@ -72,7 +79,7 @@ main > header span {
   }
   article.card {
     margin: 0;
-    border-bottom: 1px solid rgba(96, 108, 118, 0.4);
+    border-bottom: 1px solid #66DEFA;
   }
 }
 /**
@@ -80,21 +87,26 @@ main > header span {
  * Some styles might be missing
  **/
 button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: #2556AE;
+  border-color: #ffffff;
 }
 a.button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: #2556AE;
+  border-color: #ffffff;
 }
 a.button.button-outline {
-  color: #9b4dca;
+  color: #2556AE;
 }
 a {
-  color: #9b4dca;
+  color: #2556AE;
+}
+h1 a {
+  font-family: "Times New Roman", Times, serif;
+  color: #ffffff;
 }
 input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus {
-  border-color: #9b4dca;
+  border-color: #ffffff;
 }
+
