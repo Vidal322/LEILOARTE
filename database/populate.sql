@@ -285,3 +285,4 @@ insert into notifications (message, date, is_seen) values ('New Bid', '2023-10-1
 
 
 insert into auction_save (user_id, auction_id) values (4, 1);
+insert into auction_category (auction_id, category_id) values (1, 1);
