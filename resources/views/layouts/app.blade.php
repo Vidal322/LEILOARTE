@@ -23,10 +23,19 @@
   <body>
     <main>
       <header>
-        <h1><a href="{{ url('/') }}">Thingy!</a></h1>
-        @if (Auth::check())
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-        @endif
+        <h1><a href="{{ url('/') }}">LeiloArte</a></h1>
+        <nav class="navigation">
+          <input type="text" placeholder="Search..">
+          <a class = "button" href="{{ route('home') }}"> Home </a>
+          <a class = "button" href="{{ route('home')}}"> About us </a>
+          @if (Auth::check())
+            <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
+          @endif
+          @if (!Auth::check())
+            <a class="button" href="{{ url('/login') }}"> Login </a>
+            <a class="button" href="{{ url('/register') }}"> Register </a>
+          @endif
+        </nav>
       </header>
       <section id="content">
         @yield('content')
