@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -44,6 +46,8 @@ class UserController extends Controller
       //$this->authorize('delete', $user);
       $user->deleted = true;
       $user->update();
-      return redirect('/');
+      Auth::logout();
+
+      return redirect(route('home'));
     }
 }
