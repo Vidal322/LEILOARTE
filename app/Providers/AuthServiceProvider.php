@@ -5,6 +5,12 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
+// Models
+use App\Models\Bid;
+
+// Policies
+use App\Policies\AdminPolicy;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -14,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
       'App\Models\Card' => 'App\Policies\CardPolicy',
-      'App\Models\Item' => 'App\Policies\ItemPolicy'
+      'App\Models\Item' => 'App\Policies\ItemPolicy',
+      'App\Models\Bid' => 'App\Policies\AdminPolicy'
     ];
 
     /**
