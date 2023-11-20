@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Bid;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class BidPolicy
 {
@@ -93,9 +94,15 @@ class BidPolicy
     }
 
     
-    public function bid(User $user)
-    {   
-        return  !($user->type == 'admin');
-    }
+    public function bid(User $user, $bid)
+    {
 
+        if( !($user->type == 'admin') && ($user->id != $bid->user_id)){
+            log::info('true');
+            return true;
+        }
+        return false;
+        
+    }
+    
 }
