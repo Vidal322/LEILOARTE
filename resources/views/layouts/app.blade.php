@@ -25,9 +25,14 @@
       <header>
         <h1><a href="{{ url('/') }}">LeiloArte</a></h1>
         <nav class="navigation">
-          <input type="text" placeholder="Search..">
+          <form method="GET" action="{{ route('FTSsearch') }}">
+            {{ csrf_field() }}
+            <input type="text" name="search" placeholder="Search..">
+            <button class= "button"> Search </button>
+          </form>
           <a class = "button" href="{{ route('home') }}"> Home </a>
           <a class = "button" href="{{ route('home')}}"> About us </a>
+          
           @if (Auth::check())
           <form method="POST" action="{{ route('logout') }}">
             {{ csrf_field() }}
