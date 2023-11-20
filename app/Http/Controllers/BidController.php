@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bid;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 class BidController extends Controller
 {
     public function create(Request $request, $id)
     {
+      $user = Auth::user();
+      Log::info("User {$user->id} type: {$user->type} username: {$user->username}");
+      $this->authorize('bid', $user);
+    
       $bid = new Bid;
-      $bid->user_id = Auth::user()->id;
+      $bid->user_id = $user->id;
       $bid->auction_id = $id;
       $bid->amount = $request->input('amount');
       $bid->save();
@@ -21,6 +28,7 @@ class BidController extends Controller
     {
       return view('pages.createBid', ['id' => $auction_id]);
     }
+
     
 
 }

@@ -2,14 +2,19 @@
 
 @section('content')
         <div class="content">
-            <h1>This is {{$user->name}} page</h1>
-            <div>email: {{$user->email}}</div>
-            <div>username: {{$user->username}}</div>
-            <div>description: {{$user->description}}</div>
-            <div>image: {{$user->img}}</div>
-            <div>rate: {{$user->rate}}</div>
-            <div>type: {{$user->type}}</div>
-            <div>deleted: {{$user->deleted}}</div>
+            <img src="{{ $user->img }}" alt="UserImage">
+            <div class="info">
+                <div>{{$user->name}}</div>
+                <div>Username: {{$user->username}}</div>
+                <div>Email: {{$user->email}}</div>
+                <div>Rate: {{$user->rate}}</div>
+                <div>Description: {{$user->description}}</div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
+            <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
+            <button class="button button-outline"><a href="{{ route('deleteUser', ['id' => $user->id]) }}">Delete</a></button>
         </div>
 
         {{-- if owner--}}
@@ -17,7 +22,10 @@
         <button class="button button-outline"><a href="{{ route('followedAuctions', ['id' => $user->id]) }}">Followed Auctions</a></button>
         <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
         <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
-        <button class="button button-outline"><a href="{{ route('deleteUser', ['id' => $user->id]) }}">Delete</a></button>
+        <form method="POST" action="{{ route('deleteUser', ['id' => $user->id]) }}">
+            {{ csrf_field() }}
+            <button class="button button-outline">Delete</button>
+        </form>
         @endif
 
         {{-- if not owner --}}
