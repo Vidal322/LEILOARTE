@@ -121,4 +121,6 @@ class AuctionController extends Controller
       return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
 
+    
+
 }
