@@ -4,12 +4,24 @@
     <div class="content">
         <div class="left-column">
             <h2><div class="underline-text"> {{$auction->name}} </div></h2>
-            <div>By: {{ $auction->owner_id }}</div>
+            <?php $user = \App\Http\Controllers\UserController::returnUser($auction->owner_id); ?>
+            <div>Auctioneer: <a href="{{route('user', ['id' => $user->id])}}">{{ $user->name }}</a></div>
             <img src="{{ $auction->image }}" alt="Auction Image">
         </div>
         <div class="right-column">
-            <div>Higher Bid: $$</div>
-            <div>Bids: _</div>
+            <div> Starting Price: {{ $auction->starting_price }}€</div>
+            <div>Highest Bid:
+            @if (!count($auction->bids))
+                    No bids yet
+            @else
+                <?php $user = \App\Http\Controllers\UserController::returnUser($auction->bids->sortByDesc('amount')->first()->user_id); ?>
+                {{ $auction->bids->sortByDesc('amount')->first()->amount}}€ by <a href="{{route('user', ['id' => $user->id])}}">{{ $user->name }}</a>
+            @endif
+                
+            </div>
+            <div>Bids: {{ count($auction->bids) }}
+
+            </div>
             <button class="button button-outline"><a href="{{ route('createBidForm', ['id' => $auction->id]) }}">Place Bid</a></button>
             <form method="POST" action="{{ route('followAuctions', ['id' => $auction->id]) }}">
                 {{ csrf_field() }}

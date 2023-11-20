@@ -70,18 +70,18 @@ insert into category (description) values ('Drawings');
 insert into category (description) values ('Prints');
 
 -- Paintings
-insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('One of the most famous paintings ever, by Leonardo da Vinci.', 'Mona Lisa', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/270px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg', 1, true, 1000, '2023-11-23 10:00:00', '2023-11-25 18:00:00');
+insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('One of the most famous paintings ever, by Leonardo da Vinci.', 'Mona Lisa', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/270px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg', 1, true, 1000000000, '2023-11-23 10:00:00', '2023-11-25 18:00:00');
 insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('A beautiful painting by the famous Dutch painter Vincent van Gogh.', 'The Starry Night', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/270px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg', 2, true, 800, '2023-11-24 12:00:00', '2023-11-26 18:00:00');
 insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('A masterpiece by Pablo Picasso.', 'Guernica', 'https://upload.wikimedia.org/wikipedia/en/thumb/7/74/PicassoGuernica.jpg/270px-PicassoGuernica.jpg', 3, true, 900, '2023-11-25 14:00:00', '2023-11-27 18:00:00');
 insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('Inspired by the French July Revolution of 1830.', 'Liberty Leading the People', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Eug%C3%A8ne_Delacroix_-_La_libert%C3%A9_guidant_le_peuple.jpg/270px-Eug%C3%A8ne_Delacroix_-_La_libert%C3%A9_guidant_le_peuple.jpg', 4, true, 700, '2023-11-26 16:00:00', '2023-11-28 18:00:00');
 insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('A painting of Jesus Christ by Leonardo da Vinci.', 'Salvator Mundi', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Leonardo_da_Vinci%2C_Salvator_Mundi%2C_c.1500%2C_oil_on_walnut%2C_45.4_%C3%97_65.6_cm.jpg/270px-Leonardo_da_Vinci%2C_Salvator_Mundi%2C_c.1500%2C_oil_on_walnut%2C_45.4_%C3%97_65.6_cm.jpg', 5, true, 600, '2023-11-27 18:00:00', '2023-11-29 18:00:00');
-insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('The most famous painting from Gustav Klimt.', 'The Kiss', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Gustav_Klimt_-_The_Kiss_%28Google_Art_Project%29.jpg/270px-Gustav_Klimt_-_The_Kiss_%28Google_Art_Project%29.jpg', 6, true, 500, '2023-11-28 20:00:00', '2023-11-30 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A masterpiece by Claude Monet capturing the tranquility of water lilies.', 'Water Lilies', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Monet_-_Water_Lilies_-_1897-1899.jpg/270px-Monet_-_Water_Lilies_-_1897-1899.jpg', 7, true, 950, '2023-11-29 09:00:00', '2023-11-30 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A surrealist gem by René Magritte, challenging our perception.', 'The Son of Man', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg/270px-Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg', 8, true, 850, '2023-11-30 11:30:00', '2023-12-02 18:00:00');
+insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('The most famous painting from Gustav Klimt.', 'The Kiss', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Gustav_Klimt_-_The_Kiss_%28Google_Art_Project%29.jpg/270px-Gustav_Klimt_-_The_Kiss_%28Google_Art_Project%29.jpg', 6, true, 200, '2023-11-28 20:00:00', '2023-11-30 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A masterpiece by Claude Monet capturing the tranquility of water lilies.', 'Water Lilies', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Monet_-_Water_Lilies_-_1897-1899.jpg/270px-Monet_-_Water_Lilies_-_1897-1899.jpg', 7, true, 500, '2023-11-29 09:00:00', '2023-11-30 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A surrealist gem by René Magritte, challenging our perception.', 'The Son of Man', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg/270px-Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg', 8, true, 700, '2023-11-30 11:30:00', '2023-12-02 18:00:00');
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('An iconic American Gothic scene by Grant Wood.', 'American Gothic', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Grant_Wood_-_American_Gothic_-_Google_Art_Project.jpg/270px-Grant_Wood_-_American_Gothic_-_Google_Art_Project.jpg', 9, true, 800, '2023-12-01 13:00:00', '2023-12-03 18:00:00');
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A powerful depiction of grief and war by Kathe Kollwitz.', 'Grieving Parents', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/K%C3%A4the_Kollwitz_-_Grieving_Parents%2C_War_Memorial_in_Lozorno_%28Slovakia%29.jpg/270px-K%C3%A4the_Kollwitz_-_Grieving_Parents%2C_War_Memorial_in_Lozorno_%28Slovakia%29.jpg', 10, true, 750, '2023-12-02 15:30:00', '2023-12-04 18:00:00');
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A stunning depiction of love in Gustav Klimt''s signature style.', 'Portrait of Adele Bloch-Bauer I', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Gustav_Klimt_-_Adele_Bloch-Bauer_I_-_Google_Art_Project.jpg/270px-Gustav_Klimt_-_Adele_Bloch-Bauer_I_-_Google_Art_Project.jpg', 11, true, 700, '2023-12-03 17:00:00', '2023-12-05 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A revolutionary piece by Frida Kahlo, reflecting her pain and strength.', 'The Two Fridas', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Las_dos_fridas%2C_por_Frida_Kahlo.jpg/270px-Las_dos_fridas%2C_por_Frida_Kahlo.jpg', 12, true, 900, '2023-12-04 09:00:00', '2023-12-06 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A revolutionary piece by Frida Kahlo, reflecting her pain and strength.', 'The Two Fridas', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Las_dos_fridas%2C_por_Frida_Kahlo.jpg/270px-Las_dos_fridas%2C_por_Frida_Kahlo.jpg', 12, true, 300, '2023-12-04 09:00:00', '2023-12-06 18:00:00');
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A dynamic and bold work by Jackson Pollock, a pioneer of abstract expressionism.', 'No. 5, 1948', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Jackson_Pollock%2C_No._5%2C_1948%2C_Moma.jpg/270px-Jackson_Pollock%2C_No._5%2C_1948%2C_Moma.jpg', 13, true, 950, '2023-12-05 11:30:00', '2023-12-07 18:00:00');
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A vibrant and lively composition by Wassily Kandinsky, a pioneer of abstract art.', 'Composition VIII', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Vassily_Kandinsky%2C_1923_-_Composition_8_%28part%29.jpg/270px-Vassily_Kandinsky%2C_1923_-_Composition_8_%28part%29.jpg', 14, true, 800, '2023-12-06 13:00:00', '2023-12-08 18:00:00');
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('An iconic piece by Edvard Munch, capturing the haunting nature of anxiety.', 'The Scream', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/270px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg', 15, true, 850, '2023-12-07 15:30:00', '2023-12-09 18:00:00');
@@ -122,25 +122,25 @@ INSERT INTO auction (description, name, image, owner_id, active, starting_price,
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('An iconic work by Hokusai, featuring his detailed and intricate depiction of nature.', 'Red Fuji', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Hokusai_-_Red_Fuji_southern_wind_clear_morning_-_Google_Art_Project.jpg/270px-Hokusai_-_Red_Fuji_southern_wind_clear_morning_-_Google_Art_Project.jpg', 50, true, 800, '2024-01-11 17:00:00', '2024-01-13 18:00:00');
 
 -- Photographs
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A captivating photograph capturing the essence of urban life by Daido Moriyama.', 'Tokyo Street', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Daido_Moriyama_-_Tokyo_Street_-_Google_Art_Project.jpg/270px-Daido_Moriyama_-_Tokyo_Street_-_Google_Art_Project.jpg', 1, true, 500, '2024-01-12 09:00:00', '2024-01-14 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A captivating photograph capturing the essence of urban life by Daido Moriyama.', 'Tokyo Street', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Daido_Moriyama_-_Tokyo_Street_-_Google_Art_Project.jpg/270px-Daido_Moriyama_-_Tokyo_Street_-_Google_Art_Project.jpg', 1, true, 30, '2024-01-12 09:00:00', '2024-01-14 18:00:00');
 INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A stunning nature photograph by Ansel Adams, showcasing the grandeur of Yosemite National Park.', 'Moonrise, Hernandez, New Mexico', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Moonrise%2C_Hernandez%2C_New_Mexico_%28Ansel_Adams%29.jpg/270px-Moonrise%2C_Hernandez%2C_New_Mexico_%28Ansel_Adams%29.jpg', 1, true, 550, '2024-01-13 11:30:00', '2024-01-15 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A thought-provoking conceptual photograph by Cindy Sherman, known for her exploration of identity.', 'Untitled Film Still #21', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Cindy_Sherman_Untitled_Film_Still_21.jpg/270px-Cindy_Sherman_Untitled_Film_Still_21.jpg', 1, true, 600, '2024-01-14 13:00:00', '2024-01-16 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A powerful documentary photograph by Dorothea Lange, capturing the struggles during the Great Depression.', 'Migrant Mother', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Lange-MigrantMother02.jpg/270px-Lange-MigrantMother02.jpg', 1, true, 525, '2024-01-15 15:30:00', '2024-01-17 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A modern and dynamic photograph by Steve McCurry, known for his iconic image of the Afghan Girl.', 'Afghan Girl', 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Steve_McCurry_-_Afghan_Girl.jpg/270px-Steve_McCurry_-_Afghan_Girl.jpg', 1, true, 480, '2024-01-16 17:00:00', '2024-01-18 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A thought-provoking conceptual photograph by Cindy Sherman, known for her exploration of identity.', 'Untitled Film Still #21', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Cindy_Sherman_Untitled_Film_Still_21.jpg/270px-Cindy_Sherman_Untitled_Film_Still_21.jpg', 1, true, 20, '2024-01-14 13:00:00', '2024-01-16 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A powerful documentary photograph by Dorothea Lange, capturing the struggles during the Great Depression.', 'Migrant Mother', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Lange-MigrantMother02.jpg/270px-Lange-MigrantMother02.jpg', 1, true, 50, '2024-01-15 15:30:00', '2024-01-17 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A modern and dynamic photograph by Steve McCurry, known for his iconic image of the Afghan Girl.', 'Afghan Girl', 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Steve_McCurry_-_Afghan_Girl.jpg/270px-Steve_McCurry_-_Afghan_Girl.jpg', 1, true, 15, '2024-01-16 17:00:00', '2024-01-18 18:00:00');
 
 -- Prints
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A vibrant and abstract print by Wassily Kandinsky, showcasing his innovative use of color.', 'Composition X', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Vassily_Kandinsky%2C_1939_-_Composition_10.jpg/270px-Vassily_Kandinsky%2C_1939_-_Composition_10.jpg', 2, true, 400, '2024-01-17 09:00:00', '2024-01-19 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A whimsical and playful print by Henri Matisse, known for his use of bold shapes and colors.', 'The Snail', 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Henri_Matisse%2C_1953%2C_The_Snail%2C_Tate_Modern%2C_London.jpg/270px-Henri_Matisse%2C_1953%2C_The_Snail%2C_Tate_Modern%2C_London.jpg', 2, true, 420, '2024-01-18 11:30:00', '2024-01-20 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A classic woodblock print by Katsushika Hokusai, featuring the iconic Great Wave off Kanagawa.', 'The Great Wave off Kanagawa (Woodblock Print)', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/The_Great_Wave_off_Kanagawa.jpg/270px-The_Great_Wave_off_Kanagawa.jpg', 2, true, 380, '2024-01-19 13:00:00', '2024-01-21 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A surreal and imaginative print by René Magritte, known for his thought-provoking visual puzzles.', 'The Son of Man', 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg/270px-Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg', 2, true, 450, '2024-01-20 15:30:00', '2024-01-22 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A dynamic and energetic print by Roy Lichtenstein, a leading figure in the Pop Art movement.', 'Whaam!', 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Roy_Lichtenstein%2C_1963%2C_Whaam%21.jpg/270px-Roy_Lichtenstein%2C_1963%2C_Whaam%21.jpg', 2, true, 500, '2024-01-21 17:00:00', '2024-01-23 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A vibrant and abstract print by Wassily Kandinsky, showcasing his innovative use of color.', 'Composition X', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Vassily_Kandinsky%2C_1939_-_Composition_10.jpg/270px-Vassily_Kandinsky%2C_1939_-_Composition_10.jpg', 2, true, 7.5, '2024-01-17 09:00:00', '2024-01-19 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A whimsical and playful print by Henri Matisse, known for his use of bold shapes and colors.', 'The Snail', 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Henri_Matisse%2C_1953%2C_The_Snail%2C_Tate_Modern%2C_London.jpg/270px-Henri_Matisse%2C_1953%2C_The_Snail%2C_Tate_Modern%2C_London.jpg', 2, true, 13.4, '2024-01-18 11:30:00', '2024-01-20 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A classic woodblock print by Katsushika Hokusai, featuring the iconic Great Wave off Kanagawa.', 'The Great Wave off Kanagawa (Woodblock Print)', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/The_Great_Wave_off_Kanagawa.jpg/270px-The_Great_Wave_off_Kanagawa.jpg', 2, true, 12.5, '2024-01-19 13:00:00', '2024-01-21 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A surreal and imaginative print by René Magritte, known for his thought-provoking visual puzzles.', 'The Son of Man', 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg/270px-Ren%C3%A9_Magritte_-_The_Son_of_Man.jpg', 2, true, 20.5, '2024-01-20 15:30:00', '2024-01-22 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A dynamic and energetic print by Roy Lichtenstein, a leading figure in the Pop Art movement.', 'Whaam!', 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Roy_Lichtenstein%2C_1963%2C_Whaam%21.jpg/270px-Roy_Lichtenstein%2C_1963%2C_Whaam%21.jpg', 2, true, 10, '2024-01-21 17:00:00', '2024-01-23 18:00:00');
 
 -- Sculptures
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A striking and modern sculpture by Alberto Giacometti, known for his slender and elongated figures.', 'Walking Man I', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Alberto_Giacometti%2C_1960%2C_Walking_Man_I%2C_tate_london.jpg/270px-Alberto_Giacometti%2C_1960%2C_Walking_Man_I%2C_tate_london.jpg', 3, true, 600, '2024-01-22 09:00:00', '2024-01-24 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('An iconic and thought-provoking sculpture by Constantin Brâncuși, showcasing simplicity and abstraction.', 'Bird in Space', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Constantin_Brancusi%2C_1923%2C_Bird_in_Space%2C_Museum_of_Modern_Art.jpg/270px-Constantin_Brancusi%2C_1923%2C_Bird_in_Space%2C_Museum_of_Modern_Art.jpg', 3, true, 550, '2024-01-23 11:30:00', '2024-01-25 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A monumental and powerful sculpture by Michelangelo, representing the biblical hero David.', 'David', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Michelangelo%27s_David_2015.jpg/270px-Michelangelo%27s_David_2015.jpg', 3, true, 700, '2024-01-24 13:00:00', '2024-01-26 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A dynamic and energetic sculpture by Alexander Calder, a pioneer of kinetic art.', 'Mobile', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Calder_mobiles_tinguely.jpg/270px-Calder_mobiles_tinguely.jpg', 3, true, 500, '2024-01-25 15:30:00', '2024-01-27 18:00:00');
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A whimsical and playful sculpture by Niki de Saint Phalle, known for her colorful and fantastical creations.', 'Nana', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Niki_de_Saint_Phalle_Nana.jpg/270px-Niki_de_Saint_Phalle_Nana.jpg', 3, true, 480, '2024-01-26 17:00:00', '2024-01-28 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A striking and modern sculpture by Alberto Giacometti, known for his slender and elongated figures.', 'Walking Man I', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Alberto_Giacometti%2C_1960%2C_Walking_Man_I%2C_tate_london.jpg/270px-Alberto_Giacometti%2C_1960%2C_Walking_Man_I%2C_tate_london.jpg', 3, true, 95, '2024-01-22 09:00:00', '2024-01-24 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('An iconic and thought-provoking sculpture by Constantin Brâncuși, showcasing simplicity and abstraction.', 'Bird in Space', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Constantin_Brancusi%2C_1923%2C_Bird_in_Space%2C_Museum_of_Modern_Art.jpg/270px-Constantin_Brancusi%2C_1923%2C_Bird_in_Space%2C_Museum_of_Modern_Art.jpg', 3, true, 120, '2024-01-23 11:30:00', '2024-01-25 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A monumental and powerful sculpture by Michelangelo, representing the biblical hero David.', 'David', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Michelangelo%27s_David_2015.jpg/270px-Michelangelo%27s_David_2015.jpg', 3, true, 100, '2024-01-24 13:00:00', '2024-01-26 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A dynamic and energetic sculpture by Alexander Calder, a pioneer of kinetic art.', 'Mobile', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Calder_mobiles_tinguely.jpg/270px-Calder_mobiles_tinguely.jpg', 3, true, 50, '2024-01-25 15:30:00', '2024-01-27 18:00:00');
+INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A whimsical and playful sculpture by Niki de Saint Phalle, known for her colorful and fantastical creations.', 'Nana', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Niki_de_Saint_Phalle_Nana.jpg/270px-Niki_de_Saint_Phalle_Nana.jpg', 3, true, 90, '2024-01-26 17:00:00', '2024-01-28 18:00:00');
 
 
 /*
@@ -246,56 +246,56 @@ insert into auction (description, name, image, owner_id, active, start_t, end_t)
 insert into auction (description, name, image, owner_id, active, start_t, end_t) values ('Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.', 'O-Cal FA multivitamin', 'http://dummyimage.com/158x100.png/cc0000/ffffff', 21, false, '2023-09-06 19:48:00', '2023-10-13 11:59:02');
 */
 
-insert into bid (amount, date, user_id, auction_id) values (200, '2023-01-09 06:54:57', 2, 1);
-insert into bid (amount, date, user_id, auction_id) values (27.13, '2023-01-02 12:34:01', 3, 2);
-insert into bid (amount, date, user_id, auction_id) values (34.93, '2023-05-15 20:38:56', 2, 3);
-insert into bid (amount, date, user_id, auction_id) values (55.22, '2023-04-03 20:33:56', 2, 4);
-insert into bid (amount, date, user_id, auction_id) values (87.79, '2023-10-11 13:07:13', 2, 5);
-insert into bid (amount, date, user_id, auction_id) values (87.8, '2023-04-09 12:42:03', 7, 6);
-insert into bid (amount, date, user_id, auction_id) values (2.46, '2023-06-17 16:44:26',15, 9);
-insert into bid (amount, date, user_id, auction_id) values (55.83, '2023-05-02 17:00:00', 20, 3);
-insert into bid (amount, date, user_id, auction_id) values (76.5, '2023-06-07 11:17:22', 13, 7);
-insert into bid (amount, date, user_id, auction_id) values (75.53, '2023-10-04 17:02:25', 15, 10);
-insert into bid (amount, date, user_id, auction_id) values (83.72, '2022-10-29 17:50:50', 16, 10);
-insert into bid (amount, date, user_id, auction_id) values (44.02, '2022-11-29 13:00:00', 42, 8);
-insert into bid (amount, date, user_id, auction_id) values (78.51, '2023-04-27 16:26:35', 14, 2);
-insert into bid (amount, date, user_id, auction_id) values (40.85, '2023-01-10 06:59:30', 12, 9);
-insert into bid (amount, date, user_id, auction_id) values (250, '2022-10-03 06:41:27', 13, 1);
-insert into bid (amount, date, user_id, auction_id) values (300, '2022-10-19 10:23:55', 18, 1);
-insert into bid (amount, date, user_id, auction_id) values (21.72, '2023-01-18 16:17:31', 27, 11);
-insert into bid (amount, date, user_id, auction_id) values (6.22, '2022-12-13 01:42:01', 49, 35);
-insert into bid (amount, date, user_id, auction_id) values (68.07, '2023-02-06 16:06:48', 24, 2);
-insert into bid (amount, date, user_id, auction_id) values (88.31, '2023-02-28 15:14:58', 12, 48);
-insert into bid (amount, date, user_id, auction_id) values (8.42, '2023-01-16 13:09:45', 44, 54);
-insert into bid (amount, date, user_id, auction_id) values (12.06, '2023-06-10 04:24:12', 43, 41);
-insert into bid (amount, date, user_id, auction_id) values (15.88, '2023-04-21 00:48:46', 50, 51);
-insert into bid (amount, date, user_id, auction_id) values (5.49, '2023-08-06 09:40:26', 49, 23);
-insert into bid (amount, date, user_id, auction_id) values (52.86, '2023-01-26 15:46:23', 10, 31);
-insert into bid (amount, date, user_id, auction_id) values (18.7, '2023-03-19 21:35:53', 49, 41);
-insert into bid (amount, date, user_id, auction_id) values (26.55, '2023-07-10 20:35:20', 43, 39);
-insert into bid (amount, date, user_id, auction_id) values (65.08, '2022-10-09 19:34:07', 20, 28);
-insert into bid (amount, date, user_id, auction_id) values (79.49, '2023-03-13 16:36:05', 43, 42);
-insert into bid (amount, date, user_id, auction_id) values (45.11, '2023-01-03 15:26:11', 15, 32) ;
-insert into bid (amount, date, user_id, auction_id) values (35.05, '2023-08-08 01:29:07', 27, 54);
-insert into bid (amount, date, user_id, auction_id) values (96.71, '2023-09-12 09:20:54', 4, 25);
-insert into bid (amount, date, user_id, auction_id) values (93.65, '2022-10-08 14:58:41', 29, 41);
-insert into bid (amount, date, user_id, auction_id) values (14.07, '2023-10-01 17:55:14', 35, 30);
-insert into bid (amount, date, user_id, auction_id) values (21.42, '2022-12-31 14:05:01', 14, 29);
-insert into bid (amount, date, user_id, auction_id) values (69.28, '2022-12-23 05:56:27', 7, 50);
-insert into bid (amount, date, user_id, auction_id) values (68.24, '2023-08-20 23:32:36', 10, 11);
-insert into bid (amount, date, user_id, auction_id) values (26.21, '2022-12-18 23:16:55', 33, 12);
-insert into bid (amount, date, user_id, auction_id) values (85.34, '2023-04-04 05:23:07', 9, 21);
-insert into bid (amount, date, user_id, auction_id) values (9.11, '2022-12-03 18:12:52', 12, 34);
-insert into bid (amount, date, user_id, auction_id) values (25.67, '2023-09-29 15:50:47', 33, 26);
-insert into bid (amount, date, user_id, auction_id) values (70.75, '2022-12-30 02:53:44', 2, 32);
-insert into bid (amount, date, user_id, auction_id) values (81.62, '2023-02-27 04:20:08', 26, 62);
-insert into bid (amount, date, user_id, auction_id) values (63.01, '2023-10-05 02:06:06', 25, 53);
-insert into bid (amount, date, user_id, auction_id) values (59.01, '2023-10-22 01:59:59', 22, 33);
-insert into bid (amount, date, user_id, auction_id) values (35.8, '2023-09-01 11:54:48', 25, 41);
-insert into bid (amount, date, user_id, auction_id) values (84.2, '2022-11-13 14:42:33', 23, 14);
-insert into bid (amount, date, user_id, auction_id) values (35.81, '2023-05-02 20:34:28', 50, 34);
-insert into bid (amount, date, user_id, auction_id) values (69.03, '2022-12-01 18:22:43', 50, 61);
-insert into bid (amount, date, user_id, auction_id) values (101.5, '2022-12-10 12:35:03', 50, 25);
+insert into bid (amount, date, user_id, auction_id) values (1100000000, '2023-01-09 06:54:57', 2, 1);
+insert into bid (amount, date, user_id, auction_id) values (800, '2023-01-02 12:34:01', 3, 2);
+insert into bid (amount, date, user_id, auction_id) values (1000, '2023-05-15 20:38:56', 2, 3);
+insert into bid (amount, date, user_id, auction_id) values (900, '2023-04-03 20:33:56', 2, 4);
+insert into bid (amount, date, user_id, auction_id) values (850, '2023-10-11 13:07:13', 2, 5);
+insert into bid (amount, date, user_id, auction_id) values (490, '2023-04-09 12:42:03', 7, 6);
+insert into bid (amount, date, user_id, auction_id) values (5000, '2023-06-17 16:44:26', 15, 9);
+insert into bid (amount, date, user_id, auction_id) values (1200, '2023-05-02 17:00:00', 20, 3);
+insert into bid (amount, date, user_id, auction_id) values (850, '2023-06-07 11:17:22', 13, 7);
+insert into bid (amount, date, user_id, auction_id) values (1000, '2023-10-04 17:02:25', 15, 10);
+insert into bid (amount, date, user_id, auction_id) values (1410, '2022-10-29 17:50:50', 16, 10);
+insert into bid (amount, date, user_id, auction_id) values (890, '2022-11-29 13:00:00', 42, 8);
+insert into bid (amount, date, user_id, auction_id) values (1320, '2023-04-27 16:26:35', 14, 2);
+insert into bid (amount, date, user_id, auction_id) values (6000, '2023-01-10 06:59:30', 12, 9);
+insert into bid (amount, date, user_id, auction_id) values (1250000000, '2022-10-03 06:41:27', 13, 1);
+insert into bid (amount, date, user_id, auction_id) values (2000000000, '2022-10-19 10:23:55', 18, 1);
+insert into bid (amount, date, user_id, auction_id) values (1030, '2023-01-18 16:17:31', 27, 11);
+insert into bid (amount, date, user_id, auction_id) values (930, '2022-12-13 01:42:01', 49, 35);
+insert into bid (amount, date, user_id, auction_id) values (940, '2023-02-06 16:06:48', 24, 2);
+insert into bid (amount, date, user_id, auction_id) values (3200, '2023-02-28 15:14:58', 12, 48);
+insert into bid (amount, date, user_id, auction_id) values (820, '2023-01-16 13:09:45', 44, 54);
+insert into bid (amount, date, user_id, auction_id) values (1500, '2023-06-10 04:24:12', 43, 41);
+insert into bid (amount, date, user_id, auction_id) values (115.88, '2023-04-21 00:48:46', 50, 51);
+insert into bid (amount, date, user_id, auction_id) values (5000, '2023-08-06 09:40:26', 49, 23);
+insert into bid (amount, date, user_id, auction_id) values (2000, '2023-01-26 15:46:23', 10, 31);
+insert into bid (amount, date, user_id, auction_id) values (1501, '2023-03-19 21:35:53', 49, 41);
+insert into bid (amount, date, user_id, auction_id) values (1600, '2023-07-10 20:35:20', 43, 39);
+insert into bid (amount, date, user_id, auction_id) values (3000, '2022-10-09 19:34:07', 20, 28);
+insert into bid (amount, date, user_id, auction_id) values (1800, '2023-03-13 16:36:05', 43, 42);
+insert into bid (amount, date, user_id, auction_id) values (1850, '2023-01-03 15:26:11', 15, 32);
+insert into bid (amount, date, user_id, auction_id) values (1400, '2023-08-08 01:29:07', 27, 54);
+insert into bid (amount, date, user_id, auction_id) values (1500, '2023-09-12 09:20:54', 4, 25);
+insert into bid (amount, date, user_id, auction_id) values (1920, '2022-10-08 14:58:41', 29, 41);
+insert into bid (amount, date, user_id, auction_id) values (1400, '2023-10-01 17:55:14', 35, 30);
+insert into bid (amount, date, user_id, auction_id) values (1700, '2022-12-31 14:05:01', 14, 29);
+insert into bid (amount, date, user_id, auction_id) values (2000, '2022-12-23 05:56:27', 7, 50);
+insert into bid (amount, date, user_id, auction_id) values (2100, '2023-08-20 23:32:36', 10, 11);
+insert into bid (amount, date, user_id, auction_id) values (1905, '2022-12-18 23:16:55', 33, 12);
+insert into bid (amount, date, user_id, auction_id) values (1500, '2023-04-04 05:23:07', 9, 21);
+insert into bid (amount, date, user_id, auction_id) values (3000, '2022-12-03 18:12:52', 12, 34);
+insert into bid (amount, date, user_id, auction_id) values (4000, '2023-09-29 15:50:47', 33, 26);
+insert into bid (amount, date, user_id, auction_id) values (10000, '2022-12-30 02:53:44', 2, 32);
+insert into bid (amount, date, user_id, auction_id) values (5000, '2023-02-27 04:20:08', 26, 62);
+insert into bid (amount, date, user_id, auction_id) values (6200, '2023-10-05 02:06:06', 25, 53);
+insert into bid (amount, date, user_id, auction_id) values (7000, '2023-10-22 01:59:59', 22, 33);
+insert into bid (amount, date, user_id, auction_id) values (20000, '2023-09-01 11:54:48', 25, 41);
+insert into bid (amount, date, user_id, auction_id) values (50000, '2022-11-13 14:42:33', 23, 14);
+insert into bid (amount, date, user_id, auction_id) values (10000, '2023-05-02 20:34:28', 50, 34);
+insert into bid (amount, date, user_id, auction_id) values (20000, '2022-12-01 18:22:43', 50, 61);
+insert into bid (amount, date, user_id, auction_id) values (30000, '2022-12-10 12:35:03', 50, 25);
 
 /*
 insert into comment (message, date, source_user_id) values ('Etiam vel augue.', '2023-10-11 20:10:37', 25);
