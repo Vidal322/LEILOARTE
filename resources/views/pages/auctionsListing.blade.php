@@ -6,9 +6,9 @@
     @include('partials.auctionCard', ['auction' => $auction])
   @endforeach
 </div>
-<div class="pagination-icons">
-  {{ $auctions->links() }}  
-</div>
+{{-- <div class="pagination-icons"> --}}
+  {{-- {{ $auctions->links() }}   --}}
+{{-- </div> --}}
 
 <a class="button" id="createAuctionButton" href="{{ route('createAuction') }}"> Create Auction </a>
 @endsection

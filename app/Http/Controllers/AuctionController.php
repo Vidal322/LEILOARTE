@@ -125,14 +125,29 @@ class AuctionController extends Controller
     // search using tsvectors
     public function ftsSearch(Request $request)
     { 
-      $search = $request->get('search');
-      $formattedSearch = str_replace(' ', '|', $search);
-      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->paginate(10);
-    
-      //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
-      return view('pages.auctionsListing', ['auctions' => $auctions]);
+      if ($request->has('text') && $request->get('text') != '') {
+
+      $search = $request->get('text');
+
+      $formattedSearch = str_replace(' ', ' | ', $search);
+      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get();
+
+      }
+
+      else {
+        $auctions = Auction::all();
+      }
+
+      return response()->json($auctions);
+      //return view('pages.auctionsListing', ['auctions' => $auctions]);
+
     }
 
-    
+    public function index(Request $request) {
+      $auctions = json_decode($this->ftsSearch($request)->content());
+      return view('pages.auctionsListing', ['auctions' => $auctions]);
+    }
+      //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
+      //return response()->json($auctions);
 
 }
