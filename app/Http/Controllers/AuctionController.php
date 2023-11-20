@@ -16,6 +16,13 @@ class AuctionController extends Controller
       return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
 
+    public function bids($id)
+    {
+      $auction = Auction::find($id);
+      $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+      return view('pages.bids', ['bids' => $bids]);
+    }
+
     public function show($id)
     {
       $auction = Auction::find($id);

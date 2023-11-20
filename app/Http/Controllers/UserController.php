@@ -16,6 +16,12 @@ class UserController extends Controller
       return view('pages.user', ['user' => $user]);
     }
 
+    public static function returnUser($id)
+    {
+      $user = User::find($id);
+      return $user;
+    }
+
     public function list()
     {
       $users = User::all();
