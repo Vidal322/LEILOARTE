@@ -115,7 +115,7 @@ class AuctionController extends Controller
     { 
       $search = $request->get('search');
       $formattedSearch = str_replace(' ', '|', $search);
-      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get();
+      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->paginate(10);
     
       //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
       return view('pages.auctionsListing', ['auctions' => $auctions]);
