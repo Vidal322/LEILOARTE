@@ -30,6 +30,7 @@ paths:
    responses:
     '200':
      description: Display login UI
+
   post:
     operationId: R102
     summary: 'R102: Login'
@@ -250,7 +251,6 @@ paths:
       description: 'Process the delete user profile form. Access: OWN, ADM'
       tags:
         - 'M01: Authentication and Individual Profile'
-        - 'M02: Administration and Static Pages'
       parameters:
         - name: id
           in: path
@@ -297,27 +297,6 @@ paths:
           description: Display user auctions UI
         '404':
           description: User not found
-
- /users/{id}/bid:
-  get:
-    operationId: R111
-    summary: 'R111: User Bids'
-    description: 'Display user bids. Access: USR, ADM'
-    tags:
-      - 'M01: Authentication and Individual Profile'
-    parameters:
-      - name: id
-        in: path
-        description: User ID
-        required: true
-        schema:
-          type: integer
-          format: int64
-    responses:
-      '200':
-        description: Display user bids UI
-      '404':
-        description: User not found
   
  /auctions/create:
     get:
@@ -482,7 +461,6 @@ paths:
       description: 'Process the delete auction form. Access: OWN, ADM'
       tags:
         - 'M04: Auctions'
-        - 'M02: Administration and Static Pages'
       parameters:
         - name: id
           in: path
@@ -595,3 +573,14 @@ paths:
       responses:
         '200':
           description: Display contacts UI
+
+ /search:
+  get: 
+   operationId: R401
+   summary: 'R401: Search'
+   description: 'Display Full-Text Search Results. Access: PUB'
+   tags: 
+    - 'M03: Search'
+   responses:
+    '200':
+     description: Display results

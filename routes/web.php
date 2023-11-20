@@ -14,10 +14,6 @@
 
 Route::get('/', 'Auth\LoginController@home');
 
-// Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
-
 // API
 Route::put('api/cards', 'CardController@create');
 Route::delete('api/cards/{card_id}', 'CardController@delete');
@@ -28,7 +24,7 @@ Route::delete('api/item/{id}', 'ItemController@delete');
 // Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
@@ -41,15 +37,16 @@ Route::get('/auctions/{id}', 'AuctionController@show')->name('auctions');
 Route::get('auctions/{id}/edit', 'AuctionController@showEditForm')->name('editAuctionForm');
 Route::post('auctions/{id}/edit', 'AuctionController@edit')->name('editAuction');
 Route::get('auctions/{id}/delete', 'AuctionController@delete')->name('deleteAuction');
+
 // Users
 Route::get('users/{id}', 'UserController@show')->name('user');
 Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAuctions');
 Route::get('users/{id}/edit', 'UserController@showEditForm')->name('editUserForm');
 Route::post('users/{id}/edit', 'UserController@edit')->name('editUser');
-Route::get('users/{id}/delete', 'UserController@delete')->name('deleteUser');
+Route::post('users/{id}/delete', 'UserController@delete')->name('deleteUser');
 Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('followAuctions');
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
-
+Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
 
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');

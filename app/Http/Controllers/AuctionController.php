@@ -49,6 +49,12 @@ class AuctionController extends Controller
       return redirect('auctions/'.$id);
     }
 
+    public function unfollow($auction_id)
+    {
+      $auctionSave = AuctionSave::where('user_id', Auth::user()->id)->where('auction_id', $auction_id)->delete();
+      return redirect('auctions/'.$auction_id);
+    }
+
     public function showCreateForm()
     {
       return view('pages.createAuction', ['id' => Auth::user()->id]);
