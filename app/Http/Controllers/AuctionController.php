@@ -12,7 +12,7 @@ class AuctionController extends Controller
     
     public function list()
     {
-      $auctions = Auction::all();
+      $auctions = Auction::paginate(10);
       return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
 

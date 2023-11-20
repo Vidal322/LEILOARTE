@@ -37,8 +37,8 @@ main > header span {
   background-color: white;
 }
 form {
-  margin-top: 20px !important; /* Adjust the top margin based on your preference */
-  margin-bottom: 120px !important; /* Adjust the bottom margin based on your preference */
+  margin-top: 20px !important; 
+  margin-bottom: 120px !important; 
 }
 @media (max-width: 70em) {
   #cards {
@@ -135,8 +135,8 @@ input[type=password]:focus {
   justify-content: center;
   align-items: center; 
   margin-top: 200px;
-  background-color: #f4f5f6; /* Light grey background color */
-  padding: 20px; /* Add padding to the box */
+  background-color: #f4f5f6; 
+  padding: 20px; 
   border-radius: 5px;
 }
 
@@ -165,8 +165,8 @@ footer {
 
 .auction-card {
   display: flex;
-  background-color: #f4f4f4; /* Light grey background color */
-  border: 1px solid #ddd; /* Border color */
+  background-color: #f4f4f4; 
+  border: 1px solid #ddd; 
   margin-bottom: 10px; 
   padding: 50px;
   width: 1000px; 
@@ -202,8 +202,8 @@ footer {
 
 .content img[alt="UserImage"]  {
   border-radius: 50%;
-  width: 150px; /* Adjust the size as needed */
-  height: 150px; /* Adjust the size as needed */
+  width: 150px; 
+  height: 150px; 
   margin-right: 20px;
   margin-left: 200px; 
 }
@@ -213,11 +213,11 @@ footer {
 }
 
 .content div div {
-  margin-bottom: 10px; /* Adjust the spacing between lines as needed */
+  margin-bottom: 10px; 
 }
 
 .button {
-  margin-top: 10px; /* Adjust the spacing as needed */
+  margin-top: 10px; 
 }
 
 .info {
@@ -239,7 +239,7 @@ footer {
 .button-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px; /* Adjust the top margin based on your preference */
+  margin-bottom: 20px; 
 }
 
 .button-container button {
@@ -251,4 +251,13 @@ footer {
   position: fixed;
   top: 80%;
   right: 10%;
+}
+
+.pagination-icons {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap; 
+  justify-content: center;
+  margin-bottom: 20px; 
+  font-size: 1em;
 }
