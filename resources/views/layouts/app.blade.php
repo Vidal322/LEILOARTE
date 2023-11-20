@@ -17,7 +17,7 @@
         // Fix for Firefox autofocus CSS bug
         // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
     </script>
-    <script type="text/javascript" src={{ asset('js/app.js') }} defer>
+    <script src={{ asset('js/app.js') }} defer>
 </script>
   </head>
   <body>
@@ -25,10 +25,10 @@
       <header>
         <h1><a href="{{ url('/') }}">LeiloArte</a></h1>
         <nav class="navigation">
-          <form method="GET" action="{{ route('FTSsearch') }}">
+          <form method="GET" action="{{ url('/') }}">
             {{ csrf_field() }}
-            <input type="text" name="search" placeholder="Search..">
-            <button class= "button"> Search </button>
+            <input id="searchBar" type="text" name="search" placeholder="Search..">
+            <button class= "button" id="searchButton"> Search </button>
           </form>
           <a class = "button" href="{{ route('home') }}"> Home </a>
           <a class = "button" href="{{ route('home')}}"> About us </a>
