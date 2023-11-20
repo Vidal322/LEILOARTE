@@ -28,7 +28,6 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-
 // Auction
 Route::get('/', 'AuctionController@list')->name('home');
 Route::get('/auctions/create', 'AuctionController@showCreateForm')->name('createAuctionForm');
@@ -51,3 +50,6 @@ Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
+
+// Search
+Route::get('search/search', 'AuctionController@ftsSearch')->name('FTSsearch');

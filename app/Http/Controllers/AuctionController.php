@@ -100,4 +100,17 @@ class AuctionController extends Controller
       $auction->delete();
       return redirect('/');
     }
+    
+    // search using tsvectors
+    public function ftsSearch(Request $request)
+    { 
+      $search = $request->get('search');
+      $formattedSearch = str_replace(' ', '|', $search);
+      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get();
+    
+      //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
+      return view('pages.auctionsListing', ['auctions' => $auctions]);
+    }
+
+      
 }

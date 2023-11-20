@@ -140,16 +140,16 @@ CREATE FUNCTION func_auction_search_update() RETURNS TRIGGER AS $$
 BEGIN
 IF TG_OP = 'INSERT' THEN 
     NEW.tsvectors = (
-        setweight(to_tsvector('english', NEW.description), 'A') ||
-        setweight(to_tsvector('english', NEW.name), 'B') ||
+        setweight(to_tsvector('english', NEW.description), 'B') ||
+        setweight(to_tsvector('english', NEW.name), 'A') ||
         setweight(to_tsvector('english', get_categories_from_auction(NEW.id)), 'C')
     );
     END IF;
 IF TG_OP = 'UPDATE' THEN
     IF (NEW.description <> OLD.description OR NEW.name <> OLD.name) THEN
         NEW.tsvectors= (
-        setweight(to_tsvector('english', NEW.description), 'A') ||
-        setweight(to_tsvector('english', NEW.name), 'B') ||
+        setweight(to_tsvector('english', NEW.description), 'B') ||
+        setweight(to_tsvector('english', NEW.name), 'A') ||
         setweight(to_tsvector('english', get_categories_from_auction(NEW.id)), 'C')
     );
     END IF;
