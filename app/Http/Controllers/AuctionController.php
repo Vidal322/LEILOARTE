@@ -97,9 +97,18 @@ class AuctionController extends Controller
     public function delete($id)
     {
       $auction = Auction::find($id);
+      $this->authorize('delete', $auction);
       $auction->delete();
       return redirect('/');
     }
+
+    public function listBids($id)
+    {
+      $auction = Auction::find($id);
+      $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+      return view('pages.bids', ['bids' => $bids]);
+    }
+
     
     // search using tsvectors
     public function ftsSearch(Request $request)
@@ -112,5 +121,4 @@ class AuctionController extends Controller
       return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
 
-      
 }
