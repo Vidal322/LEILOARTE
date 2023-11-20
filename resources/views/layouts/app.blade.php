@@ -49,6 +49,9 @@
       <section id="content">
         @yield('content')
       </section>
+      <footer>
+        <p>&copy; 2023-{{ date('Y') }} LeiloArte. All Rights Reserved.</p>
+      </footer>
     </main>
   </body>
 </html>
