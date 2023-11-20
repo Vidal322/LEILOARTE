@@ -9,6 +9,9 @@ use App\Models\Auction;
 use App\Http\Controllers\AuctionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\QueryException;
+use League\CommonMark\Node\Query;
 
 class BidController extends Controller
 {
@@ -23,18 +26,22 @@ class BidController extends Controller
 
       //find top bid
       $auction = Auction::find($id);
-      $bids = $auction->bids()->orderBy('amount', 'desc')->get();
-      if (count($bids) != 0) {
-        $topBid = $bids[0];
-      } else {
-        $topBid = null;
+        $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+        if (count($bids) != 0) {
+          $topBid = $bids[0];
+        } 
+        else {
+          $topBid = null;
+        }
+      try {
+        $this->authorize('bid', [$user, $topBid]);
+        $bid->save();
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
+      catch (QueryException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
       }
-      Log::info("user: {$user}");
-      Log::info("Top bid: {$topBid}");
-      //policy
-      $this->authorize('bid', [$user, $topBid]);
-
-      $bid->save();
       return redirect('auctions/'.$id);
     }
 
