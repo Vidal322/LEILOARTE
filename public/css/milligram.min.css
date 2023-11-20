@@ -102,8 +102,8 @@
   input[type='reset'][disabled]:hover,
   input[type='submit'][disabled]:focus,
   input[type='submit'][disabled]:hover {
-    background-color: #2556AE;
-    border-color: #2556AE;
+    background-color: #066d6d;
+    border-color: #066d6d;
   }
   
   .button.button-outline,
@@ -112,7 +112,7 @@
   input[type='reset'].button-outline,
   input[type='submit'].button-outline {
     background-color: transparent;
-    color: #2556AE;
+    color: #066d6d;
   }
   
   .button.button-outline:focus,
@@ -141,7 +141,7 @@
   input[type='submit'].button-outline[disabled]:focus,
   input[type='submit'].button-outline[disabled]:hover {
     border-color: inherit;
-    color: #2556AE;
+    color: #066d6d;
   }
   
   .button.button-clear,
@@ -151,7 +151,7 @@
   input[type='submit'].button-clear {
     background-color: transparent;
     border-color: transparent;
-    color: #2556AE;
+    color: #066d6d;
   }
   
   .button.button-clear:focus,
@@ -179,7 +179,7 @@
   input[type='reset'].button-clear[disabled]:hover,
   input[type='submit'].button-clear[disabled]:focus,
   input[type='submit'].button-clear[disabled]:hover {
-    color: #2556AE;
+    color: #066d6d;
   }
   
   code {
@@ -241,7 +241,7 @@
   input[type='url']:focus,
   textarea:focus,
   select:focus {
-    border-color: #2556AE;
+    border-color: #066d6d;
     outline: 0;
   }
   

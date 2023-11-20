@@ -34,7 +34,7 @@ CREATE TABLE auction(
     image TEXT,
     owner_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
-    starting_price FLOAT DEFAULT 0 NOT NULL,
+    starting_price FLOAT DEFAULT 0 NOT NULL CONSTRAINT auction_starting_price_ck CHECK (starting_price >= 0),
     start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     end_t TIMESTAMP WITH TIME ZONE NOT NULL,
     CONSTRAINT auction_date_ck CHECK (end_t > start_t)
@@ -412,14 +412,24 @@ EXECUTE PROCEDURE prevent_admin_bids();
 -- Create a trigger function to check the bid value.
 CREATE OR REPLACE FUNCTION check_bid_value()
 RETURNS TRIGGER AS $$
-    -- Find the latest bid with top_bid=true for the same auction.
+    -- Find the starting price and the latest bid with top_bid=true for the same auction.
     DECLARE
+        starting FLOAT;
         latest_bid_value FLOAT;
 BEGIN
     SELECT amount
     INTO latest_bid_value
     FROM bid
     WHERE auction_id = NEW.auction_id AND top_bid = true;
+
+    SELECT starting_price
+    INTO starting
+    FROM auction
+    WHERE auction.id = NEW.auction_id;
+
+    IF NEW.amount < starting THEN
+        RAISE EXCEPTION 'The new bid must be equal to or higher than the starting price for the auction.';
+    END IF;
 
     -- Check if the new bid amount is lower than the latest bid.
     IF NEW.amount <= latest_bid_value THEN

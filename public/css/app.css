@@ -17,8 +17,9 @@ main > header a.button {
   justify-self: right;
 }
 main > header span {
-  margin: 1em;
-  justify-self: right;
+  color: #ffffff;
+  background-color: #088F8F;
+  border-color: #ffffff !important;
 }
 #content label {
   font-weight: normal;
@@ -35,10 +36,6 @@ main > header span {
 }
 #content > form input {
   background-color: white;
-}
-form {
-  margin-top: 20px !important; 
-  margin-bottom: 120px !important; 
 }
 @media (max-width: 70em) {
   #cards {
@@ -88,6 +85,7 @@ button {
   background-color: #088F8F;
   border-color: #ffffff;
 }
+form > button.button,
 a.button {
   background-color: #088F8F;
   border-color: #ffffff;
@@ -155,6 +153,8 @@ footer {
   color: #ffffff;
   text-align: center;
   padding: 10px;
+  position: relative;
+  top: 95px;
 }
 
 .auctions_list {
@@ -229,11 +229,11 @@ footer {
 }
 
 .info div:first-child {
-  margin-top: 200px;
+  margin-top: 20px;
 }
 
 .info div:last-child {
-  margin-bottom: 200px; 
+  margin-bottom: 20px; 
 }
 
 .button-container {
@@ -260,4 +260,33 @@ footer {
   justify-content: center;
   margin-bottom: 20px; 
   font-size: 1em;
+}
+
+
+.transparent-box {
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 10px; /* Adjust the padding as needed */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  display: inline-block; /* Make sure it only takes up the necessary width */
+}
+
+.transparent-box a {
+  color: white;
+  text-decoration: none;
+}
+
+.transparent-box:hover {
+  background-color: #066d6d; /* Change this to the desired color */
+}
+
+.transparent-box:hover a {
+  color: white; /* You can adjust the text color on hover if needed */
+}
+.navigation form input[type="text"] {
+  background-color: white;
+  /* Add any additional styling as needed */
+  padding: 8px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Add a border for better visibility */
+  border-radius: 4px; /* Optional: Add rounded corners */
 }

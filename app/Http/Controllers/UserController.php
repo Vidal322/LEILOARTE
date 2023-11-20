@@ -6,14 +6,27 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
     public function show($id)
     {
       $user = User::find($id);
-      $this->authorize('view', $user);
+      try {
+        $this->authorize('view', $user);
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
+      
       return view('pages.user', ['user' => $user]);
+    }
+
+    public static function returnUser($id)
+    {
+      $user = User::find($id);
+      return $user;
     }
 
     public function list()
@@ -25,27 +38,47 @@ class UserController extends Controller
     public function showEditForm($id)
     {
       $user = User::find($id);
-      $this->authorize('edit', $user);
+      try {
+        $this->authorize('edit', $user);
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
+      
       return view('pages.editUser', ['id' => $id]);
     }
 
     public function edit(Request $request, $id)
     {
       $user = User::find($id);
-      $this->authorize('edit', $user);
       $user->name = $request->input('name');
       $user->email = $request->input('email');
       $user->username = $request->input('username');
-      $user->update();
+      try {
+        $this->authorize('edit', $user);
+        $user->update();
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
+      catch (QueryException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+      }
+      
       return redirect('users/'.$id);
     }
 
     public function delete($id)
     {
       $user = User::find($id);
-      $this->authorize('deleteUser', $user);
       $user->deleted = true;
-      $user->update();
+      try {
+        $this->authorize('deleteUser', $user);;
+        $user->update();
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
+      catch (QueryException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+      }
       Auth::logout();
 
       return redirect(route('home'));

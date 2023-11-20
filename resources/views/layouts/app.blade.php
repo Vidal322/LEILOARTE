@@ -34,16 +34,20 @@
           <a class = "button" href="{{ route('home')}}"> About us </a>
           
           @if (Auth::check())
-          <form method="POST" action="{{ route('logout') }}">
-            {{ csrf_field() }}
-            <button class= "button"> Logout </button>
-          </form>
-          <span><a href= "{{ route('user', ['id'=>Auth::user()->id]) }}">{{ Auth::user()->name }}</a></span>
-          @endif
-          @if (!Auth::check())
+          <div class="user-controls">
+              <form method="POST" action="{{ route('logout') }}">
+                  {{ csrf_field() }}
+                  <button class="button"> Logout </button>
+              </form>
+              <span class="transparent-box"><a href="{{ route('user', ['id'=>Auth::user()->id]) }}" class="user-link">{{ Auth::user()->name }}</a></span>
+          </div>
+      @endif
+
+      @if (!Auth::check())
+
             <a class="button" href="{{ url('/login') }}"> Login </a>
             <a class="button" href="{{ url('/register') }}"> Register </a>
-          @endif
+        @endif
         </nav>
       </header>
       <section id="content">

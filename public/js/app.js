@@ -69,3 +69,7 @@ function insertAuction(auction) {
 
 
 addEventListeners();
+
+
+
+

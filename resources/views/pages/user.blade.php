@@ -13,24 +13,34 @@
         </div>
         <div class="button-container">
             <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
-            <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
-            <button class="button button-outline"><a href="{{ route('deleteUser', ['id' => $user->id]) }}">Delete</a></button>
+            <!-- <button class="button button-outline"><a href="{{ route('deleteUser', ['id' => $user->id]) }}">Delete</a></button> -->
         </div>
 
         {{-- if owner--}}
         @if (Auth::check() && Auth::user()->id == $user->id)
-        <button class="button button-outline"><a href="{{ route('followedAuctions', ['id' => $user->id]) }}">Followed Auctions</a></button>
-        <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
-        <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
-        <form method="POST" action="{{ route('deleteUser', ['id' => $user->id]) }}">
-            {{ csrf_field() }}
-            <button class="button button-outline">Delete</button>
-        </form>
+        <div class="button-container">
+            <button class="button button-outline"><a href="{{ route('followedAuctions', ['id' => $user->id]) }}">Followed Auctions</a></button>
+            <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
+            <form method="POST" action="{{ route('deleteUser', ['id' => $user->id]) }}">
+                {{ csrf_field() }}
+                <button class="button button-outline"> <a> Delete </a> </button>
+            </form>
+        </div>
         @endif
 
-        {{-- if not owner --}}
+        {{-- if admin--}}
+        @if (Auth::check() && Auth::user()->type == 'admin' && Auth::user()->id != $user->id)
+        <div class="button-container">
+            <form method="POST" action="{{ route('deleteUser', ['id' => $user->id]) }}">
+                {{ csrf_field() }}
+                <button class="button button-outline">Delete</button>
+            </form>
+        </div>
+        @endif
+
+        <!-- {{-- if not owner --}}
         @if (Auth::check() && Auth::user()->id != $user->id)
         <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
-        @endif
+        @endif -->
 
     @endsection

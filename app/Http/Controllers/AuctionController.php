@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Auction;
 use App\Models\AuctionSave;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class AuctionController extends Controller
 {
@@ -14,6 +15,13 @@ class AuctionController extends Controller
     {
       $auctions = Auction::paginate(10);
       return view('pages.auctionsListing', ['auctions' => $auctions]);
+    }
+
+    public function bids($id)
+    {
+      $auction = Auction::find($id);
+      $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+      return view('pages.bids', ['bids' => $bids]);
     }
 
     public function show($id)
@@ -97,7 +105,11 @@ class AuctionController extends Controller
     public function delete($id)
     {
       $auction = Auction::find($id);
-      $this->authorize('delete', $auction);
+      try {
+        $this->authorize('delete', $auction);
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
       $auction->delete();
       return redirect('/');
     }
@@ -137,4 +149,5 @@ class AuctionController extends Controller
     }
       //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
       //return response()->json($auctions);
+
 }
