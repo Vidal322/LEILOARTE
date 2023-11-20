@@ -26,6 +26,7 @@ CREATE TABLE category(
     id SERIAL PRIMARY KEY,
     description TEXT NOT NULL
 );
+
 CREATE TABLE auction(
     id SERIAL PRIMARY KEY,
     description TEXT NOT NULL,
@@ -33,6 +34,7 @@ CREATE TABLE auction(
     image TEXT,
     owner_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
+    starting_price FLOAT DEFAULT 0 NOT NULL,
     start_t TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     end_t TIMESTAMP WITH TIME ZONE NOT NULL,
     CONSTRAINT auction_date_ck CHECK (end_t > start_t)
@@ -391,7 +393,7 @@ BEGIN
         WHERE NEW.user_id = users.id
         AND users.type = 'admin'
     ) THEN
-        RAISE EXCEPTION 'A administrator can''t make bids';
+        RAISE EXCEPTION 'An administrator can''t make bids';
     END IF;
 
     RETURN NEW;
