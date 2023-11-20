@@ -97,6 +97,7 @@ class AuctionController extends Controller
     public function delete($id)
     {
       $auction = Auction::find($id);
+      $this->authorize('delete', $auction);
       $auction->delete();
       return redirect('/');
     }

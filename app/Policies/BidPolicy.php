@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Auction;
+use App\Models\Bid;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AuctionPolicy
+class BidPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class AuctionPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Auction  $auction
+     * @param  \App\Models\Bid  $bid
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Auction $auction)
+    public function view(User $user, Bid $bid)
     {
         //
     }
@@ -48,10 +48,10 @@ class AuctionPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Auction  $auction
+     * @param  \App\Models\Bid  $bid
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Auction $auction)
+    public function update(User $user, Bid $bid)
     {
         //
     }
@@ -60,22 +60,22 @@ class AuctionPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Auction  $auction
+     * @param  \App\Models\Bid  $bid
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Auction $auction)
+    public function delete(User $user, Bid $bid)
     {
-        return $auction->bids()->count() == 0;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Auction  $auction
+     * @param  \App\Models\Bid  $bid
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Auction $auction)
+    public function restore(User $user, Bid $bid)
     {
         //
     }
@@ -84,11 +84,18 @@ class AuctionPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Auction  $auction
+     * @param  \App\Models\Bid  $bid
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Auction $auction)
+    public function forceDelete(User $user, Bid $bid)
     {
         //
     }
+
+    
+    public function bid(User $user)
+    {   
+        return  !($user->type == 'admin');
+    }
+
 }
