@@ -245,3 +245,10 @@ footer {
 .button-container button {
   margin: 0 10px; /* Adjust the horizontal spacing between buttons */
 }
+
+
+#createAuctionButton {
+  position: fixed;
+  top: 80%;
+  right: 10%;
+}
