@@ -6,5 +6,6 @@
     @include('partials.auctionCard', ['auction' => $auction])
   @endforeach
 </div>
+<a class="button" id="createAuctionButton" href="{{ route('createAuction') }}"> Create Auction </a>
 @endsection
   
