@@ -1,83 +1,24 @@
+@import url("https://fonts.googleapis.com/css?family=Tilt Neon");
+
 body {
   background-color: #ffffff;
-  color: #9b4dca;
+  color: #088F8F;
 }
 main > header {
   display: grid;
   grid-template-columns: 1fr auto auto;
-  align-items: center;
-  background-color: #d2afe7;
+  /* align-items: center; */
+  background-color: #088F8F;
   padding: 1em;
   margin: 1em;
-}
-main > header h1 {
-  margin: 0;
 }
 main > header a.button {
   margin: 1em;
-  justify-self: center;
+  justify-self: right;
 }
 main > header span {
   margin: 1em;
-  justify-self: center;
-}
-#cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-#cards article.card {
-  display: flex;
-  flex-direction: column;
-  background-color: #d3edc3;
-  padding: 1em;
-  margin: 1em;
-}
-#cards article.card header {
-  display: flex;
-  align-items: center;
-}
-#cards article.card header h2 {
-  flex-grow: 1;
-}
-#cards article.card header a.delete {
-  display: none;
-  font-size: 2.6rem;
-  margin-top: .5rem;
-  margin-bottom: 2.5rem;
-  line-height: 1.25;
-}
-#cards article.card header:hover a.delete {
-  display: inline;
-}
-#cards article.card li {
-  list-style-type: none;
-}
-#cards article.card li label {
-  display: flex;
-  align-items: baseline;
-}
-#cards article.card li label span {
-  margin-left: .5em;
-  flex-grow: 1;
-}
-#cards article.card li label a {
-  display: none;
-}
-#cards article.card li label:hover a {
-  display: inline;
-}
-#cards article.card input:checked + span {
-  text-decoration: var(--primary-color) solid line-through;
-}
-#cards article.card ul {
-  margin: 0;
-}
-#cards article.card form {
-  margin: 0;
-}
-#cards article.card input[type=text] {
-  background-color: white;
-  margin: 0;
+  justify-self: right;
 }
 #content label {
   font-weight: normal;
@@ -86,7 +27,7 @@ main > header span {
   margin: 0 auto;
   padding: 1em;
   max-width: 20em;
-  border: 1px solid #d2afe7;
+  border: 1px solid #088F8F;
 }
 #content > form .error {
   font-weight: bold;
@@ -94,6 +35,10 @@ main > header span {
 }
 #content > form input {
   background-color: white;
+}
+form {
+  margin-top: 20px !important; /* Adjust the top margin based on your preference */
+  margin-bottom: 120px !important; /* Adjust the bottom margin based on your preference */
 }
 @media (max-width: 70em) {
   #cards {
@@ -104,6 +49,9 @@ main > header span {
     grid-template-columns: 1fr auto;
   }
   main > header h1 {
+    grid-row-end: span 2;
+  }
+  main > header h2 {
     grid-row-end: span 2;
   }
 }
@@ -129,7 +77,7 @@ main > header span {
   }
   article.card {
     margin: 0;
-    border-bottom: 1px solid rgba(96, 108, 118, 0.4);
+    border-bottom: 1px solid #ffffff;
   }
 }
 /**
@@ -137,21 +85,163 @@ main > header span {
  * Some styles might be missing
  **/
 button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: #088F8F;
+  border-color: #ffffff;
 }
 a.button {
-  background-color: #9b4dca;
-  border-color: #9b4dca;
+  background-color: #088F8F;
+  border-color: #ffffff;
 }
 a.button.button-outline {
-  color: #9b4dca;
+  color: #088F8F;
 }
 a {
-  color: #9b4dca;
+  color: #088F8F;
+}
+h1 a {
+  color: #ffffff;
 }
 input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus {
-  border-color: #9b4dca;
+  border-color: #ffffff;
+}
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  color: black; 
+  margin: 0 auto;
+}
+
+.content .left-column,
+    .right-column,
+    .bottom-content {
+        color: inherit; 
+    }
+
+
+.content .left-column {
+  flex-basis: calc(50% - 20px);
+  max-width: calc(50% - 20px);
+}
+
+.content .right-column {
+  flex-basis: calc(50% - 20px);
+  max-width: calc(50% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  margin-top: 200px;
+  background-color: #f4f5f6; /* Light grey background color */
+  padding: 20px; /* Add padding to the box */
+  border-radius: 5px;
+}
+
+.content .bottom-content {
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+.underline-text {
+  border-bottom: 2px solid black; 
+  padding-bottom: 5px; 
+}
+
+footer {
+  background-color: #088f8f;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+
+.auctions_list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.auction-card {
+  display: flex;
+  background-color: #f4f4f4; /* Light grey background color */
+  border: 1px solid #ddd; /* Border color */
+  margin-bottom: 10px; 
+  padding: 50px;
+  width: 1000px; 
+}
+
+.image-container {
+  flex: 1;
+  padding: 10px; 
+}
+
+.image-container img {
+  max-width: 100%;
+}
+
+.info-container {
+  flex: 2;
+  padding: 10px; 
+  color: #000;
+}
+
+.info-container h2 {
+  margin-bottom: 10px; 
+}
+
+.info-container p {
+  margin-bottom: 5px;
+}
+
+.info-container a {
+  display: block; 
+  margin-top: 10px; 
+}
+
+.content img[alt="UserImage"]  {
+  border-radius: 50%;
+  width: 150px; /* Adjust the size as needed */
+  height: 150px; /* Adjust the size as needed */
+  margin-right: 20px;
+  margin-left: 200px; 
+}
+
+.content div {
+  flex: 1;
+}
+
+.content div div {
+  margin-bottom: 10px; /* Adjust the spacing between lines as needed */
+}
+
+.button {
+  margin-top: 10px; /* Adjust the spacing as needed */
+}
+
+.info {
+  flex: 1;
+}
+
+.info div {
+  margin-bottom: 10px; 
+}
+
+.info div:first-child {
+  margin-top: 200px;
+}
+
+.info div:last-child {
+  margin-bottom: 200px; 
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Adjust the top margin based on your preference */
+}
+
+.button-container button {
+  margin: 0 10px; /* Adjust the horizontal spacing between buttons */
 }

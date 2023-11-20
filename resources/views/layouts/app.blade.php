@@ -25,7 +25,7 @@
       <header>
         <h1><a href="{{ url('/') }}">LeiloArte</a></h1>
         <nav class="navigation">
-          <input type="text" placeholder="Search..">
+          <input type="text" placeholder="Search.."></nav>
           <a class = "button" href="{{ route('home') }}"> Home </a>
           <a class = "button" href="{{ route('home')}}"> About us </a>
           @if (Auth::check())
@@ -44,6 +44,9 @@
       <section id="content">
         @yield('content')
       </section>
+      <footer>
+        <p>&copy; 2023-{{ date('Y') }} LeiloArte. All Rights Reserved.</p>
+      </footer>
     </main>
   </body>
 </html>
