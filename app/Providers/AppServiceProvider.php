@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         URL::forceRootUrl($app_url);
         $schema = explode(':', $app_url)[0];
         URL::forceScheme($schema);
+        Paginator::useBootstrap();
       }
     }
 }
