@@ -93,6 +93,67 @@ paths:
                 value: '/'
 
 
+ /users/{id}/followAuctions:
+  get:
+    operationId: R111
+    summary: 'R111: Follow Auctions'
+    description: 'Display user followed auctions. Access: USR, ADM'
+    tags:
+      - 'M01: Authentication and Individual Profile'
+    parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      '200':
+        description: Display user followed auctions UI
+      '404':
+        description: User not found
+  post:
+      operationId: R112
+      summary: 'R112: Follow Auctions'
+      description: 'follow an Auction. Access: USR, ADM'
+      tags:
+        - 'M01: Authentication and Individual Profile'
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+         application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              auction_id:
+                type: integer
+            required:
+              - auction_id
+      responses:
+        '302':
+          description: 'Redirect after processing the new followed auction information'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to auction page after successful follow'
+                  value: '/auctions/{id}'
+                302Error:
+                  description: 'Redirect to auction page after successful follow'
+                  value: '/auctions/{id}'
+        '404':
+          description: User not found
 
  /register:
   get:
@@ -574,7 +635,7 @@ paths:
         '200':
           description: Display contacts UI
 
- /search:
+ /api/search:
   get: 
    operationId: R401
    summary: 'R401: Search'
@@ -584,3 +645,5 @@ paths:
    responses:
     '200':
      description: Display results
+
+ 
