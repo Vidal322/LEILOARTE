@@ -24,7 +24,6 @@ class AuthServiceProvider extends ServiceProvider
       'App\Models\Bid' => 'App\Policies\BidPolicy',
       'App\Models\Auction' => 'App\Policies\AuctionPolicy',
       'App\Models\User' => 'App\Policies\UserPolicy',
-      'App\Models\User' => 'App\Policies\BidPolicy'
     ];
 
     /**
