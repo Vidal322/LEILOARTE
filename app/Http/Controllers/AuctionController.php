@@ -135,6 +135,7 @@ class AuctionController extends Controller
       }
 
       else {
+        # problem here
         $auctions = Auction::all();
       }
 
