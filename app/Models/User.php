@@ -30,9 +30,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * The cards this user owns.
+     * The auctions this user owns.
      */
-    public function posts() {
+    public function auctions() {
       return $this->hasMany('App\Models\Auction', 'owner_id');
     }
     public function bids() {

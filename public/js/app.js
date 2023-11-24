@@ -51,16 +51,20 @@ function insertAuction(auction) {
   newAuction.innerHTML = `
       <a href="/auctions/${ auction.id }"><article class="auction_card">
       <div class="auction-card">
-          <div class="image-container">
-            <img src="${ auction.image }" alt="AuctionImage">
-          </div>
-          <div class="info-container">
-            <h3>${ auction.name }</h3>
-            <p>By: ${ auction.owner_id }</p>
-            <p>${ auction.description }</p>
-          </div>
-        </div>
-    </article></a>`;
+      <div class="image-container">
+        <img src="${ auction.image }" alt="AuctionImage">
+      </div>
+      <div class="info-container">
+        <h3>${ auction.name }</h3>
+        <p>Auctioneer: <a href="{{route('user', ['id' => ${auction.owner_id}])}}">${ auction.owner.name}</a></p>
+        <div class="image-container"> 
+          <img src= "${ auction.owner.img }" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
+      </div>
+        <p>${ auction.description }</p>
+        
+      </div>
+    </div>
+</article></a>`;
   
   return newAuction;
 

@@ -130,13 +130,12 @@ class AuctionController extends Controller
       $search = $request->get('text');
 
       $formattedSearch = str_replace(' ', ' | ', $search);
-      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get();
+      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get()->load('owner');
 
       }
 
       else {
-        # problem here
-        $auctions = Auction::all();
+        $auctions = Auction::all()->load('owner');
       }
 
       return response()->json($auctions);
