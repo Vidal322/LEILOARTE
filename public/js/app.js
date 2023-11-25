@@ -1,9 +1,20 @@
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      const context = this;
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+   }
+
+
+
 function addEventListeners() {
 
-  let search = document.querySelector('#searchBar');
-  let searchButton = document.querySelector('#searchButton');
-  if(searchButton)
-    searchButton.addEventListener('click', async function (event) {
+    let search = document.querySelector('#searchBar');
+    let searchButton = document.querySelector('#searchButton');
+    if(searchButton)
+      searchButton.addEventListener('click', async function (event) {
       event.preventDefault();
       const auctions = await fetchAuctions(search.value);
       const page = document.querySelector('.auctions_list');
@@ -15,6 +26,22 @@ function addEventListeners() {
       });
       }
       );
+
+    if (search) {
+        const debouncedFunction = debounce(async function (event) {
+        event.preventDefault();
+        const auctions = await fetchAuctions(search.value);
+        const page = document.querySelector('.auctions_list');
+        page.innerHTML = '';
+        console.log(Array.isArray(auctions));
+        auctions.forEach((auction) => {
+        const newAuction = insertAuction(auction);
+        page.append(newAuction);
+        });
+    }, 300); // Adjust the wait time as needed
+
+    search.addEventListener('keyup', debouncedFunction);
+    }
 
 }
 
@@ -51,22 +78,24 @@ function insertAuction(auction) {
   newAuction.innerHTML = `
       <a href="/auctions/${ auction.id }"><article class="auction_card">
       <div class="auction-card">
-          <div class="image-container">
-            <img src="${ auction.image }" alt="AuctionImage">
-          </div>
-          <div class="info-container">
-            <h3>${ auction.name }</h3>
-            <p>By: ${ auction.owner_id }</p>
-            <p>${ auction.description }</p>
-          </div>
-        </div>
-    </article></a>`;
-  
+      <div class="image-container">
+        <img src="${ auction.image }" alt="AuctionImage">
+      </div>
+      <div class="info-container">
+        <h3>${ auction.name }</h3>
+        <p>Auctioneer: <a href="{{route('user', ['id' => ${auction.owner_id}])}}">${ auction.owner.name}</a></p>
+        <div class="image-container">
+          <img src= "${ auction.owner.img }" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
+      </div>
+        <p>${ auction.description }</p>
+
+      </div>
+    </div>
+</article></a>`;
+
   return newAuction;
 
 }
-
-
 
 addEventListeners();
 

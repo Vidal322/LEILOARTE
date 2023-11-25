@@ -10,7 +10,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class AuctionController extends Controller
 {
-    
+
     public function list()
     {
       $auctions = Auction::paginate(10);
@@ -26,7 +26,7 @@ class AuctionController extends Controller
 
     public function show($id)
     {
-      $auction = Auction::find($id);
+      $auction = Auction::with(['bids', 'auctionsSaved'])->find($id);
       return view('pages.auction', ['auction' => $auction]);
     }
 
@@ -65,13 +65,14 @@ class AuctionController extends Controller
 
     public function showCreateForm()
     {
+      $this->authorize('create', Auction::class);
       return view('pages.createAuction', ['id' => Auth::user()->id]);
     }
 
     public function create(Request $request)
     {
       $auction = new Auction();
-
+      $this->authorize('create', $auction);
       $auction->name = $request->input('name');
       $auction->description = $request->input('description');
       $auction->image = $request->input('image');
@@ -121,22 +122,21 @@ class AuctionController extends Controller
       return view('pages.bids', ['bids' => $bids]);
     }
 
-    
+
     // search using tsvectors
     public function ftsSearch(Request $request)
-    { 
+    {
       if ($request->has('text') && $request->get('text') != '') {
 
       $search = $request->get('text');
 
       $formattedSearch = str_replace(' ', ' | ', $search);
-      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get();
+      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get()->load('owner');
 
       }
 
       else {
-        # problem here
-        $auctions = Auction::all();
+        $auctions = Auction::all()->load('owner');
       }
 
       return response()->json($auctions);

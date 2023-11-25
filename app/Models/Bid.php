@@ -14,20 +14,23 @@ class Bid extends Model
   protected $fillable = [
     // 'description', 'owner_id', 'active', 'start', 'end', 'name',
   ];
-  
-  /**
-   * The user this card belongs to
-   */
-  public function owner() {
-    return $this->belongsTo('App\Models\User');
-  }
+
 
   /**
-   * Items inside this auction
+   * auction this bid belongs to
    */
   public function auction() {
     return $this->belongsTo('App\Models\Auction');
   }
+
+  /**
+   * The user that made the bid
+   */
+  public function bidder() {
+    return $this->belongsTo('App\Models\User', 'user_id');
+  }
+
+
 
 
 }
