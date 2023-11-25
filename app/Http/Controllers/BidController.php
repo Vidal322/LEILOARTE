@@ -29,7 +29,7 @@ class BidController extends Controller
         $bids = $auction->bids()->orderBy('amount', 'desc')->get();
         if (count($bids) != 0) {
           $topBid = $bids[0];
-        } 
+        }
         else {
           $topBid = null;
         }
@@ -47,9 +47,10 @@ class BidController extends Controller
 
     public function showCreateForm($auction_id)
     {
+      $this->authorize('create', Bid::class);
       return view('pages.createBid', ['id' => $auction_id]);
     }
 
-    
+
 
 }
