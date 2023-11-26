@@ -42,31 +42,31 @@
     {{-- if authenticated --}}
     @if (Auth::check())
 
-    {{-- if user is not following --}}
-    @if ($auction->auctionsSaved->where('user_id', Auth::user()->id)->isEmpty())
-    <form method="POST" action="{{ route('followAuctions', ['id' => $auction->id]) }}">
-        {{ csrf_field() }}
-    <button class="button button-outline" type = sumbit>Follow Auction</button>
-    </form>
-    @endif
+        {{-- if user is not following --}}
+        @if ($auction->auctionsSaved->where('user_id', Auth::user()->id)->isEmpty())
+            <form method="POST" action="{{ route('followAuctions', ['id' => $auction->id]) }}">
+                {{ csrf_field() }}
+            <button class="button button-outline" type = sumbit>Follow Auction</button>
+            </form>
+        @endif
 
-    {{-- if user is following --}}
-    @if (!($auction->auctionsSaved->where('user_id', Auth::user()->id)->isEmpty()))
-        <form method="POST" action="{{ route('unfollowAuctions', ['id' => $auction->id]) }}">
-            {{ csrf_field() }}
-        <button class="button button-outline" type = sumbit>Unfollow Auction</button>
-        </form>
-    @endif
+        {{-- if user is following --}}
+        @if (!($auction->auctionsSaved->where('user_id', Auth::user()->id)->isEmpty()))
+            <form method="POST" action="{{ route('unfollowAuctions', ['id' => $auction->id]) }}">
+                {{ csrf_field() }}
+            <button class="button button-outline" type = sumbit>Unfollow Auction</button>
+            </form>
+        @endif
 
-    {{-- if user is not owner --}}
-    @if ($auction->owner_id != Auth::user()->id)
-    <button class="button button-outline"><a href="{{ route('createBidForm', ['id' => $auction->id]) }}">Place Bid</a></button>
-    @endif
+        {{-- if user is not owner --}}
+        @if ($auction->owner_id != Auth::user()->id)
+            <button class="button button-outline"><a href="{{ route('createBidForm', ['id' => $auction->id]) }}">Place Bid</a></button>
+        @endif
 
-    {{-- if user is owner --}}
-    @if ($auction->owner_id == Auth::user()->id)
-    <button class="button button-outline"><a href="{{ route('editAuctionForm', ['id' => $auction->id]) }}">Edit </a></button>
-    <button class="button button-outline"><a href="{{ route('deleteAuction', ['id' => $auction->id]) }}">Delete </a></button>
-    @endif
+        {{-- if user is owner --}}
+        @if ($auction->owner_id == Auth::user()->id)
+            <button class="button button-outline"><a href="{{ route('editAuctionForm', ['id' => $auction->id]) }}">Edit </a></button>
+            <button class="button button-outline"><a href="{{ route('deleteAuction', ['id' => $auction->id]) }}">Delete </a></button>
+        @endif
     @endif
 @endsection
