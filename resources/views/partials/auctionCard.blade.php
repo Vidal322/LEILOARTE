@@ -11,4 +11,4 @@
     <p>{{ $auction->description }}</p>
 
     </div>
-</article>
+</article></a>

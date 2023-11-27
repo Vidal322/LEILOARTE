@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="content">
+    <div class="display-auction">
         <div class="left-column">
             <h2><div class="underline-text"> {{$auction->name}} </div></h2>
             <img src="{{ $auction->image }}" alt="Auction Image">

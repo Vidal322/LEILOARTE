@@ -11,7 +11,9 @@ body, h1, h2, h3, p, ul, ol, li {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
-
+    --main-color:#088F88;
+    --hover-color:#066c66;
+    --background-color:#f4f4f4;
   }
 
 
@@ -27,7 +29,7 @@ body, h1, h2, h3, p, ul, ol, li {
   }
 
   header a {
-    color:#f4f4f4;
+    color:var(--background-color);
 }
 
   .navigation {
@@ -74,7 +76,7 @@ body, h1, h2, h3, p, ul, ol, li {
 }
 
 header {
-    background-color: #088F88;
+    background-color: var(--main-color);
     color: #fff;
     padding: 20px;
     display: flex;
@@ -86,6 +88,22 @@ header h1 {
     font-family: 'Tilt Neon', sans-serif;
     padding-left: 40px;
     margin-right: auto; /* This pushes the h1 to the left */
+
+}
+
+#footer-wrapper {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--main-color);
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+#footer-wrapper p {
+    margin: 0;
 }
 
 /* -------------------------------------- */
@@ -154,19 +172,19 @@ header h1 {
     margin: 10px 0;
     text-decoration: none;
     color: #fff;
-    background-color: #088F88;
-    border: 1px solid #088F88;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
 
 .auction-card .button:hover {
-    background-color: #066c66;
+    background-color: var(--hover-color);
 }
 
 #createAuctionButton {
-    background-color: #088F88;
+    background-color: var(--main-color);
     border: none;
     position: fixed;
     bottom :15%;
@@ -175,7 +193,7 @@ header h1 {
 }
 
 #createAuctionButton:hover {
-    background-color: #066c66;
+    background-color: var(--hover-color);
     cursor: pointer;
 }
 
@@ -184,85 +202,281 @@ header h1 {
 /*              auction details */
 /* --------------------------------------------- */
 
-.content {
+.display-auction {
     display: flex;
     max-width: 1200px;
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    flex-direction: column; /* Change to column */
+    flex-direction: row; /* Change to row */
 }
 
-.left-column,
-.right-column,
-.bottom-content {
-    width: 100%;
+.display-auction .left-column,
+.display-auction .right-column,
+.display-auction .bottom-content {
+    flex: 1;
     margin-bottom: 20px;
 }
 
-.left-column {
-    flex: 1;
-}
-
-.right-column {
-    flex: 1;
-    order: 0; /* Reset order for larger screens */
-}
-
-.bottom-content {
-    flex: 2;
-    order: 0; /* Reset order for larger screens */
-}
-
-.underline-text {
-    border-bottom: 2px solid #088F88;
+.display-auction .underline-text {
+    border-bottom: 2px solid var(--main-color);
     display: inline-block;
     margin-bottom: 10px;
 }
 
-.button {
+.display-auction .button {
     display: inline-block;
     padding: 10px 20px;
     margin-top: 10px;
     text-decoration: none;
     color: #fff;
-    background-color: #088F88;
-    border: 1px solid #088F88;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
     border-radius: 3px;
     color: white;
 }
 
-.button:hover,
-.button-outline:hover {
-    background-color: #066c66;
-    border-color: #066c66;
+.display-auction .button:hover,
+.display-auction .button-outline:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
     cursor: pointer;
 }
 
-.edit-delete-buttons {
+.display-auction .edit-delete-buttons {
     margin-top: 20px;
 }
 
-.auction-description {
+.display-auction .auction-description {
     margin-bottom: 20px;
 }
 
 /* Responsive Design */
-@media (min-width: 768px) {
-    .content {
-        flex-direction: row;
+@media (max-width: 767px) {
+    .display-auction {
+        flex-direction: column;
+    }
+}
+
+
+/* --------------------------------------------- */
+/*              user profile                     */
+/* --------------------------------------------- */
+
+
+
+.user-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Profile Image */
+.user-profile .profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* User Information Container */
+.user-profile .info {
+    flex-grow: 1;
+}
+
+/* User Information Details */
+.user-profile .info > div {
+    margin-bottom: 10px;
+}
+
+/* Button Container */
+.user-profile .button-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+/* General Button Styles */
+.user-profile .button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Primary Button Style */
+.user-profile .button-primary {
+    color: #fff;
+    background-color: #3498db;
+}
+
+/* Secondary Button Style */
+.user-profile .button-secondary {
+    color: #3498db;
+    background-color: #fff;
+    border: 2px solid #3498db;
+}
+
+/* Button Hover Effects */
+.user-profile .button:hover {
+    filter: brightness(90%);
+}
+
+.user-profile .button-primary:hover {
+    background-color: #2980b9;
+}
+
+.user-profile .button-secondary:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .user-profile {
+        flex-direction: column;
     }
 
-    .left-column {
-        margin-right: 20px; /* Adjust margin-right for larger screens */
+    .user-profile .profile-img {
+        margin-right: 0;
+        margin-bottom: 20px;
     }
+}
 
-    .right-column {
-        margin-right: 20px; /* Adjust margin-right for larger screens */
-    }
 
-    .bottom-content {
-        order: 0; /* Reset order for larger screens */
-    }
+
+/* --------------------------------------------- */
+/*                    login                      */
+/* --------------------------------------------- */
+
+
+#login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#login-form .error {
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+#login-form button {
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#login-form button:hover {
+    background-color: var(--hover-color);
+}
+
+#login-form a.button {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+#login-form a.button:hover {
+    background-color: var(--hover-color);
+}
+
+
+
+/* --------------------------------------------- */
+/*                    register                   */
+/* --------------------------------------------- */
+
+
+#register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#register-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#register-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#register-form error {
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+#register-form button {
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#register-form button:hover {
+    background-color: var(--hover-color);
+}
+
+#register-form a.button {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+#register-form a.button:hover {
+    background-color: var(--hover-color);
 }

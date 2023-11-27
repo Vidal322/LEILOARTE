@@ -29,10 +29,11 @@
         @yield('content')
     </section>
     </main>
-
-    <footer>
-    <p>&copy; 2023-{{ date('Y') }} LeiloArte. All Rights Reserved.</p>
-    </footer>
+    <div id="footer-wrapper"
+        <footer>
+            <p>&copy; 2023-{{ date('Y') }} LeiloArte. All Rights Reserved.</p>
+        </footer>
+    </div>
 
   </body>
 </html>
