@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-        <div class="content">
-            <img src="{{ $user->img }}" alt="UserImage">
+        <div class="user-profile">
+            <img class= profile-img src="{{ $user->img }}" alt="UserImage">
             <div class="info">
                 <div>{{$user->name}}</div>
                 <div>Username: {{$user->username}}</div>

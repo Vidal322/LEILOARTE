@@ -38,7 +38,7 @@ function addEventListeners() {
         const newAuction = insertAuction(auction);
         page.append(newAuction);
         });
-    }, 300); // Adjust the wait time as needed
+    }, 300);
 
     search.addEventListener('keyup', debouncedFunction);
     }
@@ -76,26 +76,46 @@ function insertAuction(auction) {
   let newAuction = document.createElement('a');
   newAuction.href = '/auctions/' + auction.id;
   newAuction.innerHTML = `
-      <a href="/auctions/${ auction.id }"><article class="auction_card">
-      <div class="auction-card">
-      <div class="image-container">
-        <img src="${ auction.image }" alt="AuctionImage">
-      </div>
-      <div class="info-container">
-        <h3>${ auction.name }</h3>
-        <p>Auctioneer: <a href="{{route('user', ['id' => ${auction.owner_id}])}}">${ auction.owner.name}</a></p>
-        <div class="image-container">
-          <img src= "${ auction.owner.img }" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
-      </div>
-        <p>${ auction.description }</p>
+        <article>
+            <div class="image-container">
+                <img src="${ auction.image }}" alt="AuctionImage">
+            </div>
+            <div class="info-container">
+                <h3>${ auction.name }}</h3>
+                <p>Auctioneer: <a href="{route('user', ['id' => ${auction.owner_id}])}}"> ${auction.owner.name}</a></p>
+                <div class="image-container">
+                    <img src= " ${auction.owner.img }" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
+                </div>
+                <p>${ auction.description }</p>
 
-      </div>
-    </div>
-</article></a>`;
+            </div>
+        </article>
+`;
 
   return newAuction;
 
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var footerWrapper = document.getElementById('footer-wrapper');
+
+    function showFooter() {
+        var windowHeight = window.innerHeight;
+        var bodyHeight = document.body.offsetHeight;
+        var scrollPosition = window.scrollY || window.pageYOffset || document.body.scrollTop + (document.documentElement && document.documentElement.scrollTop || 0);
+
+        if (windowHeight + scrollPosition >= bodyHeight) {
+            footerWrapper.style.display = 'block';
+        } else {
+            footerWrapper.style.display = 'none';
+        }
+    }
+
+    showFooter(); // Initial check
+
+    window.addEventListener('scroll', showFooter);
+});
 
 addEventListeners();
 
