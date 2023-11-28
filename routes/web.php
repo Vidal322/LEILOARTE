@@ -54,7 +54,5 @@ Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
 // Files
 Route::post('/file/upload', ['FileController'::class, 'upload']);
 
-
-
 // Search
 Route::get('api/search/', 'AuctionController@ftsSearch')->name('FTSsearch');

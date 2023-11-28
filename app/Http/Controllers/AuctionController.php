@@ -128,10 +128,10 @@ class AuctionController extends Controller
     {
       if ($request->has('text') && $request->get('text') != '') {
 
-      $search = $request->get('text');
+        $search = $request->get('text');
 
-      $formattedSearch = str_replace(' ', ' | ', $search);
-      $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get()->load('owner');
+        $formattedSearch = str_replace(' ', ' | ', $search);
+        $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get()->load('owner');
 
       }
 
@@ -140,8 +140,6 @@ class AuctionController extends Controller
       }
 
       return response()->json($auctions);
-      //return view('pages.auctionsListing', ['auctions' => $auctions]);
-
     }
 
     public function index(Request $request) {

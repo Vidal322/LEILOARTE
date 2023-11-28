@@ -7,8 +7,6 @@ function debounce(func, wait) {
     };
    }
 
-
-
 function addEventListeners() {
 
     let search = document.querySelector('#searchBar');
@@ -17,7 +15,7 @@ function addEventListeners() {
       searchButton.addEventListener('click', async function (event) {
       event.preventDefault();
       const auctions = await fetchAuctions(search.value);
-      const page = document.querySelector('.auctions_list');
+      const page = document.querySelector('.auctions-list');
       page.innerHTML = '';
       console.log(Array.isArray(auctions));
       auctions.forEach((auction) => {
@@ -31,7 +29,7 @@ function addEventListeners() {
         const debouncedFunction = debounce(async function (event) {
         event.preventDefault();
         const auctions = await fetchAuctions(search.value);
-        const page = document.querySelector('.auctions_list');
+        const page = document.querySelector('.auctions-list');
         page.innerHTML = '';
         console.log(Array.isArray(auctions));
         auctions.forEach((auction) => {
@@ -73,15 +71,16 @@ async function fetchAuctions(text) {
 
 
 function insertAuction(auction) {
-  let newAuction = document.createElement('a');
-  newAuction.href = '/auctions/' + auction.id;
+  let newAuction = document.createElement('div');
+  newAuction.classList.add("auction-card");
   newAuction.innerHTML = `
+    <a href="{{route('auctions', ['id' => ${auction.id}])}}"
         <article>
             <div class="image-container">
-                <img src="${ auction.image }}" alt="AuctionImage">
+                <img src="${ auction.image }" alt="AuctionImage">
             </div>
             <div class="info-container">
-                <h3>${ auction.name }}</h3>
+                <h3>${ auction.name }</h3>
                 <p>Auctioneer: <a href="{route('user', ['id' => ${auction.owner_id}])}}"> ${auction.owner.name}</a></p>
                 <div class="image-container">
                     <img src= " ${auction.owner.img }" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
@@ -90,11 +89,16 @@ function insertAuction(auction) {
 
             </div>
         </article>
+    </a>
 `;
 
   return newAuction;
 
 }
+
+
+
+addEventListeners();
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -116,8 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('scroll', showFooter);
 });
-
-addEventListeners();
 
 
 
