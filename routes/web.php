@@ -51,6 +51,9 @@ Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
 
+// Files
+Route::post('/file/upload', ['FileController'::class, 'upload']);
+
 
 
 // Search

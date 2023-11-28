@@ -16,7 +16,7 @@ CREATE TABLE users(
     name TEXT NOT NULL,
     description TEXT,
     password TEXT NOT NULL,
-    img TEXT,
+    img TEXT DEFAULT '/images/user.png',
     deleted BOOLEAN DEFAULT false NOT NULL,
     rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
     type User_Type NOT NULL DEFAULT 'user'
@@ -31,7 +31,7 @@ CREATE TABLE auction(
     id SERIAL PRIMARY KEY,
     description TEXT NOT NULL,
     name TEXT NOT NULL,
-    image TEXT,
+    image TEXT DEFAULT '/images/auction.png',
     owner_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
     starting_price FLOAT DEFAULT 0 NOT NULL CONSTRAINT auction_starting_price_ck CHECK (starting_price >= 0),
