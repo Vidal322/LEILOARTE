@@ -11,9 +11,9 @@ class Auction extends Model
 
   protected $table = "auction";
   protected $fillable = [
-    'description', 'owner_id', 'active', 'start_t', 'end_t', 'name', 'image'
+    'description', 'name', 'image', 'owner_id', 'active', 'starting_price', 'start_t', 'end_t'
   ];
-  
+
   /**
    * The user this card belongs to
    */
@@ -21,15 +21,12 @@ class Auction extends Model
     return $this->belongsTo('App\Models\User');
   }
 
-  /**
-   * Items inside this card
-   */
-  public function category() {
-    return $this->belongsTo('App\Models\Category');
-  }
-  
   public function bids() {
-    return $this->hasMany('App\Models\Bid', 'auction_id');
+    return $this->hasMany('App\Models\Bid');
+  }
+
+  public function auctionsSaved() {
+    return $this->hasMany('App\Models\AuctionSave', 'auction_id');
   }
 
 }

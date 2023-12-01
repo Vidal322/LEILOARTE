@@ -1,292 +1,482 @@
 @import url("https://fonts.googleapis.com/css?family=Tilt Neon");
 
-body {
-  background-color: #ffffff;
-  color: #088F8F;
-}
-main > header {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  /* align-items: center; */
-  background-color: #088F8F;
-  padding: 1em;
-  margin: 1em;
-}
-main > header a.button {
-  margin: 1em;
-  justify-self: right;
-}
-main > header span {
-  color: #ffffff;
-  background-color: #088F8F;
-  border-color: #ffffff !important;
-}
-#content label {
-  font-weight: normal;
-}
-#content > form {
-  margin: 0 auto;
-  padding: 1em;
-  max-width: 20em;
-  border: 1px solid #088F8F;
-}
-#content > form .error {
-  font-weight: bold;
-  color: #ff3333;
-}
-#content > form input {
-  background-color: white;
-}
-@media (max-width: 70em) {
-  #cards {
-    grid-template-columns: repeat(2, 1fr);
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
   }
-  main > header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-  }
-  main > header h1 {
-    grid-row-end: span 2;
-  }
-  main > header h2 {
-    grid-row-end: span 2;
-  }
-}
-@media (max-width: 40em) {
-  #cards {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 25em) {
+
+  /* Basic styling */
   body {
-    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    --main-color:#088F88;
+    --hover-color:#066c66;
+    --background-color:#f4f4f4;
   }
-  main > header {
+
+
+  main {
+    max-width: 100%;
     margin: 0;
-    padding: 0.5em;
+    padding: 20px;
   }
-  main > header span {
-    margin: 0;
+
+  a {
+    text-decoration: none;
+    color: black
   }
-  #content form {
-    margin: 0;
-    max-width: 25em;
-  }
-  article.card {
-    margin: 0;
-    border-bottom: 1px solid #ffffff;
-  }
-}
-/**
- * Overide milligram colors
- * Some styles might be missing
- **/
-button {
-  background-color: #088F8F;
-  border-color: #ffffff;
-}
-form > button.button,
-a.button {
-  background-color: #088F8F;
-  border-color: #ffffff;
-}
-a.button.button-outline {
-  color: #088F8F;
-}
-a {
-  color: #088F8F;
-}
-h1 a {
-  color: #ffffff;
-}
-input[type=text]:focus,
-input[type=email]:focus,
-input[type=password]:focus {
-  border-color: #ffffff;
-}
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  color: black; 
-  margin: 0 auto;
+
+  header a {
+    color:var(--background-color);
 }
 
-.content .left-column,
-    .right-column,
-    .bottom-content {
-        color: inherit; 
-    }
-
-
-.content .left-column {
-  flex-basis: calc(50% - 20px);
-  max-width: calc(50% - 20px);
+  .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 20%;
+    flex-grow: 1; /* This ensures the navigation takes up remaining space */
 }
 
-.content .right-column {
-  flex-basis: calc(50% - 20px);
-  max-width: calc(50% - 20px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; 
-  margin-top: 200px;
-  background-color: #f4f5f6; 
-  padding: 20px; 
-  border-radius: 5px;
+#searchBar {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 5px;
 }
 
-.content .bottom-content {
-  flex-basis: 100%;
-  max-width: 100%;
-}
-
-.underline-text {
-  border-bottom: 2px solid black; 
-  padding-bottom: 5px; 
-}
-
-footer {
-  background-color: #088f8f;
-  color: #ffffff;
-  text-align: center;
-  padding: 10px;
-  position: relative;
-  top: 95px;
-}
-
-.auctions_list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.auction-card {
-  display: flex;
-  background-color: #f4f4f4; 
-  border: 1px solid #ddd; 
-  margin-bottom: 10px; 
-  padding: 50px;
-  width: 1000px; 
-}
-
-.image-container {
-  flex: 1;
-  padding: 10px; 
-}
-
-.image-container img {
-  max-width: 100%;
-}
-
-.info-container {
-  flex: 2;
-  padding: 10px; 
-  color: #000;
-}
-
-.info-container h2 {
-  margin-bottom: 10px; 
-}
-
-.info-container p {
-  margin-bottom: 5px;
-}
-
-.info-container a {
-  display: block; 
-  margin-top: 10px; 
-}
-
-.content img[alt="UserImage"]  {
-  border-radius: 50%;
-  width: 150px; 
-  height: 150px; 
-  margin-right: 20px;
-  margin-left: 200px; 
-}
-
-.content div {
-  flex: 1;
-}
-
-.content div div {
-  margin-bottom: 10px; 
+#searchButton {
+    padding: 8px 12px;
 }
 
 .button {
-  margin-top: 10px; 
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 5px;
+    text-decoration: none;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.info {
-  flex: 1;
+.button:hover {
+    background-color: #333;
+    color: #fff;
 }
-
-.info div {
-  margin-bottom: 10px; 
-}
-
-.info div:first-child {
-  margin-top: 20px;
-}
-
-.info div:last-child {
-  margin-bottom: 20px; 
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px; 
-}
-
-.button-container button {
-  margin: 0 10px; /* Adjust the horizontal spacing between buttons */
-}
-
-
-#createAuctionButton {
-  position: fixed;
-  top: 80%;
-  right: 10%;
-}
-
-.pagination-icons {
-  display: flex;
-  flex-wrap: nowrap;
-  white-space: nowrap; 
-  justify-content: center;
-  margin-bottom: 20px; 
-  font-size: 1em;
-}
-
 
 .transparent-box {
-  background-color: transparent;
-  border: 1px solid white;
-  padding: 10px; /* Adjust the padding as needed */
-  border-radius: 5px; /* Optional: Add rounded corners */
-  display: inline-block; /* Make sure it only takes up the necessary width */
+    background-color: transparent;
+    display: inline-block;
+    padding: 10px;
 }
 
-.transparent-box a {
-  color: white;
-  text-decoration: none;
+header {
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
 }
 
-.transparent-box:hover {
-  background-color: #066d6d; /* Change this to the desired color */
+header h1 {
+    font-size: 40px;
+    font-family: 'Tilt Neon', sans-serif;
+    padding-left: 40px;
+    margin-right: auto; /* This pushes the h1 to the left */
+
 }
 
-.transparent-box:hover a {
-  color: white; /* You can adjust the text color on hover if needed */
+#footer-wrapper {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--main-color);
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
 }
-.navigation form input[type="text"] {
-  background-color: white;
-  /* Add any additional styling as needed */
-  padding: 8px; /* Adjust padding as needed */
-  border: 1px solid #ccc; /* Add a border for better visibility */
-  border-radius: 4px; /* Optional: Add rounded corners */
+
+#footer-wrapper p {
+    margin: 0;
+}
+
+/* -------------------------------------- */
+/*            auction list and cards      */
+/* -------------------------------------- */
+
+.auctions-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Change to space-around to provide equal spacing on all sides */
+    padding: 20px;
+}
+
+.auction-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 500px;
+    height: 600px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}
+
+.auction-card:hover {
+    transform: translateY(-5px);
+}
+
+.auction-card .image-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.auction-card .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.auction-card .info-container .image-container img {
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.auction-card .info-container {
+    padding: 15px;
+    height: 40%;
+    box-sizing: border-box;
+}
+
+.auction-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.auction-card p {
+    margin-bottom: 10px;
+}
+
+.auction-card .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.auction-card .button:hover {
+    background-color: var(--hover-color);
+}
+
+#createAuctionButton {
+    background-color: var(--main-color);
+    border: none;
+    position: fixed;
+    bottom :15%;
+    right:10%;
+    color: white;
+}
+
+#createAuctionButton:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+
+/* --------------------------------------------- */
+/*              auction details */
+/* --------------------------------------------- */
+
+.display-auction {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: row; /* Change to row */
+}
+
+.display-auction .left-column,
+.display-auction .right-column,
+.display-auction .bottom-content {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.display-auction .underline-text {
+    border-bottom: 2px solid var(--main-color);
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.display-auction .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
+    border-radius: 3px;
+    color: white;
+}
+
+.display-auction .button:hover,
+.display-auction .button-outline:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+    cursor: pointer;
+}
+
+.display-auction .edit-delete-buttons {
+    margin-top: 20px;
+}
+
+.display-auction .auction-description {
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .display-auction {
+        flex-direction: column;
+    }
+}
+
+
+/* --------------------------------------------- */
+/*              user profile                     */
+/* --------------------------------------------- */
+
+
+
+.user-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Profile Image */
+.user-profile .profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* User Information Container */
+.user-profile .info {
+    flex-grow: 1;
+}
+
+/* User Information Details */
+.user-profile .info > div {
+    margin-bottom: 10px;
+}
+
+/* Button Container */
+.user-profile .button-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+/* General Button Styles */
+.user-profile .button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Primary Button Style */
+.user-profile .button-primary {
+    color: #fff;
+    background-color: #3498db;
+}
+
+/* Secondary Button Style */
+.user-profile .button-secondary {
+    color: #3498db;
+    background-color: #fff;
+    border: 2px solid #3498db;
+}
+
+/* Button Hover Effects */
+.user-profile .button:hover {
+    filter: brightness(90%);
+}
+
+.user-profile .button-primary:hover {
+    background-color: #2980b9;
+}
+
+.user-profile .button-secondary:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .user-profile {
+        flex-direction: column;
+    }
+
+    .user-profile .profile-img {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+/* --------------------------------------------- */
+/*                    login                      */
+/* --------------------------------------------- */
+
+
+#login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#login-form .error {
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+#login-form button {
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#login-form button:hover {
+    background-color: var(--hover-color);
+}
+
+#login-form a.button {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+#login-form a.button:hover {
+    background-color: var(--hover-color);
+}
+
+
+
+/* --------------------------------------------- */
+/*                    register                   */
+/* --------------------------------------------- */
+
+
+#register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#register-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#register-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#register-form error {
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+#register-form button {
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#register-form button:hover {
+    background-color: var(--hover-color);
+}
+
+#register-form a.button {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+#register-form a.button:hover {
+    background-color: var(--hover-color);
 }

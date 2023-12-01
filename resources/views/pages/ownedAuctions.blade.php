@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="auctions_list">
+<div class="auctions-list">
     @foreach ($auctions as $auction)
-      @include('partials.auctionCard', ['auction' => $auction])
+        <div class="auction-card">
+          @include('partials.auctionCard', ['auction' => $auction])
+        </div>
     @endforeach
 </div>
 @endsection

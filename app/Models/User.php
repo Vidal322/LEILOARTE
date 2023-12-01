@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\FileController;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -30,12 +31,16 @@ class User extends Authenticatable
     ];
 
     /**
-     * The cards this user owns.
+     * The auctions this user owns.
      */
-    public function posts() {
+    public function auctions() {
       return $this->hasMany('App\Models\Auction', 'owner_id');
     }
     public function bids() {
-      return $this->hasMany('App\Models\Bid', 'user_id');
+      return $this->hasMany('App\Models\Bid');
+    }
+
+    public function getProfileImage() {
+      return FileController::get('profile', $this->id);
     }
 }

@@ -51,7 +51,17 @@ Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
 
+// Files
+Route::post('/file/upload', ['FileController'::class, 'upload']);
+
 
 
 // Search
 Route::get('api/search/', 'AuctionController@ftsSearch')->name('FTSsearch');
+
+// FAQs
+Route::get('faqs', 'FAQController@list')->name('faqs');
+Route::get('faqs/{id}/edit', 'FAQController@showEditForm')->name('editFAQForm');
+Route::post('faqs/{id}/edit', 'FAQController@edit')->name('editFAQ');
+Route::post('faqs/{id}/delete', 'FAQController@delete')->name('deleteFAQ');
+Route::post('/faqs/create', 'FAQController@create')->name('createFAQ');
