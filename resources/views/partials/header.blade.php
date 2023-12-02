@@ -4,6 +4,7 @@
         <div>
             <a class = "button" href="{{ route('home') }}"> Home </a>
             <a class = "button" href="{{ route('home')}}"> About us </a>
+            <a class = "button" href="{{ route('faqs')}}"> FAQs </a>
         </div>
 
         <div class="search-container">
