@@ -1,3 +1,7 @@
+let page = 1;
+const perPage = 9;
+let loading = false;
+
 function debounce(func, wait) {
     let timeout;
     return function(...args) {
@@ -18,7 +22,7 @@ function addEventListeners() {
       const page = document.querySelector('.auctions-list');
       page.innerHTML = '';
       console.log(Array.isArray(auctions));
-      auctions.forEach((auction) => {
+      auctions.data.forEach((auction) => {
         const newAuction = insertAuction(auction);
         page.append(newAuction);
       });
@@ -32,7 +36,7 @@ function addEventListeners() {
         const page = document.querySelector('.auctions-list');
         page.innerHTML = '';
         console.log(Array.isArray(auctions));
-        auctions.forEach((auction) => {
+        auctions.data.forEach((auction) => {
         const newAuction = insertAuction(auction);
         page.append(newAuction);
         });
@@ -41,32 +45,33 @@ function addEventListeners() {
     search.addEventListener('keyup', debouncedFunction);
     }
 
+    window.addEventListener('scroll', debounce(checkScroll, 200));
+
+    window.addEventListener('scroll', showFooter);
+
 }
 
 function encodeForAjax(data) {
-  if (data == null) return null;
-  return Object.keys(data).map(function(k){
+    if (data == null) return null;
+        return Object.keys(data).map(function(k){
     return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-  }).join('&');
+    }).join('&');
 }
 
 function sendAjaxRequest(method, url, data) {
-  let request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
 
-  request.open(method, url, true);
-  request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.send(encodeForAjax(data));
+    request.open(method, url, true);
+    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(encodeForAjax(data));
 }
 
 
-async function fetchAuctions(text) {
-  const url = '/api/search?' + encodeForAjax({
-    text: text
-  });
-
-  const response = await fetch(url);
-  return await response.json();
+async function fetchAuctions(text, page) {
+    const url = `/api/search?page=${page}&text=${text}`;
+    const response = await fetch(url);
+    return await response.json();
 }
 
 
@@ -97,28 +102,47 @@ function insertAuction(auction) {
 }
 
 
+function appendAuctions(auctions) {
+    const pageElement = document.querySelector('.auctions-list');
+    auctions.data.forEach((auction) => {
+      const newAuction = insertAuction(auction);
+      pageElement.append(newAuction);
+    });
+  }
+
+
+function checkScroll() {
+if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && !loading) {
+    loading = true;
+    page++;
+    fetchAuctions(document.querySelector('#searchBar').value, page).then((auctions) => {
+    appendAuctions(auctions);
+    loading = false;
+    });
+}
+}
+
+function showFooter() {
+    var footerWrapper = document.getElementById('footer-wrapper');
+    var windowHeight = window.innerHeight;
+    var bodyHeight = document.body.offsetHeight;
+    var scrollPosition = window.scrollY || window.pageYOffset || document.body.scrollTop + (document.documentElement && document.documentElement.scrollTop || 0);
+
+    if (windowHeight + scrollPosition >= bodyHeight) {
+        footerWrapper.style.display = 'block';
+    } else {
+        footerWrapper.style.display = 'none';
+    }
+}
+
+
 
 addEventListeners();
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    var footerWrapper = document.getElementById('footer-wrapper');
-
-    function showFooter() {
-        var windowHeight = window.innerHeight;
-        var bodyHeight = document.body.offsetHeight;
-        var scrollPosition = window.scrollY || window.pageYOffset || document.body.scrollTop + (document.documentElement && document.documentElement.scrollTop || 0);
-
-        if (windowHeight + scrollPosition >= bodyHeight) {
-            footerWrapper.style.display = 'block';
-        } else {
-            footerWrapper.style.display = 'none';
-        }
-    }
-
-    showFooter(); // Initial check
-
-    window.addEventListener('scroll', showFooter);
+    addEventListeners();
+    showFooter();
 });
 
 
