@@ -124,29 +124,42 @@ class AuctionController extends Controller
 
 
     // search using tsvectors
-    public function ftsSearch(Request $request)
-    {
-      if ($request->has('text') && $request->get('text') != '') {
+    public function ftsSearch(Request $request) {
+        $perPage = 9;
 
-        $search = $request->get('text');
+        $query = Auction::query();
 
-        $formattedSearch = str_replace(' ', ' | ', $search);
-        $auctions = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch])->get()->load('owner');
+        if ($request->has('text') && $request->get('text') != '') {
 
-      }
+            $search = $request->get('text');
 
-      else {
-        $auctions = Auction::all()->load('owner');
-      }
+            $formattedSearch = str_replace(' ', ' | ', $search);
+            $query = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch]);
+        }
 
-      return response()->json($auctions);
+        $query->with('owner');
+
+        $auctions = $query->paginate($perPage);
+
+        $pagination = [
+            'current_page' => $auctions->currentPage(),
+            'per_page' => $auctions->perPage(),
+            'total' => $auctions->total(),
+        ];
+
+        $response = [
+            'data' => $auctions->items(),
+            'pagination' => $pagination,
+        ];
+
+
+
+        return response()->json($response);
     }
 
     public function index(Request $request) {
-      $auctions = json_decode($this->ftsSearch($request)->content());
-      return view('pages.auctionsListing', ['auctions' => $auctions]);
+        $auctions = json_decode($this->ftsSearch($request)->content());
+        return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
       //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
-      //return response()->json($auctions);
-
 }

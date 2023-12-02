@@ -1,3 +1,7 @@
+let page = 1;
+const perPage = 9;
+let loading = false;
+
 function debounce(func, wait) {
     let timeout;
     return function(...args) {
@@ -18,7 +22,7 @@ function addEventListeners() {
       const page = document.querySelector('.auctions-list');
       page.innerHTML = '';
       console.log(Array.isArray(auctions));
-      auctions.forEach((auction) => {
+      auctions.data.forEach((auction) => {
         const newAuction = insertAuction(auction);
         page.append(newAuction);
       });
@@ -32,7 +36,7 @@ function addEventListeners() {
         const page = document.querySelector('.auctions-list');
         page.innerHTML = '';
         console.log(Array.isArray(auctions));
-        auctions.forEach((auction) => {
+        auctions.data.forEach((auction) => {
         const newAuction = insertAuction(auction);
         page.append(newAuction);
         });
@@ -41,6 +45,7 @@ function addEventListeners() {
     search.addEventListener('keyup', debouncedFunction);
     }
 
+    window.addEventListener('scroll', debounce(checkScroll, 300));
 }
 
 function encodeForAjax(data) {
@@ -60,11 +65,8 @@ function sendAjaxRequest(method, url, data) {
 }
 
 
-async function fetchAuctions(text) {
-  const url = '/api/search?' + encodeForAjax({
-    text: text
-  });
-
+async function fetchAuctions(text, page) {
+  const url = `/api/search?page=${page}&text=${text}`;
   const response = await fetch(url);
   return await response.json();
 }
@@ -95,6 +97,26 @@ function insertAuction(auction) {
   return newAuction;
 
 }
+
+
+function appendAuctions(auctions) {
+    const pageElement = document.querySelector('.auctions-list');
+    auctions.data.forEach((auction) => {
+      const newAuction = insertAuction(auction);
+      pageElement.append(newAuction);
+    });
+  }
+
+  function checkScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && !loading) {
+      loading = true;
+      page++;
+      fetchAuctions(document.querySelector('#searchBar').value, page).then((auctions) => {
+        appendAuctions(auctions);
+        loading = false;
+      });
+    }
+  }
 
 
 
