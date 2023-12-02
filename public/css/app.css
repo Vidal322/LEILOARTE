@@ -480,3 +480,11 @@ header h1 {
 #register-form a.button:hover {
     background-color: var(--hover-color);
 }
+
+/* --------------------------------------------- */
+/*                   about us                    */
+/* --------------------------------------------- */
+
+.about_us {
+    text-align: center;
+}
