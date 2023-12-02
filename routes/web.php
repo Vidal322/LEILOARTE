@@ -51,7 +51,8 @@ Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
 
-
+// About Us
+Route::get('aboutus', 'AboutUsController@show')->name('aboutUs');
 
 // Search
 Route::get('api/search/', 'AuctionController@ftsSearch')->name('FTSsearch');

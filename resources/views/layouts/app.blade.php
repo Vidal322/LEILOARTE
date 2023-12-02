@@ -31,7 +31,7 @@
             <button class= "button" id="searchButton"> Search </button>
           </form>
           <a class = "button" href="{{ route('home') }}"> Home </a>
-          <a class = "button" href="{{ route('home')}}"> About us </a>
+          <a class = "button" href="{{ route('aboutUs')}}"> About us </a>
           
           @if (Auth::check())
           <div class="user-controls">
