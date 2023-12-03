@@ -1,6 +1,6 @@
-<article>
+<div class="faq-card">
     <div class="info-container">
-        <h3>{{ $faq->question }}</h3>
+        <h3 class="underline-text">{{ $faq->question }}</h3>
         <p> {{ $faq->answer}} </p>
         {{-- if admin--}}
         @if (Auth::check() && Auth::user()->type == 'admin')
@@ -12,4 +12,4 @@
             </form>
         @endif
     </div>
-</article>
+</div>
