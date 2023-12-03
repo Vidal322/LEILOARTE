@@ -2,11 +2,8 @@
 
 @section('content')
     <div class="faq-list">
-    @foreach ($faqs as $faq)
-    <div class="faq-card">
-        @include('partials.faqCard', ['faq' => $faq])
+        @foreach ($faqs as $faq)
+                @include('partials.faqCard', ['faq' => $faq])
+        @endforeach
     </div>
-    @endforeach
-    </div>
-
 @endsection
