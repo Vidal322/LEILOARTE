@@ -92,13 +92,13 @@ CREATE TABLE notification_comment(
 
 CREATE TABLE auction_save(
     user_id INTEGER REFERENCES users(id) ON UPDATE CASCADE,
-    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE, 
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,
     PRIMARY KEY(user_id, auction_id)
 );
 
 CREATE TABLE auction_category(
-    category_id INTEGER REFERENCES category(id) ON UPDATE CASCADE, 
-    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,  
+    category_id INTEGER REFERENCES category(id) ON UPDATE CASCADE,
+    auction_id INTEGER REFERENCES auction(id) ON UPDATE CASCADE,
     PRIMARY KEY(category_id, auction_id)
 );
 
@@ -140,7 +140,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE FUNCTION func_auction_search_update() RETURNS TRIGGER AS $$
 BEGIN
-IF TG_OP = 'INSERT' THEN 
+IF TG_OP = 'INSERT' THEN
     NEW.tsvectors = (
         setweight(to_tsvector('english', NEW.description), 'B') ||
         setweight(to_tsvector('english', NEW.name), 'A') ||
@@ -166,7 +166,7 @@ CREATE TRIGGER trig_auction_search_update
 BEFORE INSERT OR UPDATE ON auction
 FOR EACH ROW
 EXECUTE PROCEDURE func_auction_search_update();
- 
+
  -- CREATE SEARCH INDEX FOR Table Auction
 CREATE INDEX idx_auction_search ON auction USING GIST (tsvectors);
 
@@ -181,7 +181,7 @@ ADD COLUMN tsvectors TSVECTOR;
 
 CREATE FUNCTION func_category_search_update() RETURNS TRIGGER AS $$
 BEGIN
-IF TG_OP = 'INSERT' THEN 
+IF TG_OP = 'INSERT' THEN
 	NEW.tsvectors = (
 		setweight(to_tsvector('english', NEW.description), 'A')
 	);
@@ -189,7 +189,7 @@ IF TG_OP = 'INSERT' THEN
 IF TG_OP = 'UPDATE' THEN
 	IF (NEW.description <> OLD.description) THEN
 		NEW.tsvectors= (
-		setweight(to_tsvector('english', NEW.description), 'A') 
+		setweight(to_tsvector('english', NEW.description), 'A')
 	);
 	END IF;
 END IF;
@@ -205,7 +205,7 @@ EXECUTE PROCEDURE func_category_search_update();
 
 -- Create search index for table category
 CREATE INDEX idx_category_search ON category USING GIN (tsvectors);
- 
+
 
 
 -- ** INDEX 06 - idx_users_search **
@@ -216,7 +216,7 @@ ADD COLUMN tsvectors TSVECTOR;
 -- function to add/edit the tsvector column on INSERT/UPDATE on the users table
 CREATE FUNCTION func_users_search_update() RETURNS TRIGGER AS $$
 BEGIN
-IF TG_OP = 'INSERT' THEN 
+IF TG_OP = 'INSERT' THEN
 	NEW.tsvectors = (
 		setweight(to_tsvector('english', NEW.username), 'A') ||
         setweight(to_tsvector('english', NEW.name), 'B')
@@ -226,7 +226,7 @@ IF TG_OP = 'UPDATE' THEN
 	IF (NEW.username <> OLD.username OR NEW.name <> OLD.name) THEN
 		NEW.tsvectors= (
 		setweight(to_tsvector('english', NEW.username), 'A') ||
-        setweight(to_tsvector('english', NEW.name), 'B') 
+        setweight(to_tsvector('english', NEW.name), 'B')
 	);
 	END IF;
 END IF;
@@ -322,7 +322,7 @@ BEGIN
         SET end_t = NEW.date + INTERVAL '30 minutes'
         WHERE auction.id = NEW.auction_id;
     END IF;
-    
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -519,8 +519,8 @@ BEGIN
 
     -- Create a new notification with the message.
     INSERT INTO notifications (message, user_id, is_seen)
-    VALUES (comment_author_username || ' commented on your auction.', 
-            (SELECT owner_id FROM auction WHERE id = NEW.auction_id), 
+    VALUES (comment_author_username || ' commented on your auction.',
+            (SELECT owner_id FROM auction WHERE id = NEW.auction_id),
             FALSE)
     RETURNING id INTO notification_id;
 

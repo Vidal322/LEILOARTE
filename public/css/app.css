@@ -4,31 +4,31 @@
 body, h1, h2, h3, p, ul, ol, li {
     margin: 0;
     padding: 0;
-  }
+}
 
   /* Basic styling */
-  body {
+body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
     --main-color:#088F88;
     --hover-color:#066c66;
     --background-color:#f4f4f4;
-  }
+}
 
 
-  main {
+main {
     max-width: 100%;
     margin: 0;
     padding: 20px;
-  }
+}
 
-  a {
+a {
     text-decoration: none;
     color: black
-  }
+}
 
-  header a {
+header a {
     color:var(--background-color);
 }
 
@@ -480,3 +480,90 @@ header h1 {
 #register-form a.button:hover {
     background-color: var(--hover-color);
 }
+
+/* --------------------------------------------- */
+/*                 Notifications center          */
+/* --------------------------------------------- */
+
+.notifications-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+.notification-card {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 30px;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.notification-card:hover {
+    transform: translateY(-5px);
+}
+
+.notification-card .notification-title {
+    margin-bottom: 10px;
+}
+
+
+.notification-card .notification-message {
+    margin-bottom: 10px;
+}
+
+.notification-card .notification-date {
+    font-size: 15px;
+    color: #888;
+}
+
+.notification-card .notification-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.notification-card .button {
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.notification-card .button-outline {
+    background-color: transparent;
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+}
+
+.notification-card .underline-text {
+    text-decoration: underline;
+}
+
+
+.no-notifications-message {
+    color: #888;
+    text-align: center;
+    padding: 20px;
+}
+
+.auction-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    width: 500px;
+    height: 600px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}
+
+
+

@@ -43,4 +43,8 @@ class User extends Authenticatable
     public function getProfileImage() {
       return FileController::get('profile', $this->id);
     }
+
+    public function notfications() {
+      return $this->hasMany('App\Models\Notification', 'user_id');
+    }
 }
