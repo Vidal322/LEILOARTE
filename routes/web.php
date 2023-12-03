@@ -61,5 +61,15 @@ Route::post('notifications/{id}/delete', 'NotificationController@delete')->name(
 // Files
 Route::post('/file/upload', ['FileController'::class, 'upload']);
 
+// About Us
+Route::get('aboutus', 'AboutUsController@show')->name('aboutUs');
+
 // Search
 Route::get('api/search/', 'AuctionController@ftsSearch')->name('FTSsearch');
+
+// FAQs
+Route::get('faqs', 'FAQController@list')->name('faqs');
+Route::get('faqs/{id}/edit', 'FAQController@showEditForm')->name('editFAQForm');
+Route::post('faqs/{id}/edit', 'FAQController@edit')->name('editFAQ');
+Route::post('faqs/{id}/delete', 'FAQController@delete')->name('deleteFAQ');
+Route::post('/faqs/create', 'FAQController@create')->name('createFAQ');

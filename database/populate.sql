@@ -409,3 +409,10 @@ insert into auction_category (auction_id, category_id) values (7, 2);
 insert into auction_category (auction_id, category_id) values (8, 2);
 insert into auction_category (auction_id, category_id) values (9, 2);
 insert into auction_category (auction_id, category_id) values (10, 2);
+
+
+insert into faq (question, answer) values ('Is there a reserve price on items?','Yes, sellers on LeiloArte can set a minimum price for their items. This is known as a reserve price, ensuring that the item will not be sold for less than a predetermined amount.');
+insert into faq (question, answer) values ('Can I retract a bid?','No, once a bid is placed on LeiloArte, it cannot be retracted. Bidding commits you to the potential purchase, so its important to consider your bid carefully before confirming.');
+insert into faq (question, answer) values ('How long does an auction typically last?','The duration of each auction is determined by the owner of the item. Sellers set the auction period to a specified length, which could range from a few days to several weeks.');
+insert into faq (question, answer) values ('How do I know if I´ve been outbid?','LeiloArte provides notifications to alert you if a new bid surpasses your current highest bid. This ensures that you are aware when you have been outbid and allows you to reconsider your bidding strategy.');
+insert into faq (question, answer) values ('Are there any restrictions on the types of items I can auction?','Yes, LeiloArte is an exclusive auction site dedicated to the sale of art items. As such, only art-related items are permitted for auction on this platform, maintaining a specialized focus on the art market.');

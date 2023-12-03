@@ -102,6 +102,12 @@ CREATE TABLE auction_category(
     PRIMARY KEY(category_id, auction_id)
 );
 
+CREATE TABLE faq(
+    id SERIAL PRIMARY KEY,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
+
 
 
 -- #################################        PERFORMANCE INDEXES        #################################
