@@ -17,6 +17,7 @@
 
         @if (Auth::check())
             <div class="user-controls">
+                <a class="button" href="{{ route('notificationsCenter', ['id'=>Auth::user()->id])}}"> Notifications </a>
                 <form method="POST" action="{{ route('logout') }}">
                     {{ csrf_field() }}
                     <button class="button"> Logout </button>

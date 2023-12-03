@@ -351,10 +351,10 @@ insert into comment (message, date, source_user_id) values ('I love this paintin
 insert into comment_user (comment_id, user_id, rating) values (1, 1, 5);
 insert into comment_user (comment_id, user_id, rating) values (2, 2, 5);
 insert into comment_user (comment_id, user_id, rating) values (3, 3, 5);
-insert into comment_user (comment_id, user_id, rating) values (4, 3, 5); 
+insert into comment_user (comment_id, user_id, rating) values (4, 3, 5);
 
 
-insert into notifications (message, date, is_seen) values ('New Comment', '2023-09-19 04:49:12', false);
+insert into notifications (message, date, is_seen, user_id) values ('New Comment', '2023-09-19 04:49:12', false, 3);
 insert into notifications (message, date, is_seen) values ('New Bid', '2023-10-07 13:24:11', false);
 insert into notifications (message, date, is_seen) values ('New Bid', '2023-09-29 07:23:20', true);
 insert into notifications (message, date, is_seen) values ('Auction Ended', '2023-09-14 17:49:37', false);

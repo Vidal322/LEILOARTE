@@ -47,9 +47,16 @@ Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('foll
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
 
+
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
+
+// Notifications
+Route::get('users/{id}/notifications', 'NotificationController@index')->name('notificationsCenter');
+Route::post('notifications/{id}/seen', 'NotificationController@seen')->name('seenNotification'); // TODO
+Route::post('notifications/{id}/delete', 'NotificationController@delete')->name('deleteNotification'); // TODO
+
 
 // Files
 Route::post('/file/upload', ['FileController'::class, 'upload']);
