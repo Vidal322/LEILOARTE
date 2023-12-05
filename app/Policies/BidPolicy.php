@@ -40,9 +40,13 @@ class BidPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user, $topBid)
     {
-        //
+        if( !($user->type == 'admin') && ($user->id != $topBid->user_id)){
+            log::info('true');
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -66,7 +70,7 @@ class BidPolicy
      */
     public function delete(User $user, Bid $bid)
     {
-        //
+        return $user->type=='admin';
     }
 
     /**
@@ -90,7 +94,7 @@ class BidPolicy
      */
     public function forceDelete(User $user, Bid $bid)
     {
-        //
+        return $user->type=='admin';
     }
 
     

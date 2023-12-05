@@ -10,6 +10,7 @@
   @endforeach
 </div>
 
-
-<a class="button" id="createAuctionButton" href="{{ route('createAuction') }}"> Create Auction </a>
+@if(auth()->check() && auth()->user()->type != 'admin')
+    <button>Create Auction</button>
+@endif
 @endsection
