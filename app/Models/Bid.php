@@ -12,7 +12,7 @@ class Bid extends Model
   protected $table = "bid";
 
   protected $fillable = [
-    // 'description', 'owner_id', 'active', 'start', 'end', 'name',
+    'amount', 'date', 'top_bid', 'user', 'auction',
   ];
 
 

@@ -51,6 +51,7 @@ Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
+Route::get('/users/{id}/bids', 'BidController@biddedBy')->name('userBids');
 
 // Notifications
 Route::get('users/{id}/notifications', 'NotificationController@index')->name('notificationsCenter');

@@ -60,6 +60,16 @@ class BidController extends Controller
       return view('pages.createBid', ['id' => $auction_id]);
     }
 
+    public function biddedBy($user_id)
+    {
+      $bids = Bid::get()->where('user_id', $user_id);
+      return view('pages.ownedBids', ['bids' => $bids]);
+    }
 
+    public function show($id)
+    {
+      $bid = Bid::find($id);
+      return view('pages.ownedBids', ['bid' => $bid, 'user' => $bid->user_id]);
+    }
 
 }
