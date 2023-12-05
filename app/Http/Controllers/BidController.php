@@ -15,10 +15,12 @@ use League\CommonMark\Node\Query;
 
 class BidController extends Controller
 {
-    public function create(Request $request, User $user, $auction_id)
+    public function create(Request $request, $auction_id)
     {
+      //dd($request->all());
+      $user = Auth::user();
       //Log::info("User {$user->id} type: {$user->type} username: {$user->username}");
-      $bid = new Bid;
+      $bid = new Bid();
       $bid->user_id = $user->id;
       $bid->auction_id = $auction_id;
       $bid->amount = $request->input('amount');
@@ -41,7 +43,7 @@ class BidController extends Controller
       catch (QueryException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
       }
-      return redirect('auctions/'.$id);
+      return view('pages.auction',['auction' => $auction]);
     }
 
     public function showCreateForm($auction_id)
