@@ -13,7 +13,7 @@ class AuctionController extends Controller
 
     public function list()
     {
-      $auctions = Auction::paginate(10);
+      $auctions = Auction::where('active', true)->paginate(10);
       return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
 
@@ -136,6 +136,8 @@ class AuctionController extends Controller
             $formattedSearch = str_replace(' ', ' | ', $search);
             $query = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch]);
         }
+
+        $query->where('active', true);
 
         $query->with('owner');
 

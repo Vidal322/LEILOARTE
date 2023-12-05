@@ -573,3 +573,21 @@ BEFORE INSERT ON comment_user
 FOR EACH ROW
 EXECUTE PROCEDURE update_user_rate();
 
+-- * TRIGGER12 *
+-- Create a trigger to make the auction not active when the end date expires.
+CREATE OR REPLACE FUNCTION update_auction_status()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.end_t > NOW() THEN
+        NEW.active := true;
+    ELSE
+        NEW.active := false;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_auction_status_trigger
+BEFORE INSERT OR UPDATE ON auction
+FOR EACH ROW EXECUTE FUNCTION update_auction_status();
+
