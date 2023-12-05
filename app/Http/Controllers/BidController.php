@@ -15,17 +15,16 @@ use League\CommonMark\Node\Query;
 
 class BidController extends Controller
 {
-    public function create(Request $request, $id)
+    public function create(Request $request, User $user, $auction_id)
     {
-      $user = Auth::user();
       //Log::info("User {$user->id} type: {$user->type} username: {$user->username}");
       $bid = new Bid;
       $bid->user_id = $user->id;
-      $bid->auction_id = $id;
+      $bid->auction_id = $auction_id;
       $bid->amount = $request->input('amount');
 
       //find top bid
-      $auction = Auction::find($id);
+      $auction = Auction::find($auction_id);
         $bids = $auction->bids()->orderBy('amount', 'desc')->get();
         if (count($bids) != 0) {
           $topBid = $bids[0];
@@ -34,7 +33,7 @@ class BidController extends Controller
           $topBid = null;
         }
       try {
-        $this->authorize('bid', [$user, $topBid]);
+        $this->authorize('bid', $topBid);
         $bid->save();
     } catch (AuthorizationException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
@@ -47,7 +46,15 @@ class BidController extends Controller
 
     public function showCreateForm($auction_id)
     {
-      $this->authorize('create', Bid::class);
+      $auction = Auction::find($auction_id);
+        $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+        if (count($bids) != 0) {
+          $topBid = $bids[0];
+        }
+        else {
+          $topBid = null;
+        }
+      $this->authorize('create', $topBid);
       return view('pages.createBid', ['id' => $auction_id]);
     }
 
