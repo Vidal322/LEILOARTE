@@ -40,14 +40,30 @@ Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('foll
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
 
+
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
+Route::get('/users/{id}/bids', 'BidController@biddedBy')->name('userBids');
+
+// Notifications
+Route::get('users/{id}/notifications', 'NotificationController@index')->name('notificationsCenter');
+Route::post('notifications/{id}/seen', 'NotificationController@seen')->name('seenNotification'); // TODO
+Route::post('notifications/{id}/delete', 'NotificationController@delete')->name('deleteNotification'); // TODO
+
 
 // Files
 Route::post('/file/upload', 'FileController@upload')->name('uploadFile');
 
-
+// About Us
+Route::get('aboutus', 'AboutUsController@show')->name('aboutUs');
 
 // Search
 Route::get('api/search/', 'AuctionController@ftsSearch')->name('FTSsearch');
+
+// FAQs
+Route::get('faqs', 'FAQController@list')->name('faqs');
+Route::get('faqs/{id}/edit', 'FAQController@showEditForm')->name('editFAQForm');
+Route::post('faqs/{id}/edit', 'FAQController@edit')->name('editFAQ');
+Route::post('faqs/{id}/delete', 'FAQController@delete')->name('deleteFAQ');
+Route::post('/faqs/create', 'FAQController@create')->name('createFAQ');

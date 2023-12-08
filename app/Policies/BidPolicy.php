@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Bid;
+use App\Models\Auction;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Log;
@@ -40,10 +41,17 @@ class BidPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
-    {
-        //
+    public function create(User $user, $topBid)
+{
+    $auction = Auction::find($topBid->auction_id);
+
+    if ($auction && $auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id)) {
+        Log::info('true');
+        return true;
     }
+
+    return false;
+}
 
     /**
      * Determine whether the user can update the model.
@@ -66,7 +74,7 @@ class BidPolicy
      */
     public function delete(User $user, Bid $bid)
     {
-        //
+        return $user->type=='admin';
     }
 
     /**
@@ -90,14 +98,16 @@ class BidPolicy
      */
     public function forceDelete(User $user, Bid $bid)
     {
-        //
+        return $user->type=='admin';
     }
 
     
-    public function bid(User $user, $bid)
+    public function bid(User $user, $topBid)
     {
 
-        if( !($user->type == 'admin') && ($user->id != $bid->user_id)){
+        $auction = Auction::find($topBid->auction_id);
+
+        if ($auction && $auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id)){
             log::info('true');
             return true;
         }

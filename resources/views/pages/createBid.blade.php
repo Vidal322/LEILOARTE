@@ -14,7 +14,7 @@
 
     <button type="submit">
         Place Bid
-    </button class="button button-outline">
+    </button>
     <a class="button button-outline" href="{{ route('auctions', ['id'=> $id]) }}">Cancel</a>
 </form>
 

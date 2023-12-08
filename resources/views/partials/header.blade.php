@@ -3,7 +3,8 @@
     <nav class="navigation">
         <div>
             <a class = "button" href="{{ route('home') }}"> Home </a>
-            <a class = "button" href="{{ route('home')}}"> About us </a>
+            <a class = "button" href="{{ route('aboutUs')}}"> About us </a>
+            <a class = "button" href="{{ route('faqs')}}"> FAQs </a>
         </div>
 
         <div class="search-container">
@@ -16,6 +17,7 @@
 
         @if (Auth::check())
             <div class="user-controls">
+                <a class="button" href="{{ route('notificationsCenter', ['id'=>Auth::user()->id])}}"> Notifications </a>
                 <form method="POST" action="{{ route('logout') }}">
                     {{ csrf_field() }}
                     <button class="button"> Logout </button>

@@ -39,4 +39,12 @@ class User extends Authenticatable
     public function bids() {
       return $this->hasMany('App\Models\Bid');
     }
+
+    public function getProfileImage() {
+      return FileController::get('profile', $this->id);
+    }
+
+    public function notfications() {
+      return $this->hasMany('App\Models\Notification', 'user_id');
+    }
 }

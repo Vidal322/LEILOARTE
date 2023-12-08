@@ -13,7 +13,7 @@
         </div>
         <div class="button-container">
             <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
-            <!-- <button class="button button-outline"><a href="{{ route('deleteUser', ['id' => $user->id]) }}">Delete</a></button> -->
+            <button class="button button-outline"><a href="{{ route('userBids', ['id' => $user->id]) }}">Owned Bids</a></button>
         </div>
 
         {{-- if owner--}}

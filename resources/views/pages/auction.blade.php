@@ -8,13 +8,18 @@
             <div>Auctioneer: <a href="{{route('user', ['id' => $auction->owner_id])}}">{{ $auction->owner->name }}</a></div>
         </div>
         <div class="right-column">
-            <div class="auction-description">
-                <h2><div class="underline-text">Item Overview</div></h2>
-                <div>{{ $auction->description }}</div>
-                <h2><div class="underline-text">Auction Details</div></h2>
-                <div>This auction started on {{ $auction->start_t }}</div>
+        <div class="auction-description">
+            <h2><div class="underline-text">Item Overview</div></h2>
+            <div>{{ $auction->description }}</div>
+            <h2><div class="underline-text">Auction Details</div></h2>
+            <div>This auction started on {{ $auction->start_t }}</div>
+            
+            @if ($auction->active)
                 <div>This auction will close on {{ $auction->end_t }}</div>
-            </div>
+            @else
+                <div>This auction closed on {{ $auction->end_t }}</div>
+            @endif
+        </div>
 
             <div class="auction-bids">
                 <h2 class="underline-text">Bids</h2>
