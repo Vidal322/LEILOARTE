@@ -35,4 +35,13 @@
     <a class="button button-outline" href="{{ route('user', ['id'=> $id]) }}">Cancel</a>
 </form>
 
+<form method="POST" action=" {{ route('uploadFile') }} " enctype="multipart/form-data">
+    @csrf
+    <input name="file" type="file" required>
+    <input name="id" type="number" value="{{ $id }}" hidden>
+    <input name="type" type="text" value="users" hidden>
+    <button type="submit">Submit</button class = "button button-outline">
+</form>
+
+
 @endsection

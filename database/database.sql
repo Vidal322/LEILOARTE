@@ -16,7 +16,7 @@ CREATE TABLE users(
     name TEXT NOT NULL,
     description TEXT,
     password TEXT NOT NULL,
-    img TEXT DEFAULT '/images/user.png',
+    img TEXT DEFAULT 'users/default.png',
     deleted BOOLEAN DEFAULT false NOT NULL,
     rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
     type User_Type NOT NULL DEFAULT 'user'
@@ -31,7 +31,7 @@ CREATE TABLE auction(
     id SERIAL PRIMARY KEY,
     description TEXT NOT NULL,
     name TEXT NOT NULL,
-    image TEXT DEFAULT '/images/auction.png',
+    image TEXT DEFAULT 'auctions/default.png',
     owner_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
     active BOOLEAN NOT NULL DEFAULT true,
     starting_price FLOAT DEFAULT 0 NOT NULL CONSTRAINT auction_starting_price_ck CHECK (starting_price >= 0),
@@ -283,7 +283,6 @@ EXECUTE PROCEDURE delete_user_bids();
 
 -- * TRIGGER02 *
 
-
 -- Create a trigger to raise an exception if a user tries to bid as the current highest bidder.
 CREATE OR REPLACE FUNCTION check_bid_higher_bidder()
 RETURNS TRIGGER AS $$
@@ -310,7 +309,6 @@ EXECUTE PROCEDURE check_bid_higher_bidder();
 
 
 -- * TRIGGER03 *
-
 
 -- Create a trigger function to update auction end time based on bid date.
 CREATE OR REPLACE FUNCTION update_auction_end_time()
@@ -342,7 +340,6 @@ EXECUTE PROCEDURE update_auction_end_time();
 
 -- * TRIGGER04 *
 
-
 -- Create a trigger to raise an exception if the auction owner tries to bid on their own auction.
 CREATE OR REPLACE FUNCTION check_auction_owner_bid()
 RETURNS TRIGGER AS $$
@@ -362,9 +359,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE check_auction_owner_bid();
 
 
-
 -- * TRIGGER05 *
-
 
 CREATE OR REPLACE FUNCTION delete_user_auctions()
 RETURNS TRIGGER AS $$
@@ -385,6 +380,7 @@ BEGIN
    RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
+
 
 -- * TRIGGER06 *
 
@@ -451,7 +447,6 @@ CREATE TRIGGER trig_check_bid_value
 BEFORE INSERT ON bid
 FOR EACH ROW
 EXECUTE PROCEDURE check_bid_value();
-
 
 
 -- * TRIGGER08 *
@@ -573,6 +568,7 @@ BEFORE INSERT ON comment_user
 FOR EACH ROW
 EXECUTE PROCEDURE update_user_rate();
 
+
 -- * TRIGGER12 *
 -- Create a trigger to make the auction not active when the end date expires.
 CREATE OR REPLACE FUNCTION update_auction_status()
@@ -591,3 +587,29 @@ CREATE TRIGGER update_auction_status_trigger
 BEFORE INSERT OR UPDATE ON auction
 FOR EACH ROW EXECUTE FUNCTION update_auction_status();
 
+
+-- * TRIGGER13 *
+
+-- Create a trigger to prevent administrators from creating auctions.
+CREATE OR REPLACE FUNCTION prevent_admin_auctions()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the user associated with the auction is an administrator.
+    IF EXISTS (
+        SELECT 1
+        FROM users
+        WHERE NEW.owner_id = users.id
+        AND users.type = 'admin'
+    ) THEN
+        RAISE EXCEPTION 'An administrator can''t create auctions';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger for auction insertion to prevent administrators from creating auctions.
+CREATE TRIGGER trig_prevent_admin_auctions
+BEFORE INSERT ON auction
+FOR EACH ROW
+EXECUTE PROCEDURE prevent_admin_auctions();

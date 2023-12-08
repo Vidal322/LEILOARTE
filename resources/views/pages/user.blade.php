@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="user-profile">
-            <img class= profile-img src="{{ $user->img }}" alt="UserImage">
+            <img class= profile-img src="{{ asset($user->img) }}" alt="UserImage">
             <div class="info">
                 <div>{{$user->name}}</div>
                 <div>Username: {{$user->username}}</div>
