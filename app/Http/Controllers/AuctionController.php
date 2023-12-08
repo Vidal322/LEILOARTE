@@ -9,7 +9,12 @@ use App\Models\AuctionSave;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class AuctionController extends Controller
-{
+{ 
+    public static function returnAuction($id)
+    {
+      $auction = Auction::find($id);
+      return $auction;
+    }
 
     public function list()
     {

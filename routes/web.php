@@ -14,13 +14,6 @@
 
 Route::get('/', 'Auth\LoginController@home');
 
-// API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
-
 // Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -52,7 +45,7 @@ Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBid
 Route::post('auctions/{id}/bid', 'BidController@create')->name('createBid');
 
 // Files
-Route::post('/file/upload', ['FileController'::class, 'upload']);
+Route::post('/file/upload', 'FileController@upload')->name('uploadFile');
 
 
 
