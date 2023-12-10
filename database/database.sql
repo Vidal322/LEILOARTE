@@ -22,6 +22,12 @@ CREATE TABLE users(
     type User_Type NOT NULL DEFAULT 'user'
 );
 
+CREATE TABLE block(
+    id SERIAL PRIMARY KEY,
+    blocker_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE,
+    blocked_id INTEGER NOT NULL REFERENCES users(id) ON UPDATE CASCADE
+);
+
 CREATE TABLE category(
     id SERIAL PRIMARY KEY,
     description TEXT NOT NULL

@@ -46,7 +46,9 @@ Route::post('users/{id}/delete', 'UserController@delete')->name('deleteUser');
 Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('followAuctions');
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
-
+Route::get('users/{id}/blocked', 'BlockController@listBlockedUsers')->name('blockedUsers');
+Route::post('users/{id}/block', 'BlockController@blockUser')->name('blockUser');
+Route::post('users/{id}/unblock', 'BlockController@unblockUser')->name('unblockUser');
 
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');

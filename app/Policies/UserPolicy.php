@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Block;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,8 @@ class UserPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user, User $model) {
-        return true;
+
+        return !(Block::isBlocked($user->id, $model->id) || Block::isBlocked($model->id, $user->id));
     }
 
     /**
@@ -30,7 +32,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return !(Auth::check());
+        return !(Auth::check()) || $user->userType == 'admin';
     }
 
     /**

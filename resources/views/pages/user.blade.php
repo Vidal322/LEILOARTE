@@ -21,11 +21,17 @@
         <div class="button-container">
             <button class="button button-outline"><a href="{{ route('followedAuctions', ['id' => $user->id]) }}">Followed Auctions</a></button>
             <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
+            <button class="button button-outline"><a href="{{ route('blockedUsers', ['id' => $user->id]) }}">Blocked Users</a></button>
             <form method="POST" action="{{ route('deleteUser', ['id' => $user->id]) }}">
                 {{ csrf_field() }}
                 <button class="button button-outline"> <a> Delete </a> </button>
             </form>
         </div>
+        @else
+            <form method="POST" action="{{ route('blockUser', ['id' => $user->id]) }}">
+                {{ csrf_field() }}
+                <button class="button button-outline"> <a> Block </a> </button>
+            </form>
         @endif
 
         {{-- if admin--}}

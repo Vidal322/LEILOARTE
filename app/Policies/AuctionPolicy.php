@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Auction;
+use App\Models\Block;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -30,7 +31,7 @@ class AuctionPolicy
      */
     public function view(User $user, Auction $auction)
     {
-        //
+        return !(Block::isBlocked($user->id, $auction->owner_id) || Block::isBlocked($auction->owner_id, $user->id));
     }
 
     /**
