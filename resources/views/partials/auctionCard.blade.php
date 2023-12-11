@@ -9,6 +9,5 @@
         <img src= "{{ asset($auction->owner->img) }}" alt="{{ $auction->owner->name }}" width="100" height="100" style="border-radius: 50%;" >
     </div>
     <p>{{ $auction->description }}</p>
-
     </div>
 </article></a>
