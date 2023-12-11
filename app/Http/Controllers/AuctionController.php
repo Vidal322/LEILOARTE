@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Auction;
 use App\Models\AuctionSave;
 use Illuminate\Auth\Access\AuthorizationException;
+use App\Events\NotificationEvent;
 
 class AuctionController extends Controller
 {
@@ -103,16 +104,18 @@ class AuctionController extends Controller
       return redirect('auctions/' . $auction->id);
     }
 
-    public function delete($id)
-    {
-      $auction = Auction::find($id);
-      try {
-        $this->authorize('delete', $auction);
-    } catch (AuthorizationException $e) {
-        return back()->with('error', 'You are not authorized to perform this action.');
-    }
-      $auction->delete();
-      return redirect('/');
+    public function delete($id) {
+        $auction = Auction::find($id);
+        try {
+            $this->authorize('delete', $auction);
+        }
+        catch (AuthorizationException $e) {
+            return back()->with('error', 'You are not authorized to perform this action.');
+        }
+        event(new NotificationEvent($id));
+        $auction->delete();
+
+        return redirect('/');
     }
 
     public function listBids($id)
