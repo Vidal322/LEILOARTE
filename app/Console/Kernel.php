@@ -5,8 +5,11 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Models\Auction;
+use App\Models\Bid;
 use App\Events\AuctionEnded;
 use App\Events\AuctionEnding;
+use App\Events\AuctionWinner;
+use Illuminate\Database\Eloquent\Collection;
 
 class Kernel extends ConsoleKernel
 {
@@ -32,19 +35,22 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             try {
-                $endedAuctions = Auction::where('end_t', '<', now())
+                $endedAuctions = Auction::with(['bids', 'bids.bidder'])
+                                        ->where('end_t', '<', now())
                                         ->where('active', true)
                                         ->get();
-
-                foreach ($endedAuctions as $auction) {
+               foreach ($endedAuctions as $auction) {
                     $auction->update(['active' => false]);
                     $auction->save();
+                    $winner = $auction->bids()->orderBy('amount', 'desc')->first()->bidder;
                     event(new AuctionEnded($auction->id));
+                    event(new AuctionWinner($winner->id, $auction->id));
                 }
             }catch (\Exception $e) {
                  // Log the exception
                  \Log::error('Scheduled task failed: ' . $e->getMessage());
             }
+
         })->everyMinute();
 
 
@@ -57,7 +63,7 @@ class Kernel extends ConsoleKernel
                                         ->where('active', true)
                                         ->get();
                 foreach ($endingAuctions as $auction) {
-                    event(new AuctionEnding($auction->id));
+                    //event(new AuctionEnding($auction->id));
                 }
             }catch (\Exception $e) {
                  // Log the exception
