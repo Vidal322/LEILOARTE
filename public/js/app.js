@@ -172,7 +172,33 @@ channel.bind('followed-auction-ended-notification', function(event) {
     setTimeout(() => {
         document.body.removeChild(notificationBox);
     }, 10000);
-
 });
+
+
+
+channel.bind('followed-auction-ending-notification', function(event) {
+
+    //console.log(event);
+
+    const message = event.message;
+
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">Auction Ending</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 15000);
+});
+
 
 

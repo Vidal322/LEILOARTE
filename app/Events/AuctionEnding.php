@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NotificationEvent implements ShouldBroadcast
+class AuctionEnding implements shouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -25,7 +25,7 @@ class NotificationEvent implements ShouldBroadcast
      */
     public function __construct($auction_id) {
         $this->auction_id = $auction_id;
-        $this->message = 'Auction ' . $auction_id . ' has been canceled';
+        $this->message = 'Auction ' . $auction_id . ' ends in 30 minutes';
     }
 
     /**
@@ -39,6 +39,7 @@ class NotificationEvent implements ShouldBroadcast
     }
 
     public function broadcastAs() {
-        return 'followed-auction-canceled-notification';
+        return 'followed-auction-ending-notification';
     }
+
 }

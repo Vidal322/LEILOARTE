@@ -25,7 +25,7 @@ class AuctionEnded implements shouldBroadcast
      */
     public function __construct($auction_id) {
         $this->auction_id = $auction_id;
-        $this->message = 'Auction' . $auction_id . 'has ended';
+        $this->message = 'Auction ' . $auction_id . ' has ended';
     }
 
     /**
