@@ -196,6 +196,29 @@ channel.bind('followed-auction-ending-notification', function(event) {
     }, 15000);
 });
 
+channel.bind('auction-winner-notification', function(event) {
+
+    const message = event.message;
+
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">Auction Winner!</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 15000);
+});
+
+
 channel.bind('followed-auction-bid-notification', function(event) {
 
 

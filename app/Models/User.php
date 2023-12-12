@@ -36,6 +36,7 @@ class User extends Authenticatable
     public function auctions() {
       return $this->hasMany('App\Models\Auction', 'owner_id');
     }
+
     public function bids() {
       return $this->hasMany('App\Models\Bid');
     }
