@@ -18,6 +18,5 @@ rm cronfile
 # Start cron
 cron
 
-
 php-fpm8.1 -D
 nginx -g "daemon off;"

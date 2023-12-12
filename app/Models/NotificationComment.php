@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class NotificationComment extends Model
 {
     protected $table = "notification_comment";
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function notification() {
         return $this->belongsTo('App\Models\Notification', 'notification_id');
