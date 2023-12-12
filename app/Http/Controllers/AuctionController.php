@@ -10,7 +10,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use App\Events\NotificationEvent;
 
 class AuctionController extends Controller
-{ 
+{
     public static function returnAuction($id)
     {
       $auction = Auction::find($id);
@@ -111,13 +111,13 @@ class AuctionController extends Controller
 
     public function delete($id) {
         $auction = Auction::find($id);
+        event(new NotificationEvent($id));
         try {
             $this->authorize('delete', $auction);
         }
         catch (AuthorizationException $e) {
             return back()->with('error', 'You are not authorized to perform this action.');
         }
-        event(new NotificationEvent($id));
         $auction->delete();
 
         return redirect('/');

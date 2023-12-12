@@ -125,9 +125,6 @@ const pusher = new Pusher(pusherAppKey,{
 
 const channel = pusher.subscribe('lbaw23113');
 channel.bind('followed-auction-canceled-notification', function(event) {
-    //alert('Auction ${auctionId} has been canceled: ${message}');
-
-    //console.log('Event received:', event);
 
     const message = event.message;
     const auctionId = event.auction_id;
@@ -137,7 +134,7 @@ channel.bind('followed-auction-canceled-notification', function(event) {
     notificationBox.innerHTML = `
         <div class="notification-content">
             <span class="notification-title">Auction Canceled</span>
-            <p>Auction ${auctionId} has been canceled: ${message}</p>
+            <p>${message}</p>
         </div>
     `;
 
@@ -147,6 +144,35 @@ channel.bind('followed-auction-canceled-notification', function(event) {
     // Remove the notification box after a certain duration
     setTimeout(() => {
         document.body.removeChild(notificationBox);
-    }, 5000);
+    }, 10000);
 
 });
+
+
+channel.bind('followed-auction-ended-notification', function(event) {
+
+    //console.log(event);
+
+    const message = event.message;
+    const auctionId = event.auction_id;
+
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">Auction Ended</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 10000);
+
+});
+
+

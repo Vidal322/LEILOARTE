@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class NotificationAuction extends Model
 {
     protected $table = "notification_auction";
-    protected $timestamps = false;
+    public $timestamps = false;
     protected $fillable = [
         'user_id', 'auction_id', 'message', 'seen',
     ];
