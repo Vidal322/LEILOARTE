@@ -636,3 +636,24 @@ header h1 {
 .about_us {
     text-align: center;
 }
+
+
+.notification-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #f0f0f0;
+    border: 1px solid var(--main-color);
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification-content {
+    font-family: Arial, sans-serif;
+}
+
+.notification-title {
+    font-weight: bold;
+    font-size: 18px;
+}

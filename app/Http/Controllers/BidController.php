@@ -12,31 +12,32 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\QueryException;
 use League\CommonMark\Node\Query;
+use App\Events\NewBid;
 
 class BidController extends Controller
 {
     public function create(Request $request, $auction_id)
     {
-      //dd($request->all());
-      $user = Auth::user();
-      //Log::info("User {$user->id} type: {$user->type} username: {$user->username}");
-      $bid = new Bid();
-      $bid->user_id = $user->id;
-      $bid->auction_id = $auction_id;
-      $bid->amount = $request->input('amount');
+    $user = Auth::user();
 
-      //find top bid
-      $auction = Auction::find($auction_id);
-        $bids = $auction->bids()->orderBy('amount', 'desc')->get();
-        if (count($bids) != 0) {
-          $topBid = $bids[0];
-        }
-        else {
-          $topBid = null;
-        }
-      try {
+    $bid = new Bid();
+    $bid->user_id = $user->id;
+    $bid->auction_id = $auction_id;
+    $bid->amount = $request->input('amount');
+
+    //find top bid
+    $auction = Auction::find($auction_id);
+    $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+    if (count($bids) != 0) {
+        $topBid = $bids[0];
+    }
+    else {
+        $topBid = null;
+    }
+    try {
         $this->authorize('bid', $topBid);
         $bid->save();
+        event(new NewBid($bid->id, $auction_id));
     } catch (AuthorizationException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
     }

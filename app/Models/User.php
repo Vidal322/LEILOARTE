@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+  use Notifiable;
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
@@ -36,6 +36,7 @@ class User extends Authenticatable
     public function auctions() {
       return $this->hasMany('App\Models\Auction', 'owner_id');
     }
+
     public function bids() {
       return $this->hasMany('App\Models\Bid');
     }

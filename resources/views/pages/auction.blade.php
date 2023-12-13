@@ -4,7 +4,7 @@
     <div class="display-auction">
         <div class="left-column">
             <h2><div class="underline-text"> {{$auction->name}} </div></h2>
-            <img src="{{ $auction->image }}" alt="Auction Image">
+            <img src="{{ asset($auction->image) }}" alt="Auction Image">
             <div>Auctioneer: <a href="{{route('user', ['id' => $auction->owner_id])}}">{{ $auction->owner->name }}</a></div>
         </div>
         <div class="right-column">

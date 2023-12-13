@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class CommentAuction extends Model
 {
     protected $table = "comment_auction";
-    protected $timestamps = false;
+    public $timestamps = false;
 }

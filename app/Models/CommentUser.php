@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class CommentUser extends Model
 {
     protected $table = "comment_user";
-    protected $timestamps = false;
+    public $timestamps = false;
 
 }

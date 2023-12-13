@@ -16,10 +16,14 @@
         // Fix for Firefox autofocus CSS bug
         // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
     </script>
-    <script src={{ asset('js/app.js') }} defer>
-    </script>
-    <script src={{asset('js/notifications.js')}} defer>
-    </script>
+    <script>
+        const pusherAppKey = "{{ env('PUSHER_APP_KEY') }}";
+        const pusherCluster = "{{ env('PUSHER_APP_CLUSTER') }}";
+      </script>
+      <script type="text/javascript" src="https://js.pusher.com/7.0/pusher.min.js" defer></script>
+      <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
+    <script src={{asset('js/notifications.js')}} defer></script>
+
 
   </head>
   <body>

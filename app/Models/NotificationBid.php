@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class NotificationBid extends Model
 {
     protected $table = "notification_bid";
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function notification() {
         return $this->belongsTo('App\Models\Notification', 'notification_id');
