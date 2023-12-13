@@ -38,6 +38,9 @@ Route::post('auctions/{id}/edit', 'AuctionController@edit')->name('editAuction')
 Route::get('auctions/{id}/delete', 'AuctionController@delete')->name('deleteAuction');
 
 // Users
+Route::get('users/blocked', 'UserController@listBlockedUsers')->name('blockedUsers');
+Route::post('users/{id}/block', 'UserController@block')->name('blockUser');
+Route::post('users/{id}/unblock', 'UserController@unblock')->name('unblockUser');
 Route::get('users/{id}', 'UserController@show')->name('user');
 Route::get('users/{id}/auctions', 'AuctionController@ownedBy')->name('ownedAuctions');
 Route::get('users/{id}/edit', 'UserController@showEditForm')->name('editUserForm');
@@ -46,9 +49,7 @@ Route::post('users/{id}/delete', 'UserController@delete')->name('deleteUser');
 Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('followAuctions');
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
-Route::get('users/{id}/blocked', 'BlockController@listBlockedUsers')->name('blockedUsers');
-Route::post('users/{id}/block', 'BlockController@blockUser')->name('blockUser');
-Route::post('users/{id}/unblock', 'BlockController@unblockUser')->name('unblockUser');
+
 
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');

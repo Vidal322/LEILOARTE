@@ -31,7 +31,7 @@ class AuctionPolicy
      */
     public function view(User $user, Auction $auction)
     {
-        return !(Block::isBlocked($user->id, $auction->owner_id) || Block::isBlocked($auction->owner_id, $user->id));
+        return true;
     }
 
     /**

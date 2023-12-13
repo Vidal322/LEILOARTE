@@ -21,7 +21,7 @@ class UserPolicy
      */
     public function view(User $user, User $model) {
 
-        return !(Block::isBlocked($user->id, $model->id) || Block::isBlocked($model->id, $user->id));
+        return true;
     }
 
     /**
@@ -58,9 +58,17 @@ class UserPolicy
     }
 
     public function deleteUser(User $user, User $model) {
-        return ($user->userType == 'admin' || $user->id == $model->id);
+        return ($user->type == 'admin' || $user->id == $model->id);
     }
 
+    public function block(User $user, User $model)
+{
+    return $user->type == 'admin';
+}
+
+    public function unblock(User $user, User $model) {
+        return $user->type == 'admin';
+    }
 
     /**
      * Determine whether the user can delete the model.
