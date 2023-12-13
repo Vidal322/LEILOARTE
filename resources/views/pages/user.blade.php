@@ -36,6 +36,14 @@
                 <button class="button button-outline">Delete</button>
             </form>
         </div>
+        <form method="POST" action="{{ route('blockUser', ['id' => $user->id]) }}">
+                {{ csrf_field() }}
+                <button class="button button-outline"> <a> Block </a> </button>
+            </form>
+        @endif
+
+        @if (Auth::check() && Auth::user()->type == 'admin' && Auth::user()->id == $user->id)
+            <button class="button button-outline"><a href="{{ route('blockedUsers') }}">Blocked Users</a></button>
         @endif
 
         <!-- {{-- if not owner --}}

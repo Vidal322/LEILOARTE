@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Block;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,7 @@ class UserPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user, User $model) {
+
         return true;
     }
 
@@ -30,7 +32,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return !(Auth::check());
+        return !(Auth::check()) || $user->userType == 'admin';
     }
 
     /**
@@ -56,9 +58,17 @@ class UserPolicy
     }
 
     public function deleteUser(User $user, User $model) {
-        return ($user->userType == 'admin' || $user->id == $model->id);
+        return ($user->type == 'admin' || $user->id == $model->id);
     }
 
+    public function block(User $user, User $model)
+{
+    return $user->type == 'admin';
+}
+
+    public function unblock(User $user, User $model) {
+        return $user->type == 'admin';
+    }
 
     /**
      * Determine whether the user can delete the model.

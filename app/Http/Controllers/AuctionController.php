@@ -31,8 +31,9 @@ class AuctionController extends Controller
     }
 
     public function show($id)
-    {
+    { 
       $auction = Auction::with(['bids', 'auctionsSaved'])->find($id);
+      $this->authorize('view', $auction);
       return view('pages.auction', ['auction' => $auction]);
     }
 
@@ -133,6 +134,7 @@ class AuctionController extends Controller
 
     // search using tsvectors
     public function ftsSearch(Request $request) {
+        
         $perPage = 9;
 
         $query = Auction::query();
@@ -148,6 +150,10 @@ class AuctionController extends Controller
         $query->where('active', true);
 
         $query->with('owner');
+
+        $query->whereHas('owner', function ($ownerQuery) {
+          $ownerQuery->where('blocked', false);
+      });
 
         $auctions = $query->paginate($perPage);
 
@@ -172,4 +178,6 @@ class AuctionController extends Controller
         return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
       //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
+    
+    
 }
