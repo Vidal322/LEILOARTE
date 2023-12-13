@@ -71,7 +71,7 @@ class UserController extends Controller
       $user = User::find($id);
       $user->username = 'deleted_' . $user->id;
       $user->name = 'deleted';
-      $user->email = 'deleted';
+      $user->email = 'deleted_' . $user->id;
       $user->description = 'deleted';
       $user->password = 'deleted';
       $user->img = 'deleted';
