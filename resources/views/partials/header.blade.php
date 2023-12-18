@@ -6,33 +6,35 @@
             <a class = "button" href="{{ route('aboutUs')}}"> About us </a>
             <a class = "button" href="{{ route('faqs')}}"> FAQs </a>
         </div>
+        @if (Route::currentRouteName() === 'home')
+            <div class="search-container">
+                <form method="GET" action="{{ url('/') }}">
+                    {{ csrf_field() }}
+                    <input id="searchBar" type="text" name="search" placeholder="Search..">
 
-        <div class="search-container">
-            <form method="GET" action="{{ url('/') }}">
-                {{ csrf_field() }}
-                <input id="searchBar" type="text" name="search" placeholder="Search..">
+                    <button class="button" id="openFiltersButton">Filters</button>
+                    {{-- Hidden Filters --}}
+                    <div class="modal" id="filtersModal">
+                        <div class="modal-content">
+                            <button class="close" id="closeFiltersButton">&times;</button>
 
-                <button class="button" id="openFiltersButton">Filters</button>
-                {{-- Hidden Filters --}}
-                <div class="modal" id="filtersModal">
-                    <div class="modal-content">
-                        <button class="close" id="closeFiltersButton">&times;</button>
+                            <div id="categoriesFilter">
+                                <label>Filter by Category</label>
+                                @foreach ($categories as $category)
+                                    <input type="checkbox" name="categories[]" value="{{ $category->id }}"> {{ $category->description }}<br>
+                                @endforeach
+                            </div>
 
-                        <div id="categoriesFilter">
-                            <label>Filter by Category</label>
-                            @foreach ($categories as $category)
-                                <input type="checkbox" name="categories[]" value="{{ $category->id }}"> {{ $category->description }}<br>
-                            @endforeach
+                            <button id="applyFilters">Apply Filters</button>
                         </div>
-
-                        <button id="applyFilters">Apply Filters</button>
                     </div>
-                </div>
 
-                {{-- Search Button --}}
-                <button class="button" id="searchButton">Search</button>
-            </form>
-        </div>
+                    {{-- Search Button --}}
+                    <button class="button" id="searchButton">Search</button>
+                </form>
+            </div>
+        @endif
+
 
 
 
