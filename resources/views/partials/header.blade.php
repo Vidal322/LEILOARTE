@@ -11,9 +11,30 @@
             <form method="GET" action="{{ url('/') }}">
                 {{ csrf_field() }}
                 <input id="searchBar" type="text" name="search" placeholder="Search..">
-                <button class= "button" id="searchButton"> Search </button>
+
+                <button class="button" id="openFiltersButton">Filters</button>
+                {{-- Hidden Filters --}}
+                <div class="modal" id="filtersModal">
+                    <div class="modal-content">
+                        <button class="close" id="closeFiltersButton">&times;</button>
+
+                        <div id="categoriesFilter">
+                            <label>Filter by Category</label>
+                            @foreach ($categories as $category)
+                                <input type="checkbox" name="categories[]" value="{{ $category->id }}"> {{ $category->description }}<br>
+                            @endforeach
+                        </div>
+
+                        <button id="applyFilters">Apply Filters</button>
+                    </div>
+                </div>
+
+                {{-- Search Button --}}
+                <button class="button" id="searchButton">Search</button>
             </form>
         </div>
+
+
 
         @if (Auth::check())
             <div class="user-controls">

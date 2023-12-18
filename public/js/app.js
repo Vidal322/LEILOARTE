@@ -243,3 +243,33 @@ channel.bind('followed-auction-bid-notification', function(event) {
 });
 
 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const openFiltersButton = document.getElementById('openFiltersButton');
+    const closeFiltersButton = document.getElementById('closeFiltersButton');
+    const filtersModal = document.getElementById('filtersModal');
+    const overlay = document.getElementById('overlay');
+    const body = document.body;
+
+    openFiltersButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        filtersModal.style.display = 'block';
+        overlay.style.display='block';
+        body.classList.add('modal-open');
+    });
+
+    closeFiltersButton.addEventListener('click', function () {
+        filtersModal.style.display = 'none';
+        body.classList.remove('modal-open');
+        overlay.style.display = 'none';
+    });
+
+    const applyFiltersButton = document.getElementById('applyFilters');
+    applyFiltersButton.addEventListener('click', function () {
+        filtersModal.style.display = 'none';
+        body.classList.remove('modal-open');
+        overlay.style.display = 'none';
+        // You can add additional logic here to handle the selected filters
+    });
+});

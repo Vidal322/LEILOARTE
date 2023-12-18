@@ -27,7 +27,7 @@
 
   </head>
   <body>
-
+    <div id="overlay"></div>
     @include('partials.header')
 
     <main>
