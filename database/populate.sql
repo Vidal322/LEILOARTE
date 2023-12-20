@@ -418,5 +418,10 @@ insert into faq (question, answer) values ('How do I know if I´ve been outbid?'
 insert into faq (question, answer) values ('Are there any restrictions on the types of items I can auction?','Yes, LeiloArte is an exclusive auction site dedicated to the sale of art items. As such, only art-related items are permitted for auction on this platform, maintaining a specialized focus on the art market.');
 
 
-INSERT INTO auction (description, name, image, owner_id, active, starting_price, start_t, end_t) VALUES ('A striking and modern sculpture by Alberto Giacometti, known for his slender and elongated figures.', 'Help', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Alberto_Giacometti%2C_1960%2C_Walking_Man_I%2C_tate_london.jpg/270px-Alberto_Giacometti%2C_1960%2C_Walking_Man_I%2C_tate_london.jpg', 10, true, 95, '2022-01-22 09:00:00', '2023-12-12 19:20:00');
-insert into bid (amount, date, user_id, auction_id) values (1400, '2023-12-12 18:20:00', 3,66);
+insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('One of the most famous paintings ever, by Leonardo da Vinci.', 'Mona Lisa2', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/270px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg', 3, true, 1000000000, '2023-11-23 10:00:00', '2023-11-25 18:00:00');
+
+
+
+INSERT INTO auction_category (auction_id, category_id) VALUES (1, 1);
+INSERT INTO auction_category (auction_id, category_id) VALUES (2, 1);
+INSERT INTO auction_category (auction_id, category_id) VALUES (3, 1);

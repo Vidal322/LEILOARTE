@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Auction;
 use App\Models\AuctionSave;
+use App\Models\Category;
+USE App\Models\AuctionCategory;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Events\NotificationEvent;
+
 
 class AuctionController extends Controller
 {
@@ -136,19 +139,23 @@ class AuctionController extends Controller
     public function ftsSearch(Request $request) {
         
         $perPage = 9;
-
         $query = Auction::query();
 
         if ($request->has('text') && $request->get('text') != '') {
-
             $search = $request->get('text');
-
             $formattedSearch = str_replace(' ', ' | ', $search);
             $query = Auction::whereRaw("tsvectors @@ to_tsquery('english', ?)", [$formattedSearch]);
         }
 
-        $query->where('active', true);
+        if ($request->has('categories') && is_array($request->get('categories'))) {
+            $categories = $request->get('categories');
+            $query->join('auction_category', 'auction.id', '=', 'auction_category.auction_id')
+                ->whereIn('auction_category.category_id', $categories);
+        }
 
+
+
+        //$query->where('active', true);
         $query->with('owner');
 
         $query->whereHas('owner', function ($ownerQuery) {
@@ -175,7 +182,8 @@ class AuctionController extends Controller
 
     public function index(Request $request) {
         $auctions = json_decode($this->ftsSearch($request)->content());
-        return view('pages.auctionsListing', ['auctions' => $auctions]);
+        $categories = Category::all();
+        return view('pages.auctionsListing', ['auctions' => $auctions,'categories' => $categories]);
     }
       //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
     
