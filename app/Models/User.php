@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function notfications() {
       return $this->hasMany('App\Models\Notification', 'user_id');
     }
+
+    public function isBlocked() {
+      return $this->blocked;
+    }
 }

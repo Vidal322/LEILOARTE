@@ -361,7 +361,6 @@ EXECUTE PROCEDURE check_auction_owner_bid();
 
 -- * TRIGGER05 *
 
-<<<<<<< database/database.sql
 
 -- CREATE OR REPLACE FUNCTION delete_user_auctions()
 -- RETURNS TRIGGER AS $$
@@ -370,15 +369,6 @@ EXECUTE PROCEDURE check_auction_owner_bid();
 --    DELETE FROM auction
 --    WHERE owner_id = OLD.id
 --    AND active = true;
-=======
-CREATE OR REPLACE FUNCTION delete_user_auctions()
-RETURNS TRIGGER AS $$
-BEGIN
-   -- Delete open auctions when a user is deleted.
-   DELETE FROM auction
-   WHERE owner_id = OLD.id
-   AND active = true;
->>>>>>> database/database.sql
 
 --    -- Delete associated bids.
 --    DELETE FROM bid
