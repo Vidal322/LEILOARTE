@@ -162,6 +162,10 @@ class AuctionController extends Controller
           $ownerQuery->where('blocked', false);
       });
 
+      $query->whereHas('owner', function ($ownerQuery) {
+        $ownerQuery->where('name', '<>', 'deleted');
+    });
+
         $auctions = $query->paginate($perPage);
 
         $pagination = [
