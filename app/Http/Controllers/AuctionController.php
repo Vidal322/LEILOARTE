@@ -163,6 +163,7 @@ class AuctionController extends Controller
 
         //$query->where('active', true);
         $query->with('owner','bids');
+        $query->orderBy('active', 'desc');
 
         $query->whereHas('owner', function ($ownerQuery) {
           $ownerQuery->where('blocked', false);
