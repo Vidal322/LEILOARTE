@@ -21,7 +21,6 @@ class UserPolicy
      */
     public function view(User $user, User $model) {
 
-        return true;
     }
 
     /**
@@ -92,5 +91,10 @@ class UserPolicy
     public function restore(User $user, User $model)
     {
     //
+    }
+
+    public function addCredit(User $user, User $model)
+    {
+        return Auth::check() && $user->id == $model->id;
     }
 }
