@@ -19,12 +19,12 @@ class BidController extends Controller
     public function create(Request $request, $auction_id)
     {
 
-    try {
-        $this->authorize('create', [Bid::class, $auction_id]);
+    // try {
+    //     $this->authorize('create', [Bid::class, $auction_id]);
 
-    } catch (AuthorizationException $e) {
-        return back()->with('error', 'You are not authorized to perform this action.');
-    }
+    // } catch (AuthorizationException $e) {
+    //     return back()->with('error', 'You are not authorized to perform this action.');
+    // }
 
     $user = Auth::user();
     $bid = new Bid();
@@ -35,7 +35,6 @@ class BidController extends Controller
 
     event(new NewBid($bid->id, $auction_id));
 
-<<<<<<< HEAD
     //find top bid
     $auction = Auction::find($auction_id);
     $bids = $auction->bids()->orderBy('amount', 'desc')->get();
@@ -55,10 +54,9 @@ class BidController extends Controller
       catch (QueryException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
       }
-      return view('pages.auction',['auction' => $auction]);
-=======
+
     return view('pages.auction',['auction' => $auction_id]);
->>>>>>> main
+
     }
 
     public function showCreateForm($auction_id)
