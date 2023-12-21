@@ -18,48 +18,36 @@ class BidController extends Controller
 {
     public function create(Request $request, $auction_id)
     {
-    $user = Auth::user();
 
+    try {
+        $this->authorize('create', [Bid::Class, $auction_id]);
+
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
+
+    $user = Auth::user();
     $bid = new Bid();
     $bid->user_id = $user->id;
     $bid->auction_id = $auction_id;
     $bid->amount = $request->input('amount');
+    $bid->save();
 
-    //find top bid
-    $auction = Auction::find($auction_id);
-    $bids = $auction->bids()->orderBy('amount', 'desc')->get();
-    if (count($bids) != 0) {
-        $topBid = $bids[0];
-    }
-    else {
-        $topBid = null;
-    }
-    try {
-        $this->authorize('bid', $topBid);
-        $bid->save();
-        event(new NewBid($bid->id, $auction_id));
-    } catch (AuthorizationException $e) {
-        return back()->with('error', 'You are not authorized to perform this action.');
-    }
-      catch (QueryException $e) {
-        return back()->with('error', 'You are not authorized to perform this action.');
-      }
+    event(new NewBid($bid->id, $auction_id));
+
       return view('pages.auction',['auction' => $auction]);
     }
 
     public function showCreateForm($auction_id)
     {
-      $auction = Auction::find($auction_id);
-        $bids = $auction->bids()->orderBy('amount', 'desc')->get();
-        if (count($bids) != 0) {
-          $topBid = $bids[0];
+        try {
+            $this->authorize('create', [Bid::Class,$auction_id]);
+
+        } catch (AuthorizationException $e) {
+            return back()->with('error', 'You are not authorized to perform this action.');
         }
-        else {
-          $topBid = null;
+        return view('pages.createBid', ['id' => $auction_id]);
         }
-      $this->authorize('create', $topBid);
-      return view('pages.createBid', ['id' => $auction_id]);
-    }
 
     public function biddedBy($user_id)
     {

@@ -41,16 +41,26 @@ class BidPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user, $topBid)
-{
-    $auction = Auction::find($topBid->auction_id);
+    public function create(User $user, $auction_id)
+    {
+        $auction = Auction::find($auction_id);
+        $topBid = $auction->bids()->orderBy('amount', 'desc')->first();
+        if (!$auction) {
+            return false;
+        }
+        if (!$auction->active) {
+            return false;
+        }
 
-    if ($auction && $auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id)) {
-        Log::info('true');
+        if (!($user->type == 'admin')) {
+            return false;
+        }
+
+        if (($topBid == null) || ($user->id == $topBid->user_id)) {
+            return false;
+        }
+
         return true;
-    }
-
-    return false;
 }
 
     /**
@@ -102,16 +112,5 @@ class BidPolicy
     }
 
 
-    public function bid(User $user, $topBid)
-    {
-        $auction = Auction::find($topBid->auction_id);
-
-        if ($auction && $auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id)){
-            log::info('true');
-            return true;
-        }
-        return false;
-
-    }
 
 }

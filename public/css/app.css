@@ -182,19 +182,22 @@ header h1 {
 .auction-card .button:hover {
     background-color: var(--hover-color);
 }
-
 #createAuctionButton {
     background-color: var(--main-color);
     border: none;
     position: fixed;
-    bottom :15%;
-    right:10%;
+    bottom: 15%;
+    right: 10%;
     color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 16px;
 }
 
 #createAuctionButton:hover {
     background-color: var(--hover-color);
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 
@@ -735,4 +738,18 @@ body.modal-open {
     width: 100%;
     height: 100%;
     z-index: 999;
+}
+
+
+/*  -------------------------------------------------------  */
+/*  -------------------   Session Errors   ----------------  */
+/*  -------------------------------------------------------  */
+
+.session-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
 }
