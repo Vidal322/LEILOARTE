@@ -1,5 +1,5 @@
 <a href="{{ route('auctions', ['id' => $auction->id]) }}">
-    <article class="auction-card">
+    <article>
         <div class="image-container">
             <img src="{{ asset($auction->image) }}" alt="AuctionImage">
         </div>

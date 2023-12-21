@@ -52,22 +52,49 @@ function insertAuction(auction) {
   let newAuction = document.createElement('div');
   newAuction.classList.add("auction-card");
   newAuction.innerHTML = `
-    <a href="auctions/${auction.id}"
-        <article>
-            <div class="image-container">
-                <img src="${ auction.image }" alt="AuctionImage">
-            </div>
-            <div class="info-container">
-                <h3>${ auction.name }</h3>
-                <p>Auctioneer: <a href="users/${auction.owner_id}"> ${auction.owner.name}</a></p>
-                <div class="image-container">
-                    <img src= " ${auction.owner.img }" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
-                </div>
+<a href="auctions/${auction.id}">
+    <article>
+        <div class="image-container">
+            <img src="${ auction.image }" alt="AuctionImage">
+        </div>
+        <div class="info-container">
+            <h3>${ auction.name }</h3>
+            <a href="users/${auction.owner_id}">
+                <div class="user-section">
+                    <div class="image-container">
+                        <img src="${auction.owner.img }" alt="User Image" width="100"
+                            height="100" style="border-radius: 50%;">
+                    </div>
                 <p>${ auction.description }</p>
 
+                </div>
+            </a>
+            <h3>Auction Overview</h3>
+            <div class="auction-overview">
+                <div class="auction-values">
+                    <div class="auction-dates">
+                        <p>Started: ${auction.start_t.slice(0, -3)}</p>
+                        <p>Closing: ${auction.end_t.slice(0, -3)}</p>
+                    </div>
+                    <div class="auction-prices">
+                        <p>Starting Price: ${ auction.starting_price }€</p>
+                        <p>Top Bid: ${auction.id}€</p>
+                    </div>
+                </div>
+                <h3> Description </h3>
+                <p>${ auction.description }</p>
             </div>
-        </article>
-    </a>
+
+                ${auction.active
+                    ? `<div class="status-bubble active">
+                        <p>Active</p>
+                    </div>`
+                    : `<div class="status-bubble closed">
+                        <p>Closed</p>
+                    </div>`}
+        </div>
+    </article>
+</a>
 `;
 
   return newAuction;
