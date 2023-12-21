@@ -55,7 +55,6 @@
                 </form>
             @endif
 
-        @endif
 
         @if (Auth::user()->id == $user->id || Auth::user()->type == 'admin')
             <div class="button-container">
