@@ -42,9 +42,42 @@ class Kernel extends ConsoleKernel
                foreach ($endedAuctions as $auction) {
                     $auction->update(['active' => false]);
                     $auction->save();
-                    $winner = $auction->bids()->orderBy('amount', 'desc')->first()->bidder;
+
+                    $followers = $auction->auctionsSaved();
+                    foreach ($followers as $follower) {
+                        $user = $follower->user();
+                        $notification = new Notification();
+                        $notification->user_id = $user->user_id;
+                        $notification->date = now();
+                        $notification->message = 'The auction ' . $auction->id . ' has ended!';
+                        $notification->save();
+
+                        $notificationAuction = new NotificationAuction();
+                        $notificationAuction->notification_id = $notification->id;
+                        $notificationAuction->auction_id = $auction->id;
+                        $notificationAuction->save();
+                    }
+
                     event(new AuctionEnded($auction->id));
+
+                    if ($auction->bids()->count() > 0) {
+
+                    $winner = $auction->bids()->orderBy('amount', 'desc')->first();
+
                     event(new AuctionWinner($winner->id, $auction->id));
+
+                    $winnerNotification = new Notification();
+                    $winnerNotification->user_id = $user->user_id;
+                    $winnerNotification->date = now();
+                    $winnerNotification->message = 'You won the auction ' . $auction->id . '!';
+                    $winnerNotification->save();
+
+                    $winnerNotificationAuction = new NotificationAuction();
+                    $winnerNotificationAuction->notification_id = $winnerNotification->id;
+                    $winnerNotificationAuction->auction_id = $auction->id;
+                    $winnerNotificationAuction->save();
+                    }
+
                 }
             }catch (\Exception $e) {
                  // Log the exception
@@ -63,7 +96,7 @@ class Kernel extends ConsoleKernel
                                         ->where('active', true)
                                         ->get();
                 foreach ($endingAuctions as $auction) {
-                    //event(new AuctionEnding($auction->id));
+                    event(new AuctionEnding($auction->id));
                 }
             }catch (\Exception $e) {
                  // Log the exception

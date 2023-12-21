@@ -418,7 +418,7 @@ insert into faq (question, answer) values ('How do I know if I´ve been outbid?'
 insert into faq (question, answer) values ('Are there any restrictions on the types of items I can auction?','Yes, LeiloArte is an exclusive auction site dedicated to the sale of art items. As such, only art-related items are permitted for auction on this platform, maintaining a specialized focus on the art market.');
 
 
-insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('One of the most famous paintings ever, by Leonardo da Vinci.', 'Mona Lisa2', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/270px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg', 3, true, 1000000000, '2023-11-23 10:00:00', '2023-11-25 18:00:00');
+insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('One of the most famous paintings ever, by Leonardo da Vinci.', 'Mona Lisa2', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/270px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg', 3, true, 1000000000, '2023-11-23 10:00:00', '2023-12-21 10:56:00');
 
 
 

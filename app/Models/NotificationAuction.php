@@ -12,6 +12,8 @@ class NotificationAuction extends Model
         'user_id', 'auction_id', 'message', 'seen',
     ];
 
+    protected $primaryKey = 'notification_id';
+
     public function notification() {
         return $this->belongsTo('App\Models\Notification', 'notification_id');
     }
