@@ -9,6 +9,9 @@
                 <div>Email: {{$user->email}}</div>
                 <div>Rate: {{$user->rate}}</div>
                 <div>Description: {{$user->description}}</div>
+                @if (Auth::check() && Auth::user()->id == $user->id)
+                    <div>Credit: {{$user->credit}}</div>
+                @endif
             </div>
         </div>
         <div class="button-container">
@@ -25,6 +28,9 @@
                 {{ csrf_field() }}
                 <button class="button button-outline"> <a> Delete </a> </button>
             </form>
+            @if (Auth::check() && Auth::user()->type != 'admin')
+                <button class="button button-outline"><a href="{{ route('addCreditForm', ['id' => $user->id]) }}">Add Credit</a></button>
+            @endif    
         </div>
         @endif
 

@@ -42,6 +42,8 @@ Route::post('users/{id}/delete', 'UserController@delete')->name('deleteUser');
 Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('followAuctions');
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
+Route::get('users/{id}/addCredit', 'UserController@addCreditForm')->name('addCreditForm');
+Route::post('users/{id}/addCredit', 'UserController@addCredit')->name('addCredit');
 
 
 // Bids

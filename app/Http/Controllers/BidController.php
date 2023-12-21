@@ -35,7 +35,7 @@ class BidController extends Controller
         $topBid = null;
     }
     try {
-        $this->authorize('bid', $topBid);
+        $this->authorize('bid', [$topBid, $auction, $bid]);
         $bid->save();
         event(new NewBid($bid->id, $auction_id));
     } catch (AuthorizationException $e) {
@@ -57,7 +57,7 @@ class BidController extends Controller
         else {
           $topBid = null;
         }
-      $this->authorize('create', $topBid);
+      $this->authorize('create', [$topBid, $auction]);
       return view('pages.createBid', ['id' => $auction_id]);
     }
 
