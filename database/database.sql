@@ -361,6 +361,7 @@ EXECUTE PROCEDURE check_auction_owner_bid();
 
 -- * TRIGGER05 *
 
+
 -- CREATE OR REPLACE FUNCTION delete_user_auctions()
 -- RETURNS TRIGGER AS $$
 -- BEGIN
