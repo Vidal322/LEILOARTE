@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,16 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+Route::get('forgotPassword', 'Auth\ForgotPasswordController@show')->name('forgotPassword');
+
+Route::get('/resetPassword/{token}', function ($token) {
+    $tokenExists = User::where('token', $token)->first();
+
+    if (!$tokenExists) {
+        return redirect(route('home'))->with('error', 'Invalid token.');
+    }
+    return view('auth.resetPassword', ['token' => $token]);
+})->middleware('guest')->name('resetPassword');
 
 // Auction
 Route::get('/', 'AuctionController@index')->name('home');
@@ -45,7 +57,8 @@ Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('f
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
 Route::get('users/{id}/addCredit', 'UserController@addCreditForm')->name('addCreditForm');
 Route::post('users/{id}/addCredit', 'UserController@addCredit')->name('addCredit');
-
+Route::post('resetPassword', 'UserController@resetPassword')->name('resetPassword');
+Route::post('users/{id}/rate', 'UserController@rate')->name('rateUser');
 
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
@@ -60,6 +73,9 @@ Route::post('notifications/{id}/delete', 'NotificationController@delete')->name(
 
 // Files
 Route::post('/file/upload', 'FileController@upload')->name('uploadFile');
+
+//Email
+Route::post('/send', 'MailController@send')->name('sendEmail');
 
 // About Us
 Route::get('aboutus', 'AboutUsController@show')->name('aboutUs');

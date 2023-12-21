@@ -66,8 +66,24 @@ class UserController extends Controller
 
       return redirect('users/'.$id);
     }
+    
+    public function resetPassword(Request $request)
+    {
+      $user = User::where('token', $request->input('token'))->first();
+      
+      if ($user) {
+        $user->password = bcrypt($request->input('password'));
+        $user->token = null;
+        $user->save();
+        Auth::login($user);
+        return redirect(route('home'));
+      }
+      else {
+        return redirect(route('home'))->with('error', 'Invalid token.');
+      }
+    }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
       $user = User::find($id);
       $user->username = 'deleted_' . $user->id;
@@ -85,12 +101,22 @@ class UserController extends Controller
       catch (QueryException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
       }
-      if($request->user()->id == $id){
-        Auth::logout();
-      }
+      // if($request->user()->id == $id){
+      //   Auth::logout();
+      // }
 
       return redirect(route('home'));
     }
+
+
+    // do rate function that takes the user id and the rating and adds rating to the mean
+    public function rate(Request $request, $id)
+    {
+      $user = User::find($id);
+      $user->rate = ($user->rate * $user->rate_count + $request->input('rate')) / ($user->rate_count + 1);
+      $user->rate_count = $user->rate_count + 1;
+      $user->save();
+      return redirect('users/'.$id);}
 
     public function listBlockedUsers()
     {
@@ -122,7 +148,6 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while updating the user status.');
         }
 
-        \Log::info('Exiting block method');
 
         return redirect(route('home'));
     }
@@ -150,7 +175,7 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while updating the user status.');
         }
 
-        \Log::info('Exiting block method');
+        
 
         return back();
     }

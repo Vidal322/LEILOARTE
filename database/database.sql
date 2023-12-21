@@ -18,9 +18,16 @@ CREATE TABLE users(
     password TEXT NOT NULL,
     img TEXT DEFAULT 'users/default.png',
     blocked BOOLEAN DEFAULT false NOT NULL,
+<<<<<<< HEAD
     rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
     type User_Type NOT NULL DEFAULT 'user',
     credit DECIMAL(10, 2) DEFAULT 0.00 NOT NULL
+=======
+    type User_Type NOT NULL DEFAULT 'user',
+    token TEXT,
+    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1),
+    rate_count INTEGER DEFAULT 0 NOT NULL
+>>>>>>> main
 );
 
 CREATE TABLE category(
@@ -108,8 +115,6 @@ CREATE TABLE faq(
     question TEXT NOT NULL,
     answer TEXT NOT NULL
 );
-
-
 
 -- #################################        PERFORMANCE INDEXES        #################################
 
@@ -616,6 +621,7 @@ BEFORE INSERT ON auction
 FOR EACH ROW
 EXECUTE PROCEDURE prevent_admin_auctions();
 
+<<<<<<< HEAD
 -- * TRIGGER14 *
 
 -- Create a function to be executed by the trigger
@@ -644,3 +650,31 @@ CREATE TRIGGER update_credit_trigger
 AFTER UPDATE ON auction
 FOR EACH ROW
 EXECUTE FUNCTION update_credit_on_auction_completion();
+=======
+
+
+-- * TRIGGER14 *
+
+-- Create a trigger so when I delete a notification the entries in the notification_bid, notification_auction and notification_comment are also deleted.
+
+CREATE OR REPLACE FUNCTION delete_notification_entries()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM notification_bid
+    WHERE notification_id = OLD.id;
+
+    DELETE FROM notification_auction
+    WHERE notification_id = OLD.id;
+
+    DELETE FROM notification_comment
+    WHERE notification_id = OLD.id;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trig_delete_notification_entries
+BEFORE DELETE ON notifications
+FOR EACH ROW
+EXECUTE PROCEDURE delete_notification_entries();
+>>>>>>> main

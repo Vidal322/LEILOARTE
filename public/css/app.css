@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Tilt Neon");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,800&display=swap');
 
 /* Reset some default styles */
 body, h1, h2, h3, p, ul, ol, li {
@@ -85,7 +86,7 @@ header {
 
 header h1 {
     font-size: 40px;
-    font-family: 'Tilt Neon', sans-serif;
+    font-family: 'Raleway', sans-serif;
     padding-left: 40px;
     margin-right: auto; /* This pushes the h1 to the left */
 
@@ -182,19 +183,22 @@ header h1 {
 .auction-card .button:hover {
     background-color: var(--hover-color);
 }
-
 #createAuctionButton {
     background-color: var(--main-color);
     border: none;
     position: fixed;
-    bottom :15%;
-    right:10%;
+    bottom: 15%;
+    right: 10%;
     color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 16px;
 }
 
 #createAuctionButton:hover {
     background-color: var(--hover-color);
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 
@@ -294,6 +298,15 @@ header h1 {
 /* User Information Details */
 .user-profile .info > div {
     margin-bottom: 10px;
+}
+
+/* Star Details*/
+.user-profile .info .star {
+    color: grey
+}
+
+.user-profile .info .star.filled {
+    color: #088F88;
 }
 
 /* Button Container */
@@ -735,4 +748,18 @@ body.modal-open {
     width: 100%;
     height: 100%;
     z-index: 999;
+}
+
+
+/*  -------------------------------------------------------  */
+/*  -------------------   Session Errors   ----------------  */
+/*  -------------------------------------------------------  */
+
+.session-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
 }

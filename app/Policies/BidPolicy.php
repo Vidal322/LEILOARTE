@@ -48,7 +48,11 @@ class BidPolicy
         return true;
     }
 
-    return false;
+        if (($topBid == null) || ($user->id == $topBid->user_id)) {
+            return false;
+        }
+
+        return true;
 }
 
     /**
