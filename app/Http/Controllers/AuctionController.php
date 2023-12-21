@@ -38,7 +38,6 @@ class AuctionController extends Controller
     public function show($id)
     {
       $auction = Auction::with(['bids', 'auctionsSaved'])->find($id);
-      $this->authorize('view', $auction);
       return view('pages.auction', ['auction' => $auction]);
     }
 

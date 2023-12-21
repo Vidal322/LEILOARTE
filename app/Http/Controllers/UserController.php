@@ -14,11 +14,6 @@ class UserController extends Controller
     public function show($id)
     {
       $user = User::find($id);
-        try {
-      $this->authorize('view', $user);
-      } catch (AuthorizationException $e) {
-          return back()->with('error', 'You are not authorized to perform this action.');
-      }
 
       return view('pages.user', ['user' => $user]);
     }

@@ -31,7 +31,7 @@ class AuctionPolicy
      */
     public function view(User $user, Auction $auction)
     {
-        return true;
+
     }
 
     /**
