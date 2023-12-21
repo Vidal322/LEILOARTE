@@ -12,6 +12,10 @@
                     {{ csrf_field() }}
                     <input id="searchBar" type="text" name="search" placeholder="Search..">
 
+
+
+                    {{-- Search Button --}}
+                    <button class="button" id="searchButton">Search</button>
                     <button class="button" id="openFiltersButton">Filters</button>
                     {{-- Hidden Filters --}}
                     <div class="modal" id="filtersModal">
@@ -28,9 +32,6 @@
                             <button id="applyFilters">Apply Filters</button>
                         </div>
                     </div>
-
-                    {{-- Search Button --}}
-                    <button class="button" id="searchButton">Search</button>
                 </form>
             </div>
         @endif

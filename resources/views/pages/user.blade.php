@@ -68,4 +68,5 @@
         <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
         @endif -->
 
-    @endsection
+    @endif
+@endsection
