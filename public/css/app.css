@@ -183,15 +183,15 @@ header h1 {
 .auction-card .info-container .image-container {
     display: flex;
     height:100%;
-    align-items: center; /* Align items vertically centered */
+    width: 90px;
+    align-items: center;
 }
 
 .auction-card .info-container .image-container img {
-    width: 100%;
     height: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 50%;
-    margin-right: 10px; /* Add margin to separate the image and the text */
+    margin-right: 10px;
 }
 
 .auction-card .info-container {

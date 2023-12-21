@@ -65,7 +65,7 @@ function insertAuction(auction) {
                         <img src="${auction.owner.img }" alt="User Image" width="100"
                             height="100" style="border-radius: 50%;">
                     </div>
-                <p>${ auction.description }</p>
+                <p>${ auction.owner.name }</p>
 
                 </div>
             </a>
