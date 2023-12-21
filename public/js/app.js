@@ -123,11 +123,13 @@ const pusher = new Pusher(pusherAppKey,{
     encrypted: true
 });
 
+
 const channel = pusher.subscribe('lbaw23113');
+
 channel.bind('followed-auction-canceled-notification', function(event) {
     const message = event.message;
     const auctionId = event.auction_id;
-
+    console.log(event);
     const notificationBox = document.createElement('div');
     notificationBox.classList.add('notification-box');
     notificationBox.innerHTML = `
