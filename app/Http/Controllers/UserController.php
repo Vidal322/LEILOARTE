@@ -14,11 +14,6 @@ class UserController extends Controller
     public function show($id)
     {
       $user = User::find($id);
-        try {
-      $this->authorize('view', $user);
-      } catch (AuthorizationException $e) {
-          return back()->with('error', 'You are not authorized to perform this action.');
-      }
 
       return view('pages.user', ['user' => $user]);
     }
@@ -105,9 +100,9 @@ class UserController extends Controller
       catch (QueryException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
       }
-      if($request->user()->id == $id){
-        Auth::logout();
-      }
+      // if($request->user()->id == $id){
+      //   Auth::logout();
+      // }
 
       return redirect(route('home'));
     }
@@ -153,7 +148,6 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while updating the user status.');
         }
 
-        \Log::info('Exiting block method');
 
         return redirect(route('home'));
     }
@@ -181,7 +175,7 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while updating the user status.');
         }
 
-        \Log::info('Exiting block method');
+        
 
         return back();
     }

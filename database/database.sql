@@ -20,7 +20,8 @@ CREATE TABLE users(
     blocked BOOLEAN DEFAULT false NOT NULL,
     type User_Type NOT NULL DEFAULT 'user',
     token TEXT,
-    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1)
+    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1),
+    rate_count INTEGER DEFAULT 0 NOT NULL
 );
 
 CREATE TABLE category(

@@ -11,6 +11,8 @@
 </div>
 
 @if(auth()->check() && auth()->user()->type != 'admin')
-    <button>Create Auction</button>
+<a href="{{ route('createAuctionForm') }}">
+    <button id="createAuctionButton">Create Auction</button>
+</a>
 @endif
 @endsection

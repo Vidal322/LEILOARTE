@@ -38,7 +38,6 @@ class AuctionController extends Controller
     public function show($id)
     {
       $auction = Auction::with(['bids', 'auctionsSaved'])->find($id);
-      $this->authorize('view', $auction);
       return view('pages.auction', ['auction' => $auction]);
     }
 
@@ -117,15 +116,18 @@ class AuctionController extends Controller
 
     public function delete($id) {
         $auction = Auction::find($id);
-        event(new NotificationEvent($id));
-        $this->storeAuctionCanceledNotifications($id);
+
 
         try {
             $this->authorize('delete', $auction);
         }
-        catch (AuthorizationException $e) {
-            return back()->with('error', 'You are not authorized to perform this action.');
+        catch (AuthorizationException $exception){
+            return redirect()->back()->with('error', $exception->getMessage() . " ---- The auction you're trying to delete has already been bet on.");;
         }
+
+        event(new NotificationEvent($id));
+        $this->storeAuctionCanceledNotifications($id);
+
         $auction->delete();
 
         return redirect('/');
