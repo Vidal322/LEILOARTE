@@ -61,13 +61,14 @@ class BidController extends Controller
 
     public function showCreateForm($auction_id)
     {
+        $auction = Auction::with('bids')->find($auction_id);
         // try {
         //     $this->authorize('create', [Bid::class,$auction_id]);
 
         // } catch (AuthorizationException $e) {
         //     return back()->with('error', 'You are not authorized to perform this action.');
         // }
-        return view('pages.createBid', ['id' => $auction_id]);
+        return view('pages.createBid', ['auction' => $auction]);
         }
 
     public function biddedBy($user_id)
