@@ -70,6 +70,18 @@ header a {
     color: #fff;
 }
 
+#openFiltersButton {
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#openFiltersButton:hover {
+    background-color: var(--hover-color);
+}
+
 .transparent-box {
     background-color: transparent;
     display: inline-block;

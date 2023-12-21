@@ -10,13 +10,12 @@
             <div class="search-container">
                 <form method="GET" action="{{ url('/') }}">
                     {{ csrf_field() }}
+
+                    <button class="button" id="openFiltersButton">Filters</button>
                     <input id="searchBar" type="text" name="search" placeholder="Search..">
-
-
-
                     {{-- Search Button --}}
                     <button class="button" id="searchButton">Search</button>
-                    <button class="button" id="openFiltersButton">Filters</button>
+                   
                     {{-- Hidden Filters --}}
                     <div class="modal" id="filtersModal">
                         <div class="modal-content">
