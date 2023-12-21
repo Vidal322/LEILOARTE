@@ -115,7 +115,7 @@ class UserController extends Controller
       $user->rate = ($user->rate * $user->rate_count + $request->input('rate')) / ($user->rate_count + 1);
       $user->rate_count = $user->rate_count + 1;
       $user->save();
-      return redirect('users/'.$id);
+      return redirect('users/'.$id);}
 
     public function listBlockedUsers()
     {
@@ -147,7 +147,6 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while updating the user status.');
         }
 
-        \Log::info('Exiting block method');
 
         return redirect(route('home'));
     }
@@ -175,7 +174,7 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while updating the user status.');
         }
 
-        \Log::info('Exiting block method');
+        
 
         return back();
     }
