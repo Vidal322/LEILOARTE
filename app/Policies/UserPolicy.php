@@ -92,4 +92,9 @@ class UserPolicy
     {
     //
     }
+
+    public function addCredit(User $user, User $model)
+    {
+        return Auth::check() && $user->id == $model->id;
+    }
 }

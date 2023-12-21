@@ -9,6 +9,9 @@
             <div>Email: {{ $user->email }}</div>
             <div>Rate: {{ round($user->rate, 2)*100 }} % </div>
             <div>Description: {{ $user->description }}</div>
+            @if (Auth::check() && Auth::user()->id == $user->id)
+                <div>Credit: {{$user->credit}}</div>
+            @endif
         </div>
     </div>
 
@@ -26,6 +29,9 @@
             
             @if (Auth::user()->type == 'admin')
                 <button class="button button-outline"><a href="{{ route('blockedUsers') }}">Blocked Users</a></button>
+
+            @else
+                <button class="button button-outline"><a href="{{ route('addCreditForm', ['id' => $user->id]) }}">Add Credit</a></button>
             @endif
 
             <button class="button button-outline"><a href="{{ route('editUserForm', ['id' => $user->id]) }}">Edit</a></button>
@@ -40,6 +46,7 @@
                     <button id = "rating-button" type="submit" name="rate" value=0 class="button button-outline">Dislike 👎</button>
                 </form>
             </div>
+        @endif
 
             @if (Auth::user()->type == 'admin')
                 <form method="POST" action="{{ route('blockUser', ['id' => $user->id]) }}">

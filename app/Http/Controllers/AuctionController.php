@@ -161,7 +161,7 @@ class AuctionController extends Controller
 
 
 
-        //$query->where('active', true);
+        $query->where('active', true);
         $query->with('owner');
 
         $query->whereHas('owner', function ($ownerQuery) {
