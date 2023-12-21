@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create Auction')
+
 @section('content')
 <form method="POST" action="{{ route('createAuction') }}">
     {{ csrf_field() }}

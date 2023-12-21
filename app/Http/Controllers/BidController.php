@@ -26,14 +26,16 @@ class BidController extends Controller
     //     return back()->with('error', 'You are not authorized to perform this action.');
     // }
 
+    log::info('bid controller create');
+
     $user = Auth::user();
     $bid = new Bid();
     $bid->user_id = $user->id;
     $bid->auction_id = $auction_id;
     $bid->amount = $request->input('amount');
-    $bid->save();
+    // $bid->save();
 
-    event(new NewBid($bid->id, $auction_id));
+    // event(new NewBid($bid->id, $auction_id));
 
     //find top bid
     $auction = Auction::find($auction_id);
@@ -46,16 +48,19 @@ class BidController extends Controller
     }
     try {
         $this->authorize('bid', [$topBid, $auction, $bid]);
-        $bid->save();
-        event(new NewBid($bid->id, $auction_id));
     } catch (AuthorizationException $e) {
+        log::info('bid controller create authorization exception');
         return back()->with('error', 'You are not authorized to perform this action.');
     }
       catch (QueryException $e) {
+        log::info('bid controller create query exception');
         return back()->with('error', 'You are not authorized to perform this action.');
       }
 
-    return view('pages.auction',['auction' => $auction_id]);
+    $bid->save();
+    event(new NewBid($bid->id, $auction_id));
+
+    return view('pages.auction',['auction' => $auction]);
 
     }
 

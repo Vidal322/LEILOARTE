@@ -41,7 +41,7 @@ class BidPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user, $topBid, $auction)
+    public function create(User $user, Bid $topBid, Auction $auction)
 {
 
     if ( $auction->active && $user->type != 'admin' && ($user->id != $topBid->user_id) && ($user->id != $auction->owner_id) && $user->credit >= $topBid->amount) {
@@ -104,15 +104,14 @@ class BidPolicy
     }
 
 
-    public function bid(User $user, $topBid, $auction, $newBid)
+    public function bid(User $user, Bid $topBid, Auction $auction, Bid $newBid)
     {
-        $auction = Auction::find($topBid->auction_id);
-
-        if ($auction && $auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id) && ($user->id != $auction->owner_id) && $user->credit >= $newBid->amount){
+        log::info('bid policy bid');
+        if ($auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id) && ($user->id != $auction->owner_id) && ($user->credit >= $newBid->amount)){
             log::info('true');
             return true;
         }
-        return false;
+        return true;
 
     }
 

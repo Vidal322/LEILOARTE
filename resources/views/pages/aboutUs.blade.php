@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'About LeiloArte')
+
 @section('content')
 <div class="about_us">
     <h2> Welcome to LeiloArte – Where Art Finds Its True Value! </h2>

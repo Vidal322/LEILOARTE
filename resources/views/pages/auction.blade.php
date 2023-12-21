@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $auction->name . ' - Auction Details')
+
 @section('content')
     <div class="display-auction">
         <div class="left-column">

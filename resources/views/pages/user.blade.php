@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $user->name . "'s Profile")
+
 @section('content')
     <div class="user-profile">
         <img class=profile-img src="{{ asset($user->img) }}" alt="UserImage">

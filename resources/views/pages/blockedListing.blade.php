@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Blocked Users')
+
 @section('content')
 
 <div class="users-list">
