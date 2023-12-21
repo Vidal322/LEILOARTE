@@ -26,7 +26,7 @@ main {
 
 a {
     text-decoration: none;
-    color: black
+    color: black;
 }
 
 header a {
@@ -38,7 +38,7 @@ header a {
     align-items: center;
     justify-content: space-between;
     margin-left: 20%;
-    flex-grow: 1; /* This ensures the navigation takes up remaining space */
+    flex-grow: 1;
 }
 
 #searchBar {
@@ -50,12 +50,12 @@ header a {
 }
 
 #searchButton {
-    padding: 8px 12px;
+    padding: 10px 20px; /* Set a consistent padding for the search button */
 }
 
-.button {
+header .button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px; /* Set a consistent padding for all buttons */
     margin: 0 5px;
     text-decoration: none;
     color: #333;
@@ -65,7 +65,13 @@ header a {
     cursor: pointer;
 }
 
-.button:hover {
+header .button form {
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+header .button:hover {
     background-color: #333;
     color: #fff;
 }
@@ -88,8 +94,13 @@ header h1 {
     font-size: 40px;
     font-family: 'Raleway', sans-serif;
     padding-left: 40px;
-    margin-right: auto; /* This pushes the h1 to the left */
+    margin-right: auto;
+}
 
+header .user-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #footer-wrapper {
