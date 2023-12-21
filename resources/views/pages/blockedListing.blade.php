@@ -7,7 +7,7 @@
   <div class="user-card">
     <p>{{ $user->name}}</p>
     <div class="image-container">
-        <img src= "{{ $user->img }}" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
+        <img src= "{{ asset($user->img) }}" alt="UserImage" width="100" height="100" style="border-radius: 50%;" >
     </div>
     <form method="POST" action="{{ route('unblockUser', ['id' => $user->id]) }}">
                 {{ csrf_field() }}

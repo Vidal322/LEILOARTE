@@ -19,12 +19,12 @@ class BidController extends Controller
     public function create(Request $request, $auction_id)
     {
 
-    try {
-        $this->authorize('create', [Bid::Class, $auction_id]);
+    // try {
+    //     $this->authorize('create', [Bid::class, $auction_id]);
 
-    } catch (AuthorizationException $e) {
-        return back()->with('error', 'You are not authorized to perform this action.');
-    }
+    // } catch (AuthorizationException $e) {
+    //     return back()->with('error', 'You are not authorized to perform this action.');
+    // }
 
     $user = Auth::user();
     $bid = new Bid();
@@ -35,17 +35,38 @@ class BidController extends Controller
 
     event(new NewBid($bid->id, $auction_id));
 
-      return view('pages.auction',['auction' => $auction]);
+    //find top bid
+    $auction = Auction::find($auction_id);
+    $bids = $auction->bids()->orderBy('amount', 'desc')->get();
+    if (count($bids) != 0) {
+        $topBid = $bids[0];
+    }
+    else {
+        $topBid = null;
+    }
+    try {
+        $this->authorize('bid', [$topBid, $auction, $bid]);
+        $bid->save();
+        event(new NewBid($bid->id, $auction_id));
+    } catch (AuthorizationException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+    }
+      catch (QueryException $e) {
+        return back()->with('error', 'You are not authorized to perform this action.');
+      }
+
+    return view('pages.auction',['auction' => $auction_id]);
+
     }
 
     public function showCreateForm($auction_id)
     {
-        try {
-            $this->authorize('create', [Bid::Class,$auction_id]);
+        // try {
+        //     $this->authorize('create', [Bid::class,$auction_id]);
 
-        } catch (AuthorizationException $e) {
-            return back()->with('error', 'You are not authorized to perform this action.');
-        }
+        // } catch (AuthorizationException $e) {
+        //     return back()->with('error', 'You are not authorized to perform this action.');
+        // }
         return view('pages.createBid', ['id' => $auction_id]);
         }
 
