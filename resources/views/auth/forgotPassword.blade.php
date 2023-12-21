@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 @section('content')
-<form method="POST" action=" {{ route('sendEmail') }} " id="forgotPassword-form">
+<form method="POST" action=" {{ route('sendEmail') }} " id="forgotPasswordForm">
     {{ csrf_field() }}
 
     <label for="email">E-mail</label>
@@ -15,7 +15,7 @@
     <button type="submit">
         Send password reset link
     </button>
-
+</form>
 
 
 @endsection
