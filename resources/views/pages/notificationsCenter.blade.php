@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title', 'Notifications Center')
+
 @section('content')
     <div class ="notifications-list">
 

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Add Credit')
+
 @section('content')
 <div class="creditPage">
     <div class="card-header">{{ __('Add Credit') }}</div>

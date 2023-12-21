@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create Bid')
+
 @section('content')
 <div class =createBidPage>
     <div class ="auctionInformation">
