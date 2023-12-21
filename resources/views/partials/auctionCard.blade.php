@@ -24,7 +24,7 @@
                     </div>
                     <div class="auction-prices">
                         <p>Starting Price: {{ $auction->starting_price }}€</p>
-                        <p>Top Bid: {{last($auction->bids)->amount}}€</p>
+                        <p>Top Bid: {{last($auction->bids)->amount ?? '0'}}€</p>
                     </div>
                 </div>
                 <h3> Description </h3>

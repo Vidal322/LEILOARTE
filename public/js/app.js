@@ -78,7 +78,7 @@ function insertAuction(auction) {
                     </div>
                     <div class="auction-prices">
                         <p>Starting Price: ${ auction.starting_price }€</p>
-                        <p>Top Bid: ${auction.id}€</p>
+                        <p>Top Bid: ${auction.bids.length > 0 ? auction.bids[auction.bids.length - 1].amount + "€": 'No bids yet'}</p>
                     </div>
                 </div>
                 <h3> Description </h3>
