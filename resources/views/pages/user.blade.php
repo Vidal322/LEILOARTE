@@ -13,7 +13,6 @@
                 <div>Credit: {{$user->credit}}</div>
             @endif
         </div>
-    </div>
 
     @if ($user->type == 'user')
 
@@ -26,7 +25,7 @@
     @if (Auth::check())
 
         @if (Auth::user()->id == $user->id)
-            
+
             @if (Auth::user()->type == 'admin')
                 <button class="button button-outline"><a href="{{ route('blockedUsers') }}">Blocked Users</a></button>
 
@@ -65,7 +64,7 @@
                 </form>
             </div>
         @endif
+    </div>
 
-    @endif
 
 @endsection

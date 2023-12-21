@@ -311,6 +311,11 @@ header h1 {
     margin-bottom: 20px;
 }
 
+.display-auction .left-column img {
+    max-width: 420px;
+    max-height: 500px;
+}
+
 .display-auction .underline-text {
     border-bottom: 2px solid var(--main-color);
     display: inline-block;
@@ -367,6 +372,7 @@ header h1 {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    min-height: 400px;
 }
 
 /* Profile Image */
@@ -409,37 +415,39 @@ header h1 {
     margin-right: 10px;
     border: none;
     cursor: pointer;
+    max-height: 50px;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
+    color: white;
+    background-color: var(--main-color);
 }
 
 /* Primary Button Style */
 .user-profile .button-primary {
     color: #fff;
-    background-color: #3498db;
+    background-color: var(--main-color);
 }
 
 /* Secondary Button Style */
 .user-profile .button-secondary {
-    color: #3498db;
+    color: var(--main-color);
     background-color: #fff;
-    border: 2px solid #3498db;
+    border: 2px solid var(--main-color);
 }
 
-/* Button Hover Effects */
 .user-profile .button:hover {
     filter: brightness(90%);
 }
 
 .user-profile .button-primary:hover {
-    background-color: #2980b9;
+    background-color: var(--hover-color);
 }
 
 .user-profile .button-secondary:hover {
     color: #fff;
-    background-color: #3498db;
+    background-color: var(--hover-color);
 }
 
 /* Responsive Styling */
@@ -944,7 +952,7 @@ body.modal-open {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    gap: 10em;
+    gap: 6em;
 }
 
 .createBidPage .auctionInformation {
