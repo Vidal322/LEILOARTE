@@ -10,6 +10,8 @@ use App\Models\Category;
 USE App\Models\AuctionCategory;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Events\NotificationEvent;
+use App\Models\Notification;
+use App\Models\NotificationAuction;
 
 
 class AuctionController extends Controller
@@ -34,7 +36,7 @@ class AuctionController extends Controller
     }
 
     public function show($id)
-    { 
+    {
       $auction = Auction::with(['bids', 'auctionsSaved'])->find($id);
       $this->authorize('view', $auction);
       return view('pages.auction', ['auction' => $auction]);
@@ -116,6 +118,8 @@ class AuctionController extends Controller
     public function delete($id) {
         $auction = Auction::find($id);
         event(new NotificationEvent($id));
+        $this->storeAuctionCanceledNotifications($id);
+
         try {
             $this->authorize('delete', $auction);
         }
@@ -137,7 +141,7 @@ class AuctionController extends Controller
 
     // search using tsvectors
     public function ftsSearch(Request $request) {
-        
+
         $perPage = 9;
         $query = Auction::query();
 
@@ -190,6 +194,24 @@ class AuctionController extends Controller
         return view('pages.auctionsListing', ['auctions' => $auctions,'categories' => $categories]);
     }
       //$auctions = Auction::where('name', 'LIKE', '%' . $search . '%')->get();
-    
-    
+
+
+    public function storeAuctionCanceledNotifications($auction_id) {
+        $users = AuctionSave::where('auction_id', $auction_id)->get();
+        foreach ($users as $user) {
+            //event(new NotificationEvent($user->user_id));
+            $notification = new Notification();
+            $notification->user_id = $user->user_id;
+            $notification->date = now();
+            $notification->message = 'Auction ' . $auction_id . ' has been canceled';
+            $notification->save();
+
+            $notificationAuction = new NotificationAuction();
+            $notificationAuction->notification_id = $notification->id;
+            $notificationAuction->auction_id = $auction_id;
+            $notificationAuction->save();
+        }
+        return;
+    }
+
 }

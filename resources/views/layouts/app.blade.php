@@ -22,8 +22,6 @@
       </script>
       <script type="text/javascript" src="https://js.pusher.com/7.0/pusher.min.js" defer></script>
       <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
-    <script src={{asset('js/notifications.js')}} defer></script>
-
 
   </head>
   <body>

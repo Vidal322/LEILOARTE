@@ -33,8 +33,7 @@ class NotificationEvent implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
-    {
+    public function broadcastOn(){
         return 'lbaw23113';
     }
 

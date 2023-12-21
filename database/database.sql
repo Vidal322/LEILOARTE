@@ -614,3 +614,30 @@ CREATE TRIGGER trig_prevent_admin_auctions
 BEFORE INSERT ON auction
 FOR EACH ROW
 EXECUTE PROCEDURE prevent_admin_auctions();
+
+
+
+-- * TRIGGER14 *
+
+-- Create a trigger so when I delete a notification the entries in the notification_bid, notification_auction and notification_comment are also deleted.
+
+CREATE OR REPLACE FUNCTION delete_notification_entries()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM notification_bid
+    WHERE notification_id = OLD.id;
+
+    DELETE FROM notification_auction
+    WHERE notification_id = OLD.id;
+
+    DELETE FROM notification_comment
+    WHERE notification_id = OLD.id;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trig_delete_notification_entries
+BEFORE DELETE ON notifications
+FOR EACH ROW
+EXECUTE PROCEDURE delete_notification_entries();
