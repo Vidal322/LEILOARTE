@@ -19,7 +19,8 @@ CREATE TABLE users(
     img TEXT DEFAULT 'users/default.png',
     blocked BOOLEAN DEFAULT false NOT NULL,
     rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
-    type User_Type NOT NULL DEFAULT 'user'
+    type User_Type NOT NULL DEFAULT 'user',
+    token TEXT
 );
 
 CREATE TABLE category(
@@ -107,8 +108,6 @@ CREATE TABLE faq(
     question TEXT NOT NULL,
     answer TEXT NOT NULL
 );
-
-
 
 -- #################################        PERFORMANCE INDEXES        #################################
 

@@ -65,8 +65,24 @@ class UserController extends Controller
 
       return redirect('users/'.$id);
     }
+    
+    public function resetPassword(Request $request)
+    {
+      $user = User::where('token', $request->input('token'))->first();
+      
+      if ($user) {
+        $user->password = bcrypt($request->input('password'));
+        $user->token = null;
+        $user->save();
+        Auth::login($user);
+        return redirect(route('home'));
+      }
+      else {
+        return redirect(route('home'))->with('error', 'Invalid token.');
+      }
+    }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
       $user = User::find($id);
       $user->username = 'deleted_' . $user->id;

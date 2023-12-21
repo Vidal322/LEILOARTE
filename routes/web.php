@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,16 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+Route::get('forgotPassword', 'Auth\ForgotPasswordController@show')->name('forgotPassword');
+
+Route::get('/resetPassword/{token}', function ($token) {
+    $tokenExists = User::where('token', $token)->first();
+
+    if (!$tokenExists) {
+        return redirect(route('home'))->with('error', 'Invalid token.');
+    }
+    return view('auth.resetPassword', ['token' => $token]);
+})->middleware('guest')->name('resetPassword');
 
 // Auction
 Route::get('/', 'AuctionController@index')->name('home');
@@ -43,7 +55,7 @@ Route::post('users/{id}/delete', 'UserController@delete')->name('deleteUser');
 Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('followAuctions');
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
-
+Route::post('resetPassword', 'UserController@resetPassword')->name('resetPassword');
 
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
@@ -58,6 +70,9 @@ Route::post('notifications/{id}/delete', 'NotificationController@delete')->name(
 
 // Files
 Route::post('/file/upload', 'FileController@upload')->name('uploadFile');
+
+//Email
+Route::post('/send', 'MailController@send')->name('sendEmail');
 
 // About Us
 Route::get('aboutus', 'AboutUsController@show')->name('aboutUs');
