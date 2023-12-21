@@ -24,7 +24,7 @@ class AuctionController extends Controller
 
     public function list()
     {
-      $auctions = Auction::where('active', true)->paginate(10);
+      $auctions = Auction::where('active', true)->paginate(9);
       return view('pages.auctionsListing', ['auctions' => $auctions]);
     }
 
@@ -161,8 +161,9 @@ class AuctionController extends Controller
 
 
 
-        $query->where('active', true);
-        $query->with('owner');
+        //$query->where('active', true);
+        $query->with('owner','bids');
+        $query->orderBy('active', 'desc');
 
         $query->whereHas('owner', function ($ownerQuery) {
           $ownerQuery->where('blocked', false);
@@ -201,7 +202,6 @@ class AuctionController extends Controller
     public function storeAuctionCanceledNotifications($auction_id) {
         $users = AuctionSave::where('auction_id', $auction_id)->get();
         foreach ($users as $user) {
-            //event(new NotificationEvent($user->user_id));
             $notification = new Notification();
             $notification->user_id = $user->user_id;
             $notification->date = now();

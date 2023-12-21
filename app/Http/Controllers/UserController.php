@@ -65,11 +65,11 @@ class UserController extends Controller
 
       return redirect('users/'.$id);
     }
-    
+
     public function resetPassword(Request $request)
     {
       $user = User::where('token', $request->input('token'))->first();
-      
+
       if ($user) {
         $user->password = bcrypt($request->input('password'));
         $user->token = null;
@@ -128,7 +128,7 @@ class UserController extends Controller
 
     public function block(Request $request, $id)
     {
-      
+
         $user = $request->user();
 
         // Find the user to be blocked by their ID
@@ -155,7 +155,7 @@ class UserController extends Controller
 
     public function unblock(Request $request, $id)
     {
-      
+
         $user = $request->user();
 
         // Find the user to be blocked by their ID

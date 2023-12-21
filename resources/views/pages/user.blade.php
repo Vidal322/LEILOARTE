@@ -15,7 +15,6 @@
                 <div>Credit: {{$user->credit}}</div>
             @endif
         </div>
-    </div>
 
     @if ($user->type == 'user')
 
@@ -28,7 +27,7 @@
     @if (Auth::check())
 
         @if (Auth::user()->id == $user->id)
-            
+
             @if (Auth::user()->type == 'admin')
                 <button class="button button-outline"><a href="{{ route('blockedUsers') }}">Blocked Users</a></button>
 
@@ -40,6 +39,7 @@
 
         @else
             <div class="button-container">
+
                 <button class="button button-outline">Follow</button>
                 <form method="POST" action="{{ route('rateUser', ['id' => $user->id]) }}">
                     {{ csrf_field() }}
@@ -57,6 +57,9 @@
                 </form>
             @endif
 
+        @endif
+        <button class="button button-outline"><a href="{{ route('followedAuctions', ['id' => $user->id]) }}">Followed Auctions</a></button>
+
 
         @if (Auth::user()->id == $user->id || Auth::user()->type == 'admin')
             <div class="button-container">
@@ -67,6 +70,7 @@
             </div>
         @endif
 
-    @endif
+    </div>
+
 
 @endsection

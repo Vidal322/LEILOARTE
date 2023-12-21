@@ -10,9 +10,12 @@
             <div class="search-container">
                 <form method="GET" action="{{ url('/') }}">
                     {{ csrf_field() }}
-                    <input id="searchBar" type="text" name="search" placeholder="Search..">
 
                     <button class="button" id="openFiltersButton">Filters</button>
+                    <input id="searchBar" type="text" name="search" placeholder="Search..">
+                    {{-- Search Button --}}
+                    <button class="button" id="searchButton">Search</button>
+                   
                     {{-- Hidden Filters --}}
                     <div class="modal" id="filtersModal">
                         <div class="modal-content">
@@ -28,14 +31,9 @@
                             <button id="applyFilters">Apply Filters</button>
                         </div>
                     </div>
-
-                    {{-- Search Button --}}
-                    <button class="button" id="searchButton">Search</button>
                 </form>
             </div>
         @endif
-
-
 
 
         @if (Auth::check())
@@ -50,7 +48,7 @@
         @endif
 
         @if (!Auth::check())
-            <div>
+            <div class="user-controls">
                 <a class="button" href="{{ url('/login') }}"> Login </a>
                 <a class="button" href="{{ url('/register') }}"> Register </a>
             </div>

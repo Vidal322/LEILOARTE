@@ -21,7 +21,7 @@ CREATE TABLE users(
     type User_Type NOT NULL DEFAULT 'user',
     token TEXT,
     rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1),
-    rate_count INTEGER DEFAULT 0 NOT NULL
+    rate_count INTEGER DEFAULT 0 NOT NULL,
     credit DECIMAL(10, 2) DEFAULT 0.00 NOT NULL
 );
 
@@ -616,59 +616,58 @@ BEFORE INSERT ON auction
 FOR EACH ROW
 EXECUTE PROCEDURE prevent_admin_auctions();
 
--- -- * TRIGGER14 *
+-- * TRIGGER14 *
 
--- -- Create a function to be executed by the trigger
--- CREATE OR REPLACE FUNCTION update_credit_on_auction_completion()
--- RETURNS TRIGGER AS $$
--- BEGIN
---     -- Check if the auction status has changed from active to inactive
---     IF OLD.active = true AND NEW.active = false THEN
---         -- Update the bidder's credit by subtracting the top bid amount
---         UPDATE users
---         SET credit = credit - (SELECT amount FROM bid WHERE auction_id = OLD.id AND top_bid = true)
---         WHERE id = (SELECT user_id FROM bid WHERE auction_id = OLD.id AND top_bid = true);
+-- Create a function to be executed by the trigger
+CREATE OR REPLACE FUNCTION update_credit_on_auction_completion()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the auction status has changed from active to inactive
+    IF OLD.active = true AND NEW.active = false THEN
+        -- Update the bidder's credit by subtracting the top bid amount
+        UPDATE users
+        SET credit = credit - (SELECT amount FROM bid WHERE auction_id = OLD.id AND top_bid = true)
+        WHERE id = (SELECT user_id FROM bid WHERE auction_id = OLD.id AND top_bid = true);
 
---         -- Update the auction owner's credit by adding the top bid amount
---         UPDATE users
---         SET credit = credit + (SELECT amount FROM bid WHERE auction_id = OLD.id AND top_bid = true)
---         WHERE id = OLD.owner_id;
---     END IF;
+        -- Update the auction owner's credit by adding the top bid amount
+        UPDATE users
+        SET credit = credit + (SELECT amount FROM bid WHERE auction_id = OLD.id AND top_bid = true)
+        WHERE id = OLD.owner_id;
+    END IF;
 
---     RETURN NEW;
--- END;
--- $$ LANGUAGE plpgsql;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
--- -- Create a trigger that calls the function after an update on the auction table
--- CREATE TRIGGER update_credit_trigger
--- AFTER UPDATE ON auction
--- FOR EACH ROW
--- EXECUTE FUNCTION update_credit_on_auction_completion();
-
+-- Create a trigger that calls the function after an update on the auction table
+CREATE TRIGGER update_credit_trigger
+AFTER UPDATE ON auction
+FOR EACH ROW
+EXECUTE FUNCTION update_credit_on_auction_completion();
 
 
 -- * TRIGGER15 *
 
 -- Create a trigger so when I delete a notification the entries in the notification_bid, notification_auction and notification_comment are also deleted.
 
--- CREATE OR REPLACE FUNCTION delete_notification_entries()
--- RETURNS TRIGGER AS $$
--- BEGIN
---     DELETE FROM notification_bid
---     WHERE notification_id = OLD.id;
+CREATE OR REPLACE FUNCTION delete_notification_entries()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM notification_bid
+    WHERE notification_id = OLD.id;
 
---     DELETE FROM notification_auction
---     WHERE notification_id = OLD.id;
+    DELETE FROM notification_auction
+    WHERE notification_id = OLD.id;
 
---     DELETE FROM notification_comment
---     WHERE notification_id = OLD.id;
+    DELETE FROM notification_comment
+    WHERE notification_id = OLD.id;
 
---     RETURN OLD;
--- END;
--- $$ LANGUAGE plpgsql;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
 
--- CREATE TRIGGER trig_delete_notification_entries
--- BEFORE DELETE ON notifications
--- FOR EACH ROW
--- EXECUTE PROCEDURE delete_notification_entries();
+CREATE TRIGGER trig_delete_notification_entries
+BEFORE DELETE ON notifications
+FOR EACH ROW
+EXECUTE PROCEDURE delete_notification_entries();
 
