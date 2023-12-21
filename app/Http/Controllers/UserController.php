@@ -53,6 +53,10 @@ class UserController extends Controller
       $user->name = $request->input('name');
       $user->email = $request->input('email');
       $user->username = $request->input('username');
+      $user->password = bcrypt($request->input('password'));
+      $user->description = $request->input('description');
+
+
       try {
         $this->authorize('edit', $user);
         $user->update();
@@ -82,7 +86,7 @@ class UserController extends Controller
       }
     }
 
-    public function delete($id)
+    public function delete($id, Request $request)
     {
       $user = User::find($id);
       $user->username = 'deleted_' . $user->id;
@@ -94,7 +98,8 @@ class UserController extends Controller
       try {
         $this->authorize('deleteUser', $user);;
         $user->save();
-    } catch (AuthorizationException $e) {
+    } 
+    catch (AuthorizationException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
     }
       catch (QueryException $e) {
@@ -116,6 +121,7 @@ class UserController extends Controller
       $user->rate_count = $user->rate_count + 1;
       $user->save();
       return redirect('users/'.$id);
+    }
 
     public function listBlockedUsers()
     {
