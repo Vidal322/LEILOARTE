@@ -28,6 +28,11 @@
     <div id="overlay"></div>
     @include('partials.header')
 
+    @if(session('error'))
+        <div class="session-error">
+             <p>{{ session('error') }}</p>
+        </div>
+    @endif
     <main>
     <section id="content">
         @yield('content')

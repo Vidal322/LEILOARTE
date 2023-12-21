@@ -6,7 +6,7 @@ use App\Models\Auction;
 use App\Models\Block;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-
+use Illuminate\Support\Facades\Auth;
 class AuctionPolicy
 {
     use HandlesAuthorization;
@@ -66,8 +66,12 @@ class AuctionPolicy
      */
     public function delete(User $user, Auction $auction)
     {
-        return $auction->bids()->count() == 0;
-    }
+        if(!(Auth::check() && $user->id == $auction->owner->id))
+            return false;
+        if($auction->bids()->count() != 0)
+            return false;
+        return true;
+        }
 
     /**
      * Determine whether the user can restore the model.

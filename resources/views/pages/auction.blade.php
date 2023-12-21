@@ -13,7 +13,7 @@
             <div>{{ $auction->description }}</div>
             <h2><div class="underline-text">Auction Details</div></h2>
             <div>This auction started on {{ $auction->start_t }}</div>
-            
+
             @if ($auction->active)
                 <div>This auction will close on {{ $auction->end_t }}</div>
             @else
@@ -41,9 +41,10 @@
                 </div>
 
                 {{-- if user is not owner --}}
-                @if(Auth::check() && $auction->owner_id != Auth::user()->id)
+                @if(Auth::check() && $auction->owner_id != Auth::user()->id && $auction->active)
                     <button class="button button-outline"><a href="{{ route('createBidForm', ['id' => $auction->id]) }}">Place Bid</a></button>
                 @endif
+
             </div>
         </div>
         @if(Auth::check() && $auction->owner_id != Auth::user()->id)
