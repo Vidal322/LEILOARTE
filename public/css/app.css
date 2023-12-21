@@ -32,7 +32,7 @@ header a {
     color:var(--background-color);
 }
 
-  .navigation {
+.navigation {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -155,6 +155,7 @@ header h1 {
     padding: 15px;
     height: 40%;
     box-sizing: border-box;
+    position: relative; /* Added for positioning the status bubble */
 }
 
 .auction-card h3 {
@@ -164,6 +165,25 @@ header h1 {
 
 .auction-card p {
     margin-bottom: 10px;
+}
+
+/* Added styles for the status bubble */
+.auction-card .status-bubble {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.auction-card .status-bubble.active {
+    background-color: green; /* Change color as needed */
+}
+
+.auction-card .status-bubble.closed {
+    background-color: red; /* Change color as needed */
 }
 
 .auction-card .button {
@@ -182,6 +202,8 @@ header h1 {
 .auction-card .button:hover {
     background-color: var(--hover-color);
 }
+
+
 #createAuctionButton {
     background-color: var(--main-color);
     border: none;

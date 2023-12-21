@@ -36,8 +36,6 @@
         @endif
 
 
-
-
         @if (Auth::check())
             <div class="user-controls">
                 <a class="button" href="{{ route('notificationsCenter', ['id'=>Auth::user()->id])}}"> Notifications </a>
@@ -50,7 +48,7 @@
         @endif
 
         @if (!Auth::check())
-            <div>
+            <div class="user-controls">
                 <a class="button" href="{{ url('/login') }}"> Login </a>
                 <a class="button" href="{{ url('/register') }}"> Register </a>
             </div>
