@@ -33,7 +33,7 @@ header a {
     color:var(--background-color);
 }
 
-  .navigation {
+.navigation {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -136,7 +136,7 @@ header h1 {
 }
 
 .auction-card .image-container {
-    height: 200px;
+    height: 250px;
     overflow: hidden;
 }
 
@@ -146,25 +146,86 @@ header h1 {
     object-fit: cover;
 }
 
+.auction-card .user-section {
+    padding: 10px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.auction-card .user-section:hover {
+    cursor: pointer;
+    background-color: #f5f5f5; /* Light background color on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow on hover */
+}
+
+.auction-card .user-section a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.auction-card .user-section a:hover {
+    text-decoration: underline;
+}
+
+
+.auction-card .user-section p {
+    margin-bottom: 0;
+    margin-left: 10px; /* Adjust the margin as needed */
+}
+
+.auction-card .info-container .image-container {
+    display: flex;
+    height:100%;
+    align-items: center; /* Align items vertically centered */
+}
+
 .auction-card .info-container .image-container img {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    margin-right: 10px; /* Add margin to separate the image and the text */
 }
 
 .auction-card .info-container {
     padding: 15px;
-    height: 40%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
-.auction-card h3 {
-    font-size: 18px;
+.auction-card .info-container h3 {
+    text-decoration: underline 3px var(--main-color)
+}
+.auction-card .info-container p {
     margin-bottom: 10px;
 }
 
-.auction-card p {
+.auction-card .status-container {
+    margin-left: auto; /* Move the status container to the right */
+}
+
+.auction-card .status-bubble {
+    padding: 8px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
     margin-bottom: 10px;
+}
+
+.auction-card .status-bubble.active {
+    background-color: green; /* Change color as needed */
+}
+
+.auction-card .status-bubble.closed {
+    background-color: red; /* Change color as needed */
 }
 
 .auction-card .button {
@@ -183,6 +244,33 @@ header h1 {
 .auction-card .button:hover {
     background-color: var(--hover-color);
 }
+
+.auction-card .auction-overview {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 1em;
+    max-height: 120px; /* Set the maximum height for the auction overview */
+    overflow-y: auto; /* Enable vertical scrolling if the content exceeds the max height */
+}
+
+.auction-card .auction-overview .auction-dates {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.auction-card .auction-overview p {
+    margin-bottom: 5px;
+}
+
+.auction-card .auction-overview .auction-values {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    gap: 1em;
+}
+
+
 #createAuctionButton {
     background-color: var(--main-color);
     border: none;
