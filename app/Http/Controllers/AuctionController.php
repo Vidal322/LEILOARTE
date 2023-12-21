@@ -202,7 +202,6 @@ class AuctionController extends Controller
     public function storeAuctionCanceledNotifications($auction_id) {
         $users = AuctionSave::where('auction_id', $auction_id)->get();
         foreach ($users as $user) {
-            //event(new NotificationEvent($user->user_id));
             $notification = new Notification();
             $notification->user_id = $user->user_id;
             $notification->date = now();
