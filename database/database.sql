@@ -18,7 +18,7 @@ CREATE TABLE users(
     password TEXT NOT NULL,
     img TEXT DEFAULT 'users/default.png',
     blocked BOOLEAN DEFAULT false NOT NULL,
-    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 5),
+    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1),
     type User_Type NOT NULL DEFAULT 'user'
 );
 

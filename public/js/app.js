@@ -93,6 +93,10 @@ if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && !
     });
 }
 }
+function handleRating(button) {
+    button.disabled = true;
+    document.getElementById('rating-button').style.display = 'none';
+}
 
 function showFooter() {
     var footerWrapper = document.getElementById('footer-wrapper');

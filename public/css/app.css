@@ -296,6 +296,15 @@ header h1 {
     margin-bottom: 10px;
 }
 
+/* Star Details*/
+.user-profile .info .star {
+    color: grey
+}
+
+.user-profile .info .star.filled {
+    color: #088F88;
+}
+
 /* Button Container */
 .user-profile .button-container {
     display: flex;
