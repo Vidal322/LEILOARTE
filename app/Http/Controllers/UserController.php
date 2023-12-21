@@ -100,9 +100,9 @@ class UserController extends Controller
       catch (QueryException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
       }
-      if($request->user()->id == $id){
-        Auth::logout();
-      }
+      // if($request->user()->id == $id){
+      //   Auth::logout();
+      // }
 
       return redirect(route('home'));
     }

@@ -67,5 +67,5 @@
         @if (Auth::check() && Auth::user()->id != $user->id)
         <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
         @endif -->
-
+    @endif
     @endsection
