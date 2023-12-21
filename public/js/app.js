@@ -16,10 +16,10 @@ function addEventListeners() {
     let search = document.querySelector('#searchBar');
     let searchButton = document.querySelector('#searchButton');
 
-
-    searchButton.addEventListener('click',handleSearchEvent);
-
-    search.addEventListener('keyup', debounce(handleSearchEvent, 300));
+    if (searchButton != null)
+        searchButton.addEventListener('click',handleSearchEvent);
+    if (search != null)
+        search.addEventListener('keyup', debounce(handleSearchEvent, 300));
 
     window.addEventListener('scroll', debounce(checkScroll, 200));
 
@@ -123,9 +123,9 @@ const pusher = new Pusher(pusherAppKey,{
     encrypted: true
 });
 
-const channel = pusher.subscribe('lbaw23113');
+const channel = pusher.subscribe('private-user.1');
 channel.bind('followed-auction-canceled-notification', function(event) {
-
+    console.log(event);
     const message = event.message;
     const auctionId = event.auction_id;
 
@@ -251,7 +251,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtersModal = document.getElementById('filtersModal');
     const overlay = document.getElementById('overlay');
     const body = document.body;
-
+    if (openFiltersButton == null || closeFiltersButton == null || filtersModal == null || overlay == null || body == null)
+        return;
     openFiltersButton.addEventListener('click', function (event) {
         event.preventDefault();
         filtersModal.style.display = 'block';
