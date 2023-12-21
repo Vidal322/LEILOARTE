@@ -14,11 +14,11 @@ class UserController extends Controller
     public function show($id)
     {
       $user = User::find($id);
-    //   try {
-    //$this->authorize('view', $user);
-    // } catch (AuthorizationException $e) {
-    //     return back()->with('error', 'You are not authorized to perform this action.');
-    // }
+        try {
+      $this->authorize('view', $user);
+      } catch (AuthorizationException $e) {
+          return back()->with('error', 'You are not authorized to perform this action.');
+      }
 
       return view('pages.user', ['user' => $user]);
     }
@@ -66,23 +66,31 @@ class UserController extends Controller
       return redirect('users/'.$id);
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
       $user = User::find($id);
-      $user->deleted = true;
+      $user->username = 'deleted_' . $user->id;
+      $user->name = 'deleted';
+      $user->email = 'deleted_' . $user->id;
+      $user->description = 'deleted';
+      $user->password = 'deleted';
+      $user->img = 'deleted';
       try {
         $this->authorize('deleteUser', $user);;
-        $user->update();
+        $user->save();
     } catch (AuthorizationException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
     }
       catch (QueryException $e) {
         return back()->with('error', 'You are not authorized to perform this action.');
       }
-      Auth::logout();
+      if($request->user()->id == $id){
+        Auth::logout();
+      }
 
       return redirect(route('home'));
     }
+
 
     // do rate function that takes the user id and the rating and adds rating to the mean
     public function rate(Request $request, $id)
@@ -92,6 +100,68 @@ class UserController extends Controller
       $user->rate_count = $user->rate_count + 1;
       $user->save();
       return redirect('users/'.$id);
+
+    public function listBlockedUsers()
+    {
+        $blockedUsers = User::where('blocked', true)->get();
+
+        return view('pages.blockedListing', ['blockedUsers' => $blockedUsers]);
+    }
+
+    public function block(Request $request, $id)
+    {
+      
+        $user = $request->user();
+
+        // Find the user to be blocked by their ID
+        $blocked = User::find($id);
+
+        // Check if the authenticated user is authorized to perform the block action
+        try {
+
+            $this->authorize('block', $user);
+
+            // Update the 'blocked' attribute for the user
+            $blocked->blocked = true;
+            $blocked->save();
+
+        } catch (AuthorizationException $e) {
+            return back()->with('error', 'You are not authorized to perform this action.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'An error occurred while updating the user status.');
+        }
+
+        \Log::info('Exiting block method');
+
+        return redirect(route('home'));
+    }
+
+    public function unblock(Request $request, $id)
+    {
+      
+        $user = $request->user();
+
+        // Find the user to be blocked by their ID
+        $blocked = User::find($id);
+
+        // Check if the authenticated user is authorized to perform the block action
+        try {
+
+            $this->authorize('block', $user);
+
+            // Update the 'blocked' attribute for the user
+            $blocked->blocked = false;
+            $blocked->save();
+
+        } catch (AuthorizationException $e) {
+            return back()->with('error', 'You are not authorized to perform this action.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'An error occurred while updating the user status.');
+        }
+
+        \Log::info('Exiting block method');
+
+        return back();
     }
 
 }

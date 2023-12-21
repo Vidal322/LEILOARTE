@@ -101,10 +101,9 @@ class BidPolicy
         return $user->type=='admin';
     }
 
-    
+
     public function bid(User $user, $topBid)
     {
-
         $auction = Auction::find($topBid->auction_id);
 
         if ($auction && $auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id)){
@@ -112,7 +111,7 @@ class BidPolicy
             return true;
         }
         return false;
-        
+
     }
-    
+
 }

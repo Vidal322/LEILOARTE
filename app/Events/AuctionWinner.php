@@ -10,20 +10,24 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewNotificationEvent
+class AuctionWinner implements shouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+
     public $message;
+    public $auction_id;
+    public $user_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
-    {
-        $this->$message = $message;
+    public function __construct($user_id, $auction_id) {
+        $this->auction_id = $auction_id;
+        $this->user_id = $user_id;
+        $this->message = 'Auction ' . $auction_id . ' has ended. You won!';
     }
 
     /**
@@ -33,6 +37,11 @@ class NewNotificationEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('notificationsChannel');
+        return 'lbaw23113';
     }
+
+    public function broadcastAs() {
+        return 'auction-winner-notification';
+    }
+
 }

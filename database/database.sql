@@ -17,9 +17,8 @@ CREATE TABLE users(
     description TEXT,
     password TEXT NOT NULL,
     img TEXT DEFAULT 'users/default.png',
-    deleted BOOLEAN DEFAULT false NOT NULL,
+    blocked BOOLEAN DEFAULT false NOT NULL,
     rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1),
-    rate_count INTEGER DEFAULT 1 NOT NULL,  
     type User_Type NOT NULL DEFAULT 'user'
 );
 
@@ -257,29 +256,29 @@ CREATE INDEX idx_users_search ON category USING GIST (tsvectors);
 
 -- * TRIGGER01 *
 
--- Create a trigger to delete bids on open auctions when a user account is deleted.
-CREATE OR REPLACE FUNCTION delete_user_bids()
-RETURNS TRIGGER AS $$
-BEGIN
-    DELETE FROM bid
-    WHERE user_id = OLD.id
-    AND EXISTS (
-        SELECT 1
-        FROM auction
-        WHERE auction.id = bid.auction_id
-        AND auction.active = true
-    );
+-- -- Create a trigger to delete bids on open auctions when a user account is deleted.
+-- CREATE OR REPLACE FUNCTION delete_user_bids()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--     DELETE FROM bid
+--     WHERE user_id = OLD.id
+--     AND EXISTS (
+--         SELECT 1
+--         FROM auction
+--         WHERE auction.id = bid.auction_id
+--         AND auction.active = true
+--     );
 
-    RETURN OLD;
-END;
-$$ LANGUAGE plpgsql;
+--     RETURN OLD;
+-- END;
+-- $$ LANGUAGE plpgsql;
 
--- Create a trigger for user account deletion.
-CREATE TRIGGER trig_delete_user_bids
-AFTER UPDATE ON users
-FOR EACH ROW
-WHEN (OLD.deleted = false AND NEW.deleted = true)
-EXECUTE PROCEDURE delete_user_bids();
+-- -- Create a trigger for user account deletion.
+-- CREATE TRIGGER trig_delete_user_bids
+-- AFTER UPDATE ON users
+-- FOR EACH ROW
+-- WHEN (OLD.deleted = false AND NEW.deleted = true)
+-- EXECUTE PROCEDURE delete_user_bids();
 
 
 -- * TRIGGER02 *
@@ -362,25 +361,26 @@ EXECUTE PROCEDURE check_auction_owner_bid();
 
 -- * TRIGGER05 *
 
-CREATE OR REPLACE FUNCTION delete_user_auctions()
-RETURNS TRIGGER AS $$
-BEGIN
-   -- Delete open auctions when a user is deleted.
-   DELETE FROM auction
-   WHERE owner_id = OLD.id
-   AND active = true;
 
-   -- Delete associated bids.
-   DELETE FROM bid
-   WHERE auction_id IN (
-       SELECT id
-       FROM auction
-       WHERE owner_id = OLD.id
-   );
+-- CREATE OR REPLACE FUNCTION delete_user_auctions()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--    -- Delete open auctions when a user is deleted.
+--    DELETE FROM auction
+--    WHERE owner_id = OLD.id
+--    AND active = true;
 
-   RETURN OLD;
-END;
-$$ LANGUAGE plpgsql;
+--    -- Delete associated bids.
+--    DELETE FROM bid
+--    WHERE auction_id IN (
+--        SELECT id
+--        FROM auction
+--        WHERE owner_id = OLD.id
+--    );
+
+--    RETURN OLD;
+-- END;
+-- $$ LANGUAGE plpgsql;
 
 
 -- * TRIGGER06 *
@@ -614,3 +614,30 @@ CREATE TRIGGER trig_prevent_admin_auctions
 BEFORE INSERT ON auction
 FOR EACH ROW
 EXECUTE PROCEDURE prevent_admin_auctions();
+
+
+
+-- * TRIGGER14 *
+
+-- Create a trigger so when I delete a notification the entries in the notification_bid, notification_auction and notification_comment are also deleted.
+
+CREATE OR REPLACE FUNCTION delete_notification_entries()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM notification_bid
+    WHERE notification_id = OLD.id;
+
+    DELETE FROM notification_auction
+    WHERE notification_id = OLD.id;
+
+    DELETE FROM notification_comment
+    WHERE notification_id = OLD.id;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trig_delete_notification_entries
+BEFORE DELETE ON notifications
+FOR EACH ROW
+EXECUTE PROCEDURE delete_notification_entries();

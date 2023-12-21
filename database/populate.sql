@@ -416,3 +416,12 @@ insert into faq (question, answer) values ('Can I retract a bid?','No, once a bi
 insert into faq (question, answer) values ('How long does an auction typically last?','The duration of each auction is determined by the owner of the item. Sellers set the auction period to a specified length, which could range from a few days to several weeks.');
 insert into faq (question, answer) values ('How do I know if I´ve been outbid?','LeiloArte provides notifications to alert you if a new bid surpasses your current highest bid. This ensures that you are aware when you have been outbid and allows you to reconsider your bidding strategy.');
 insert into faq (question, answer) values ('Are there any restrictions on the types of items I can auction?','Yes, LeiloArte is an exclusive auction site dedicated to the sale of art items. As such, only art-related items are permitted for auction on this platform, maintaining a specialized focus on the art market.');
+
+
+insert into auction (description, name, image, owner_id, active, starting_price, start_t, end_t) values ('One of the most famous paintings ever, by Leonardo da Vinci.', 'Mona Lisa2', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/270px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg', 3, true, 1000000000, '2023-11-23 10:00:00', '2023-12-21 10:56:00');
+
+
+
+INSERT INTO auction_category (auction_id, category_id) VALUES (1, 1);
+INSERT INTO auction_category (auction_id, category_id) VALUES (2, 1);
+INSERT INTO auction_category (auction_id, category_id) VALUES (3, 1);

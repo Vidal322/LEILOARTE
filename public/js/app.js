@@ -16,10 +16,10 @@ function addEventListeners() {
     let search = document.querySelector('#searchBar');
     let searchButton = document.querySelector('#searchButton');
 
-
-    searchButton.addEventListener('click',handleSearchEvent);
-
-    search.addEventListener('keyup', debounce(handleSearchEvent, 300));
+    if (searchButton != null)
+        searchButton.addEventListener('click',handleSearchEvent);
+    if (search != null)
+        search.addEventListener('keyup', debounce(handleSearchEvent, 300));
 
     window.addEventListener('scroll', debounce(checkScroll, 200));
 
@@ -119,4 +119,163 @@ addEventListeners();
 document.addEventListener('DOMContentLoaded', function () {
     addEventListeners();
     showFooter();
+});
+
+
+const pusher = new Pusher(pusherAppKey,{
+    cluster: pusherCluster,
+    encrypted: true
+});
+
+
+const channel = pusher.subscribe('lbaw23113');
+
+channel.bind('followed-auction-canceled-notification', function(event) {
+    const message = event.message;
+    const auctionId = event.auction_id;
+    console.log(event);
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">Auction Canceled</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 10000);
+
+});
+
+
+channel.bind('followed-auction-ended-notification', function(event) {
+
+    const message = event.message;
+    const auctionId = event.auction_id;
+
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">Auction Ended</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 10000);
+});
+
+
+
+channel.bind('followed-auction-ending-notification', function(event) {
+
+    const message = event.message;
+
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">Auction Ending</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 15000);
+});
+
+channel.bind('auction-winner-notification', function(event) {
+
+    const message = event.message;
+
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">Auction Winner!</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 15000);
+});
+
+
+channel.bind('followed-auction-bid-notification', function(event) {
+
+
+    const message = event.message;
+
+    const notificationBox = document.createElement('div');
+    notificationBox.classList.add('notification-box');
+    notificationBox.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-title">New bid</span>
+            <p>${message}</p>
+        </div>
+    `;
+
+    // Append the notification box to the body
+    document.body.appendChild(notificationBox);
+
+    // Remove the notification box after a certain duration
+    setTimeout(() => {
+        document.body.removeChild(notificationBox);
+    }, 15000);
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const openFiltersButton = document.getElementById('openFiltersButton');
+    const closeFiltersButton = document.getElementById('closeFiltersButton');
+    const filtersModal = document.getElementById('filtersModal');
+    const overlay = document.getElementById('overlay');
+    const body = document.body;
+    if (openFiltersButton == null || closeFiltersButton == null || filtersModal == null || overlay == null || body == null)
+        return;
+    openFiltersButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        filtersModal.style.display = 'block';
+        overlay.style.display='block';
+        body.classList.add('modal-open');
+    });
+
+    closeFiltersButton.addEventListener('click', function () {
+        filtersModal.style.display = 'none';
+        body.classList.remove('modal-open');
+        overlay.style.display = 'none';
+    });
+
+    const applyFiltersButton = document.getElementById('applyFilters');
+    applyFiltersButton.addEventListener('click', function () {
+        filtersModal.style.display = 'none';
+        body.classList.remove('modal-open');
+        overlay.style.display = 'none';
+        // You can add additional logic here to handle the selected filters
+    });
 });

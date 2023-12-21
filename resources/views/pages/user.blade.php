@@ -44,5 +44,28 @@
                 </form>
             </div>
         @endif
-    @endif
-@endsection
+
+        {{-- if admin--}}
+        @if (Auth::check() && Auth::user()->type == 'admin' && Auth::user()->id != $user->id)
+        <div class="button-container">
+            <form method="POST" action="{{ route('deleteUser', ['id' => $user->id]) }}">
+                {{ csrf_field() }}
+                <button class="button button-outline">Delete</button>
+            </form>
+        </div>
+        <form method="POST" action="{{ route('blockUser', ['id' => $user->id]) }}">
+                {{ csrf_field() }}
+                <button class="button button-outline"> <a> Block </a> </button>
+            </form>
+        @endif
+
+        @if (Auth::check() && Auth::user()->type == 'admin' && Auth::user()->id == $user->id)
+            <button class="button button-outline"><a href="{{ route('blockedUsers') }}">Blocked Users</a></button>
+        @endif
+
+        <!-- {{-- if not owner --}}
+        @if (Auth::check() && Auth::user()->id != $user->id)
+        <button class="button button-outline"><a href="{{ route('ownedAuctions', ['id' => $user->id]) }}">Owned Auctions</a></button>
+        @endif -->
+
+    @endsection

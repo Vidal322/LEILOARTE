@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'email', 'description', 'password', 'img', 'delected', 'rate', 'type',
+        'username', 'name', 'email', 'description', 'password', 'img', 'blocked', 'rate', 'type',
     ];
 
     /**
@@ -36,6 +36,7 @@ class User extends Authenticatable
     public function auctions() {
       return $this->hasMany('App\Models\Auction', 'owner_id');
     }
+
     public function bids() {
       return $this->hasMany('App\Models\Bid');
     }
@@ -46,5 +47,9 @@ class User extends Authenticatable
 
     public function notfications() {
       return $this->hasMany('App\Models\Notification', 'user_id');
+    }
+
+    public function isBlocked() {
+      return $this->blocked;
     }
 }
