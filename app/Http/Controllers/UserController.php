@@ -107,6 +107,16 @@ class UserController extends Controller
       return redirect(route('home'));
     }
 
+
+    // do rate function that takes the user id and the rating and adds rating to the mean
+    public function rate(Request $request, $id)
+    {
+      $user = User::find($id);
+      $user->rate = ($user->rate * $user->rate_count + $request->input('rate')) / ($user->rate_count + 1);
+      $user->rate_count = $user->rate_count + 1;
+      $user->save();
+      return redirect('users/'.$id);
+
     public function listBlockedUsers()
     {
         $blockedUsers = User::where('blocked', true)->get();

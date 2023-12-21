@@ -56,6 +56,7 @@ Route::post('users/{id}/followAuctions', 'AuctionController@follow')->name('foll
 Route::get('users/{id}/followAuctions', 'AuctionController@followedBy')->name('followedAuctions');
 Route::post('users/{id}/unfollowAuctions', 'AuctionController@unfollow')->name('unfollowAuctions');
 Route::post('resetPassword', 'UserController@resetPassword')->name('resetPassword');
+Route::post('users/{id}/rate', 'UserController@rate')->name('rateUser');
 
 // Bids
 Route::get('auctions/{id}/bid', 'BidController@showCreateForm')->name('createBidForm');
