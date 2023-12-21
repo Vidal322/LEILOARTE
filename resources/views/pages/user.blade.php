@@ -37,6 +37,7 @@
 
         @else
             <div class="button-container">
+
                 <button class="button button-outline">Follow</button>
                 <form method="POST" action="{{ route('rateUser', ['id' => $user->id]) }}">
                     {{ csrf_field() }}
@@ -55,6 +56,8 @@
             @endif
 
         @endif
+        <button class="button button-outline"><a href="{{ route('followedAuctions', ['id' => $user->id]) }}">Followed Auctions</a></button>
+
 
         @if (Auth::user()->id == $user->id || Auth::user()->type == 'admin')
             <div class="button-container">
