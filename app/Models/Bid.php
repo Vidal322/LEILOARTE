@@ -12,7 +12,7 @@ class Bid extends Model
   protected $table = "bid";
 
   protected $fillable = [
-    'amount', 'date', 'top_bid', 'user', 'auction',
+    'amount', 'date', 'top_bid', 'user_id', 'auction_id',
   ];
 
 
@@ -29,8 +29,4 @@ class Bid extends Model
   public function bidder() {
     return $this->belongsTo('App\Models\User', 'user_id');
   }
-
-
-
-
 }
