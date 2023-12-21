@@ -19,8 +19,8 @@ CREATE TABLE users(
     img TEXT DEFAULT 'users/default.png',
     blocked BOOLEAN DEFAULT false NOT NULL,
     type User_Type NOT NULL DEFAULT 'user',
-    token TEXT
-    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1),
+    token TEXT,
+    rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1)
 );
 
 CREATE TABLE category(
