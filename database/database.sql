@@ -615,3 +615,32 @@ CREATE TRIGGER trig_prevent_admin_auctions
 BEFORE INSERT ON auction
 FOR EACH ROW
 EXECUTE PROCEDURE prevent_admin_auctions();
+
+-- * TRIGGER14 *
+
+-- Create a function to be executed by the trigger
+CREATE OR REPLACE FUNCTION update_credit_on_auction_completion()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the auction status has changed from active to inactive
+    IF OLD.active = true AND NEW.active = false THEN
+        -- Update the bidder's credit by subtracting the top bid amount
+        UPDATE users
+        SET credit = credit - (SELECT amount FROM bid WHERE auction_id = OLD.id AND top_bid = true)
+        WHERE id = (SELECT user_id FROM bid WHERE auction_id = OLD.id AND top_bid = true);
+
+        -- Update the auction owner's credit by adding the top bid amount
+        UPDATE users
+        SET credit = credit + (SELECT amount FROM bid WHERE auction_id = OLD.id AND top_bid = true)
+        WHERE id = OLD.owner_id;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger that calls the function after an update on the auction table
+CREATE TRIGGER update_credit_trigger
+AFTER UPDATE ON auction
+FOR EACH ROW
+EXECUTE FUNCTION update_credit_on_auction_completion();
