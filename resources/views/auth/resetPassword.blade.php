@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form method="POST" action=" {{ route('resetPassword') }} " id="forgotPassword-form">
+<form method="POST" action=" {{ route('updatePassword') }} " id="forgotPassword-form">
     {{ csrf_field() }}
 
     <input name="token" type="hidden" value="{{ $token }}">
