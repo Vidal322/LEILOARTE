@@ -41,19 +41,27 @@ class BidPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user, Bid $topBid, Auction $auction)
-{
+    public function create(User $user, $auction_id)
+    {
+        $auction = Auction::with('bids')->find($auction_id);
+        $topBid = $auction->bids()->orderBy('amount', 'desc')->first();
+        if (!$auction) {
+            return false;
+        }
+        if (!$auction->active) {
+            return false;
+        }
+        if (($user->type == 'admin')) {
+            return false;
 
-    if ( $auction->active && $user->type != 'admin' && ($user->id != $topBid->user_id) && ($user->id != $auction->owner_id) && $user->credit >= $topBid->amount) {
-        return true;
-    }
-
+        }
         if (($topBid == null) || ($user->id == $topBid->user_id)) {
             return false;
         }
-
         return true;
-}
+    }
+
+
 
     /**
      * Determine whether the user can update the model.

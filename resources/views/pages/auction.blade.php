@@ -43,7 +43,7 @@
                 </div>
 
                 {{-- if user is not owner --}}
-                @if(Auth::check() && $auction->owner_id != Auth::user()->id && $auction->active)
+                @if(Auth::check() && $auction->owner_id != Auth::user()->id && $auction->active && last($auction->bids)??[]->user_id != Auth::user()->id)
                     <button class="button button-outline"><a href="{{ route('createBidForm', ['id' => $auction->id]) }}">Place Bid</a></button>
                 @endif
 
