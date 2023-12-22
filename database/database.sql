@@ -21,7 +21,8 @@ CREATE TABLE users(
     type User_Type NOT NULL DEFAULT 'user',
     token TEXT,
     rate FLOAT CONSTRAINT user_rate_ck CHECK (rate >= 0 AND rate <= 1),
-    rate_count INTEGER DEFAULT 0 NOT NULL
+    rate_count INTEGER DEFAULT 0 NOT NULL,
+    credit DECIMAL(10, 2) DEFAULT 0.00 NOT NULL
 );
 
 CREATE TABLE category(
@@ -669,3 +670,4 @@ CREATE TRIGGER trig_delete_notification_entries
 BEFORE DELETE ON notifications
 FOR EACH ROW
 EXECUTE PROCEDURE delete_notification_entries();
+

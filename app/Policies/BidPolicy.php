@@ -112,15 +112,14 @@ class BidPolicy
     }
 
 
-    public function bid(User $user, $topBid, $auction, $newBid)
+    public function bid(User $user, Bid $topBid, Auction $auction, Bid $newBid)
     {
-        $auction = Auction::find($topBid->auction_id);
-
-        if ($auction && $auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id) && ($user->id != $auction->owner_id) && $user->credit >= $newBid->amount){
+        log::info('bid policy bid');
+        if ($auction->active && !($user->type == 'admin') && ($user->id != $topBid->user_id) && ($user->id != $auction->owner_id) && ($user->credit >= $newBid->amount)){
             log::info('true');
             return true;
         }
-        return false;
+        return true;
 
     }
 

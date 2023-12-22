@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create Auction')
+
 @section('content')
 <div class="createAuctionForm">
     <form method="POST" action="{{ route('createAuction') }}">

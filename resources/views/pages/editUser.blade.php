@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit User')
+
 @section('content')
 <form method="POST" action="{{ route('editUser', ['id'=> $id]) }}">
     {{ csrf_field() }}

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Followed Auctions')
+
 @section('content')
 <div class="auctions-list">
     @foreach ($auctions as $auction)
