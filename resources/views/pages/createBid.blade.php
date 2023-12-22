@@ -7,7 +7,7 @@
     <div class ="auctionInformation">
         <h3> {{ $auction->name }} </h3>
         <p>{{ $auction->description}}</p>
-        <p> Starting Price: {{ $auction->starting_price}} </p>
+        <p> Starting Price: {{ $auction->starting_price}}€ </p>
         <h3> Bids </h3>
         <div class="bidList">
             @foreach ($auction->bids as $bid )
@@ -24,8 +24,13 @@
             {{ csrf_field() }}
 
             <label for="amount">Amount</label>
-            <input id="amount" type="number" step="0.01" name="amount" value="0">
-            @if ($errors->has('amount'))
+            <input id="amount" type="number" step="1" name="amount" value="0" required autofocus>
+
+            <?php
+                $highestBid = $auction->bids()->with('bidder')->get()->sortByDesc('amount')->first();
+            ?>
+
+            @if ($errors->has('amount') || ($highestBid && $highestBid->amount >= 'amount'))
                 <span class="error">
                 {{ $errors->first('amount') }}
                 </span>

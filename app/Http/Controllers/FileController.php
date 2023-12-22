@@ -126,7 +126,7 @@ class FileController extends Controller
             case 'auctions':
                 $auction = Auction::findorfail($id);
                 if ($auction) {
-                    $auction->img = "auctions/$fileName";
+                    $auction->image = "auctions/$fileName";
                     $auction->save();
                 } 
 

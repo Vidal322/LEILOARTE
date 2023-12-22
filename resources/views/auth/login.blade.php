@@ -24,10 +24,14 @@
         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
     </label>
 
-    <button type="submit" formaction="{{ route('login') }}" id="login-form" class = 'button'>
-        Login
-    </button>
+    <div class = "button-container">
+        <button type="submit" formaction="{{ route('login') }}" id="login-form" class = 'button'>
+            Login
+        </button>
+
     <a class="button" href="{{ route('register') }}">Register</a>
     <a class="button" href="{{ route('forgotPassword') }}">Forgot your password?</a>
+    
+    </div>
 </form>
 @endsection

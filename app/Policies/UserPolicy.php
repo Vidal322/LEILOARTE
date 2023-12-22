@@ -53,7 +53,7 @@ class UserPolicy
     }
 
     public function edit(User $user, User $model) {
-        return ($user->id == $model->id);
+        return ($user->id == $model->id || $user->type == 'admin');
     }
 
     public function deleteUser(User $user, User $model) {

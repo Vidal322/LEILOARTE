@@ -19,8 +19,10 @@ class BidController extends Controller
     public function create(Request $request, $auction_id)
     {
         $auction = Auction::with('bids')->find($auction_id);
+        $highestBid = $auction->bids()->orderBy('amount', 'desc')->first();
+
         try {
-            $this->authorize('create', [Bid::Class, $auction_id]);
+            $this->authorize('bid', [$highestBid, $auction, $request->input('amount')]);
 
         } catch (AuthorizationException $e) {
             return back()->with('error', 'You are not authorized to perform this action.');
@@ -33,9 +35,10 @@ class BidController extends Controller
         $bid->amount = $request->input('amount');
         $bid->save();
 
-        event(new NewBid($bid->id, $auction_id));
+        $auction->bids()->save($bid);
+        $auction->save();
 
-        return view('pages.auction',['auction' => $auction]);
+        return redirect()->route('auctions', ['id' => $auction_id]);
     }
 
 
@@ -50,7 +53,7 @@ class BidController extends Controller
         }
 
         return view('pages.createBid', ['auction' => $auction]);
-        }
+    }
 
     public function biddedBy($user_id)
     {

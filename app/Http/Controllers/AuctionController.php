@@ -86,7 +86,7 @@ class AuctionController extends Controller
       $this->authorize('create', $auction);
       $auction->name = $request->input('name');
       $auction->description = $request->input('description');
-      $auction->image = $request->input('image');
+      $auction->starting_price = $request->input('starting_price');
       $auction->owner_id = Auth::user()->id;
       // $auction->start_date = $request->input('start_date');
       $auction->end_t = $request->input('end_t');
